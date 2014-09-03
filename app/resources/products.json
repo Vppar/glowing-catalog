@@ -2040,8 +2040,8 @@
   },
   {
     "id": 234,
-    "session": "Maquiagem",
-    "line": "Linha Jovem",
+    "session": "Lançamentos",
+    "line": "Maquiagem - Linha Jovem",
     "image": "10-062144.jpg",
     "points": 15,
     "title": "Trio de Sombras Efeito Brilho - 2g",
@@ -2632,7 +2632,6 @@
     "points": 18,
     "title": "Lápis Retrátil para os Olhos - 0,28g",
     "price": 34,
-    "bestSeller": 2,
     "description": "Lápis de mecanismo retrátil com fórmula suave e a prova d'água. Vem com um exclusivo apontador na tampa."
   },
   {
@@ -4254,7 +4253,7 @@
     "line": "Art Of Nature",
     "image": "10-078034.jpg",
     "points": 16,
-    "title": "Brilho Labial Duo Mix - 12 ml",
+    "title": "Brilho Labial Duo Mix - 12ml",
     "price": 36,
     "description": "Apresenta duas fórmulas diferentes em um mesmo produto: brilho transparente e brilho colorido. Ao aplicar, as fórmulas se misturam em um look nude e cintilante."
   },
@@ -4288,7 +4287,7 @@
     "line": "Art Of Nature",
     "image": "10-078041.jpg",
     "points": 9,
-    "title": "Esmalte para Unhas - 7,5 ml",
+    "title": "Esmalte para Unhas - 7,5ml",
     "price": 22,
     "description": "Cores terrosas, brilhantes e metálicas."
   },
@@ -4314,7 +4313,8 @@
     "line": "Fragrâncias Femininas",
     "image": "10-051952.jpg",
     "points": 49,
-    "title": "True Passion - 60 ml",
+    "title": "True Passion Desodorante Colônia - 60ml",
+    "bestSeller": 2,
     "price": 82
   },
   {
@@ -4330,7 +4330,7 @@
     "line": "Fragrâncias Masculinas",
     "image": "10-060674.jpg",
     "points": 47,
-    "title": "Free Spirit Sport - 100 ml",
+    "title": "Free Spirit Sport - 100ml",
     "price": 79
   },
   {
@@ -4383,7 +4383,7 @@
     "line": "Maquiagem - Rosto",
     "image": "10-050796.jpg",
     "points": 55,
-    "title": "Pó Sheer Dimensions - 7 g",
+    "title": "Pó Sheer Dimensions - 7g",
     "price": 99,
     "description": "Proporciona acabamento translúcido, disfarça linhas finas e rugas e pode ser aplicado como pó e blush."
   },
@@ -4427,7 +4427,7 @@
     "SKU": "10-032359",
     "image": "10-032359.jpg",
     "option": "Vanilla",
-    "active": true
+    "active": false
   },
   {
     "id": 505,
@@ -4461,7 +4461,7 @@
     "line": "Fairytales & Fantasy",
     "image": "10-080357.jpg",
     "points": 9,
-    "title": "Esmalte Para as Unhas - 7,5 ml",
+    "title": "Esmalte Para as Unhas - 7,5ml",
     "price": 22,
     "description": "Acabamento brilhante com coloração intensa. Fórmula especial 3-Free, que permite cor uniforme e longa duração. Os tons foram inspirados nos jardins orientais."
   },
@@ -4547,7 +4547,7 @@
     "line": "Linha Jovem",
     "image": "10-063191.jpg",
     "points": 22,
-    "title": "Hidratante FPS 30 - 88 ml",
+    "title": "Hidratante FPS 30 - 88ml",
     "price": 39,
     "description": "Hidrata e protege contra os raios UVA e UVB. Para todos os tipos de pele."
   },
@@ -4658,7 +4658,7 @@
     "line": "Linha Masculina",
     "image": "10-073605.jpg",
     "points": 32,
-    "title": "Loção Hidratante Intensiva FPS 30 - 88 ml",
+    "title": "Loção Hidratante Intensiva FPS 30 - 88ml",
     "price": 58,
     "description": "Minimiza a aparência de linhas finas e rugas, proporciona máxima hidratação e protege contra os raios UVA e UVB."
   },
@@ -4675,7 +4675,7 @@
     "line": "Fragrâncias Femininas",
     "image": "10-059456.jpg",
     "points": 47,
-    "title": "Heartfelt for Her - 60 ml",
+    "title": "Heartfelt for Her - 60ml",
     "price": 79,
     "description": "Uma fragrância floral frutal que traz notas de frutas, groselha fresca e bergamota italiana."
   },
@@ -4692,7 +4692,7 @@
     "line": "Fragrâncias Masculinas",
     "image": "10-059457.jpg",
     "points": 47,
-    "title": "Heartfelt for Him - 60 ml",
+    "title": "Heartfelt for Him - 60ml",
     "price": 79,
     "description": "Da família olfativa amadeirado musk, traz notas refrescantes e o musk dá o tom sensual."
   },
@@ -4705,9 +4705,9 @@
   },
   {
     "id": 537,
-    "session": "Maquiagem",
-    "line": "Linha Jovem",
-    "image": "10-073806.jpg",
+    "session": "Lançamentos",
+    "line": "Maquiagem - Linha Jovem",
+    "image": "10-073805.jpg",
     "points": 11,
     "title": "Lápis Sombra - 2,5g",
     "price": 22,
@@ -4715,7 +4715,7 @@
   },
   {
     "id": 538,
-    "parent": 537,
+    "parent": 239,
     "SKU": "10-073806",
     "image": "10-073806.jpg",
     "option": "Teal Me More",
@@ -4736,7 +4736,7 @@
     "parent": 539,
     "SKU": "10-080871",
     "image": "10-080871.jpg",
-    "active": true
+    "active": false
   }
   ,
   {
@@ -4745,7 +4745,7 @@
     "line": "Linha Jovem",
     "image": "10-062149.jpg",
     "points": 15,
-    "title": "Trio de Sombras Field Day – 2g",
+    "title": "Trio de Sombras Efeito Brilho – Field Day - 2g",
     "price": 29,
     "description": "Três cores em um só produto."
   },
@@ -4762,7 +4762,7 @@
     "line": "Fairytales & Fantasy",
     "image": "10-065259.jpg",
     "points": 19,
-    "title": "Brilho Labial de Longa Duração - 4,2 ml",
+    "title": "Brilho Labial de Longa Duração - 4,2ml",
     "price": 38,
     "description": "Deixa os lábios suaves e hidratados."
   },
@@ -4790,7 +4790,7 @@
     "points": 17,
     "title": "Lápis Retrátil Delineador para Olhos Kohl – 0,312g",
     "price": 35,
-    "description": "Desliza suavemente para um acabamento perfeito e preciso. Possui um aplicador exclusive."
+    "description": "Desliza suavemente para um acabamento perfeito."
   },
   {
     "id": 547,
@@ -4822,9 +4822,9 @@
     "line": "Fairytales & Fantasy",
     "image": "10-066931.jpg",
     "points": 17,
-    "title": "Sombra em Bastão efeito Brilho e Esfumado – 1,38g",
+    "title": "Sombra em Bastão Efeito Brilho e Esfumado – 1,38g",
     "price": 35,
-    "description": "Fácil aplicação, cores que realçam os olhos e podem ser combinadas com as sombras minerais."
+    "description": "Fácil aplicação e cores que realçam os olhos."
   },
   {
     "id": 551,
@@ -4864,7 +4864,7 @@
     "line": "Fairytales & Fantasy",
     "image": "10-065497.jpg",
     "points": 12,
-    "title": "Esmalte para Unhas - 7,5 ml",
+    "title": "Esmalte para Unhas - 7,5ml",
     "price": 22,
     "description": "Cores terrosas, brilhantes e metálicas."
   },
@@ -4886,11 +4886,11 @@
   },
   {
     "id": 558,
-    "session": "Lançamentos",
+    "session": "SPA e Fragrâncias",
     "line": "Fragrâncias Masculinas",
     "image": "10-072772.jpg",
     "points": 52,
-    "title": "Upscale Black - 75 ml",
+    "title": "Upscale Black - 75ml",
     "price": 89,
     "description": "Uma sofisticada fragrância amadeirada com um toque oriental que acentua a autoconfiança e o poder de sedução do homem."
   },
@@ -4903,11 +4903,11 @@
   },
   {
     "id": 560,
-    "session": "Lançamentos",
-    "line": "Maquiagem - Olhos",
+    "session": "Maquiagem",
+    "line": "Olhos",
     "image": "10-071868.jpg",
     "points": 25,
-    "title": "Delineador em Gel para os Olhos - Black - 4,5 g",
+    "title": "Delineador em Gel para os Olhos - Black - 4,5g",
     "price": 49,
     "description": "Fórmula duradoura e resistente à água. Com o pincel de aplicação que permite a criação de diversos looks."
   },
@@ -4920,11 +4920,11 @@
   },
   {
     "id": 562,
-    "session": "Lançamentos",
-    "line": "Maquiagem - Olhos",
+    "session": "Maquiagem",
+    "line": "Olhos",
     "image": "10-068245.jpg",
     "points": 12,
-    "title": "Sombra Mineral (Refil) - 1,4 g",
+    "title": "Sombra Mineral (Refil) - 1,4g",
     "price": 21,
     "description": "São tonalidades vibrantes e de longa duração em fórmula mineral. Proporcionam cores intensas, que não acumulam nas pálpebras e são ideais para qualquer tom de pele."
   },
@@ -4962,11 +4962,11 @@
   },
   {
     "id": 567,
-    "session": "Lançamentos",
-    "line": "Maquiagem - Rosto",
+    "session": "Maquiagem",
+    "line": "Rosto",
     "image": "10-069077.jpg",
     "points": 21,
-    "title": "Pó Bronzeador Compacto (Refil) - 8,6 g ",
+    "title": "Pó Bronzeador Compacto (Refil) - 8,6g ",
     "price": 39,
     "description": "Os pós bronzeadores dão um aspecto natural e acetinado."
   },
@@ -4988,11 +4988,11 @@
   },
   {
     "id": 570,
-    "session": "Lançamentos",
-    "line": "Maquiagem - Rosto",
+    "session": "Maquiagem",
+    "line": "Rosto",
     "image": "10-069096.jpg",
     "points": 21,
-    "title": "Pó Iluminador Compacto (Refil) - 8,6 g",
+    "title": "Pó Iluminador Compacto (Refil) - 8,6g",
     "price": 39,
     "description": "O pó iluminador dá um acabamento radiante à pele."
   },
@@ -5005,11 +5005,11 @@
   },
   {
     "id": 572,
-    "session": "Lançamentos",
+    "session": "Cuidados com a Pele",
     "line": "Sinais Moderados",
     "image": "10-063959.jpg",
     "points": 46,
-    "title": "Sérum Clareador Even Complexion - 10 ml",
+    "title": "Sérum Clareador Even Complexion - 10ml",
     "price": 75,
     "description": "Solução direcionada para clareamento de áreas específicas da pele."
   },
@@ -5018,6 +5018,205 @@
     "parent": 572,
     "SKU": "10-063959",
     "image": "10-063959.jpg",
+    "active": true
+  },
+  {
+    "id": 574,
+    "session": "Lançamentos",
+    "line": "Fragrâncias Femininas",
+    "image": "10-067230.jpg",
+    "points": 54,
+    "title": "Belara Midnight Eau de Parfum - 50ml",
+    "price": 129,
+    "description": "Com um toque de mistério é uma fragrância cremosa oriental sensual, vibrante e irresistível."
+  },
+  {
+    "id": 575,
+    "parent": 574,
+    "SKU": "10-067230",
+    "image": "10-067230.jpg",
+    "active": true
+  },
+  {
+    "id": 576,
+    "parent": 234,
+    "SKU": "10-062147",
+    "image": "10-062147.jpg",
+    "option": "Electric Spring",
+    "active": true
+  },
+  {
+    "id": 577,
+    "parent": 234,
+    "SKU": "10-062150",
+    "image": "10-062150.jpg",
+    "option": "Neapolitan",
+    "active": true
+  },
+  {
+    "id": 578,
+    "parent": 234,
+    "SKU": "10-062148",
+    "image": "10-062148.jpg",
+    "option": "Sunset Beach",
+    "active": true
+  },
+  {
+    "id": 579,
+    "parent": 537,
+    "SKU": "10-073805",
+    "image": "10-073805.jpg",
+    "option": "Over the Taupe",
+    "active": true
+  },
+  {
+    "id": 580,
+    "parent": 537,
+    "SKU": "10-073804",
+    "image": "10-073804.jpg",
+    "option": "You're a Peach",
+    "active": true
+  },
+  {
+    "id": 581,
+    "parent": 537,
+    "SKU": "10-073803",
+    "image": "10-073803.jpg",
+    "option": "Cold as Ice",
+    "active": true
+  },
+  {
+    "id": 582,
+    "session": "Lançamentos",
+    "line": "Maquiagem - Linha Jovem",
+    "image": "10-062090.jpg",
+    "points": 9,
+    "title": "Gloss Labial Jelly - 9,5ml",
+    "price": 19,
+    "description": "Lábios macios e glamorosos com cores intensas e brilhantes."
+  },
+  {
+    "id": 583,
+    "parent": 582,
+    "SKU": "10-062090",
+    "image": "10-062090.jpg",
+    "option": "Pink-a-Boo",
+    "active": true,
+    "price": 19
+  },
+  {
+    "id": 584,
+    "parent": 582,
+    "SKU": "10-062092",
+    "image": "10-062092.jpg",
+    "option": "Haute Pink",
+    "active": true,
+    "price": 19
+  },
+  {
+    "id": 585,
+    "parent": 582,
+    "SKU": "10-062091",
+    "image": "10-062091.jpg",
+    "option": "Poppy Love",
+    "active": true,
+    "price": 19
+  },
+  {
+    "id": 586,
+    "parent": 582,
+    "SKU": "10-062093",
+    "image": "10-062093.jpg",
+    "option": "Violet Vixen",
+    "active": true,
+    "price": 19
+  },
+  {
+    "id": 587,
+    "session": "Lançamentos",
+    "line": "Maquiagem - Linha Jovem",
+    "image": "10-073798.jpg",
+    "points": 11,
+    "title": "Lápis Batom - 2,5g",
+    "price": 22,
+    "description": "Cores marcantes com acabamento luminoso. Sua fórmula desliza facilmente e não borra durante o dia."
+  },
+  {
+    "id": 588,
+    "parent": 587,
+    "SKU": "10-073798",
+    "image": "10-073798.jpg",
+    "option": "Purple Punch",
+    "active": true,
+    "price": 22
+  },
+  {
+    "id": 589,
+    "parent": 587,
+    "SKU": "10-073801",
+    "image": "10-073801.jpg",
+    "option": "Lava Love",
+    "active": true,
+    "price": 22
+  },
+  {
+    "id": 590,
+    "parent": 587,
+    "SKU": "10-073799",
+    "image": "10-073799.jpg",
+    "option": "Coral Me Crazy",
+    "active": true,
+    "price": 22
+  },
+  {
+    "id": 591,
+    "parent": 587,
+    "SKU": "10-073802",
+    "image": "10-073802.jpg",
+    "option": "Heartthrob",
+    "active": true,
+    "price": 22
+  },
+  {
+    "id": 592,
+    "session": "Lançamentos",
+    "line": "Maquiagem - Linha Jovem",
+    "image": "10-078275.jpg",
+    "points": 11,
+    "title": "Delineador Líquido Intenso para os Olhos",
+    "price": 22,
+    "description": "Cria linhas precisas de ponta a ponta da linha dos cílios. Fácil de controlar, não escorrega das mãos."
+  },
+  {
+    "id": 593,
+    "parent": 592,
+    "SKU": "10-078275",
+    "image": "10-078275.jpg",
+    "option": "Blue my Mind",
+    "active": true
+  },
+  {
+    "id": 594,
+    "parent": 592,
+    "SKU": "10-078277",
+    "image": "10-078277.jpg",
+    "option": "Hello Violet",
+    "active": true
+  },
+  {
+    "id": 595,
+    "parent": 592,
+    "SKU": "10-078276",
+    "image": "10-078276.jpg",
+    "option": "The Real Teal",
+    "active": true
+  },
+  {
+    "id": 596,
+    "parent": 592,
+    "SKU": "10-078278",
+    "image": "10-078278.jpg",
+    "option": "Gold Metal",
     "active": true
   }
 ]
