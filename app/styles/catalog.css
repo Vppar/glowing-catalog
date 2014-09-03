@@ -930,7 +930,7 @@
 	}	
 	/* texto comum */
 	.catalog-block .product-text{
-		padding: 10px;
+        padding: 9px 10px;
 		overflow: hidden;
 		font-size: 13px;
 		float:left;
