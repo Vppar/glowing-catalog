@@ -3,6 +3,11 @@
 
     angular.module('tnt.catalog.goalposter.service', []).service('GoalPosterService', ['$q', 'SyncDriver', 'ConsultantService', function ($q, SyncDriver, ConsultantService) {
 
+        var remote = SyncDriver.goalPoster;
+        var images = [];
+        var alerts = [];
+        var messageOfDay = {};
+        var user = localStorage.getItem('user');
         var goalImageSizes = [{
             areaType: 'square',
             size: 50
@@ -20,27 +25,71 @@
             size: 220
         }]
 
+        var updateLocalData = function () {
+            images[0] = localStorage.getItem(user + ':goalPoster:image:0');
+            images[1] = localStorage.getItem(user + ':goalPoster:image:1');
+            images[2] = localStorage.getItem(user + ':goalPoster:image:2');
+            images[3] = localStorage.getItem(user + ':goalPoster:image:3');
+            images[4] = localStorage.getItem(user + ':goalPoster:image:4');
+
+            alerts = JSON.parse(localStorage.getItem(user + ':goalPoster:alerts'));
+
+            var messagesOfDay = JSON.parse(localStorage.getItem(user + ':goalPoster:messages'));
+            var messageChoice = new Date().getDate() % 4;
+
+            messageOfDay = messagesOfDay[messageChoice];
+        };
+
+        var updateLocalStorage = function () {
+            remote.getData().then(function (goalPosterData) {
+                localStorage.setItem(user + ':goalPoster:lastSync', goalPosterData.lastSyncRemote);
+                localStorage.setItem(user + ':goalPoster:image:0', goalPosterData.images['0']);
+                localStorage.setItem(user + ':goalPoster:image:1', goalPosterData.images['1']);
+                localStorage.setItem(user + ':goalPoster:image:2', goalPosterData.images['2']);
+                localStorage.setItem(user + ':goalPoster:image:3', goalPosterData.images['3']);
+                localStorage.setItem(user + ':goalPoster:image:4', goalPosterData.images['4']);
+
+                localStorage.setItem(user + ':goalPoster:alerts', JSON.stringify(goalPosterData.alerts));
+                localStorage.setItem(user + ':goalPoster:messages', JSON.stringify(goalPosterData.messages));
+
+                updateLocalData();
+            });
+        };
+
+        this.setImage = function (id, base64Image) {
+            var now = new Date().getTime();
+            localStorage.setItem(user + ':goalPoster:image:' + id, base64Image);
+            localStorage.setItem(user + ':goalPoster:lastSync', now);
+            remote.setImage(id, base64Image, now);
+        };
+
         this.getConsultant = function () {
             return ConsultantService.get();
-        }
+        };
 
         this.getImagesSize = function () {
             return angular.copy(goalImageSizes);
-        }
+        };
 
         this.getImages = function () {
-            var user = localStorage.getItem('user');
-            var consultantImage = localStorage.getItem(user + ':0');
-            var goalImage1 = localStorage.getItem(user + ':1');
-            var goalImage2 = localStorage.getItem(user + ':2');
-            var goalImage3 = localStorage.getItem(user + ':3');
-            var goalImage4 = localStorage.getItem(user + ':4');
-            return [consultantImage, goalImage1, goalImage2, goalImage3, goalImage4];
-        }
+            return images;
+        };
+        this.getAlerts = function () {
+            return images;
+        };
+        this.getMessageOfDay = function () {
+            return messageOfDay;
+        };
 
-        this.setGoalImage = function (id, base64Image) {
-            // set in localStorage
-            localStorage.setItem(user + ':' + id, base64Image);
+        this.checkForUpdates = function () {
+            remote.lastSync().then(function (lastSyncRemote) {
+                var lastSyncLocal = localStorage.getItem(user + ':goalPoster:lastSync');
+                if (lastSyncRemote > lastSyncLocal) {
+                    updateLocalStorage();
+                } else {
+                    updateLocalData();
+                }
+            });
         }
     }]);
 

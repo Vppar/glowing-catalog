@@ -15,7 +15,7 @@
             'FirebaseSimpleLogin',
             'CatalogConfig',
             'WarmupService',
-            function SyncDriver ($rootScope, $log, $q, Firebase, FirebaseSimpleLogin, CatalogConfig, WarmupService) {
+            function SyncDriver($rootScope, $log, $q, Firebase, FirebaseSimpleLogin, CatalogConfig, WarmupService) {
 
                 var self = this;
 
@@ -40,16 +40,18 @@
                     }
                 });
 
-                function isFirebaseBusy () {
+                function isFirebaseBusy() {
                     return !!firebaseSyncStartTime &&
-                        firebaseSyncStartTime !== firebaseSyncStartTime2;
+                    firebaseSyncStartTime !== firebaseSyncStartTime2;
                 }
+
                 this.isFirebaseBusy = isFirebaseBusy;
 
                 // Uses Firebase's connected ref...
-                function isConnected () {
+                function isConnected() {
                     return !!localStorage.firebaseUser;
                 }
+
                 this.isConnected = isConnected;
 
                 this.lock = function (successCb, failureCb) {
@@ -75,7 +77,7 @@
                     });
                 };
 
-                function setFirebaseReferences (username) {
+                function setFirebaseReferences(username) {
                     userRef = baseRef.child('users').child(username.replace(/\.+/g, '_'));
                     journalRef = userRef.child('journal');
                     syncingFlagRef = userRef.child('syncing');
@@ -83,7 +85,6 @@
                     self.refs.user = userRef;
                     self.refs.journal = journalRef;
                     self.refs.bi = userRef.child('bi');
-                    self.refs.goalPoster = userRef.child('goalPoster');
                 }
 
 
@@ -96,8 +97,8 @@
                     // IMPORTANT! When this check is changed, make sure to
                     // update the message in the change-password dialog!
                     return !!password &&
-                        typeof password === 'string' &&
-                        password.length >= PASSWORD_LENGTH_MIN;
+                    typeof password === 'string' &&
+                    password.length >= PASSWORD_LENGTH_MIN;
                 }
 
 
@@ -135,7 +136,6 @@
                 }
 
                 this.changePassword = changePassword;
-
 
 
                 // TODO implement rememberMe
@@ -191,8 +191,8 @@
                         });
 
                         auth.login('password', {
-                            email : username,
-                            password : password
+                            email: username,
+                            password: password
                         });
 
                         deferred.promise.then(function () {
@@ -269,7 +269,7 @@
                             $log.debug('Waiting for new entries');
                         }
 
-                        if(!lastSynced){
+                        if (!lastSynced) {
                             journalRef
                                 .startAt(startIndex)
                                 .once('value', function (snapshot) {
@@ -308,8 +308,8 @@
                                 entry.synced = new Date().getTime();
 
                                 return {
-                                    '.value' : entry,
-                                    '.priority' : entry.sequence
+                                    '.value': entry,
+                                    '.priority': entry.sequence
                                 };
                             }
                         }, function (error, committed) {
@@ -334,24 +334,52 @@
                     setFirebaseReferences(localStorage.firebaseUser);
                 }
 
-                this.getDataAccount = function(){
+                this.getDataAccount = function () {
                     var deferred = $q.defer();
 
-                    userRef.child('account').child('consultant').on('value', function(snapshot) {
+                    userRef.child('account').child('consultant').on('value', function (snapshot) {
                         deferred.resolve(snapshot.val());
                     });
                     return deferred.promise;
                 };
 
-                this.setGoalPosterImage = function(){
+                this.goalPoster = {
+                    lastSync: function () {
+                        var deferred = $q.defer();
 
-                }
-                this.getGoalPosterAlerts = function(){
+                        userRef.child('goalPoster').child('lastSync').on('value', function (snapshot) {
+                            deferred.resolve(snapshot.val());
+                        });
+                        return deferred.promise;
+                    },
+                    getData: function () {
+                        var deferred = $q.defer();
 
-                }
-                this.getGoalPosterMessages = function(){
+                        userRef.child('goalPoster').child('data').on('value', function (snapshot) {
+                            deferred.resolve(snapshot.val());
+                        });
+                        return deferred.promise;
+                    },
+                    setImage: function (id, base64Image, now) {
+                        var deferred = $q.defer();
 
-                }
+                        userRef.child('goalPoster').child('data').child('images').child(id).set(base64Image, function (error) {
+                            if (error) {
+                                deferred.reject(error);
+                            } else {
+                                userRef.child('goalPoster').child('lastSync').set(now, function (error) {
+                                    if (error) {
+                                        deferred.reject(error);
+                                    } else {
+                                        deferred.resolve('Image updated');
+                                    }
+                                });
+                            }
+                        });
+
+                        return deferred.promise;
+                    }
+                };
             }
         ]);
 }(angular));
