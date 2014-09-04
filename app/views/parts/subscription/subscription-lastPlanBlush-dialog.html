@@ -8,7 +8,12 @@
    </div> 
    <div ng-show="subscriptionCloseToExpirationDate()">
       <p ng-style="{'text-align': 'justify'}">
-         Ol&aacute; Empres&aacute;ria de Beleza! Falta(m) {{numberOfDaysToExpiration}} dia(s) para sua assinatura anual (Plano Blush) expirar!<br/>
+         <div ng-show="numberOfDaysToExpiration !== 0">
+            Ol&aacute; Empres&aacute;ria de Beleza! Falta(m) {{numberOfDaysToExpiration}} dia(s) para sua assinatura anual (Plano Blush) expirar!<br/>
+         </div>
+         <div ng-show="numberOfDaysToExpiration === 0">
+            Ol&aacute; Empres&aacute;ria de Beleza! Sua assinatura anual (Plano Blush) vai expirar hoje!<br/>
+         </div>
          Selecione uma das op&ccedil;&otilde;es abaixo e renove j&aacute; sua assinatura!
       </p>
    </div>

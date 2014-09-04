@@ -8,7 +8,12 @@
    </div>      
    <div ng-show="subscriptionCloseToExpirationDate()">
       <p ng-style="{'text-align': 'justify'}">
-         Ol&aacute; Empres&aacute;ria de Beleza! Falta(m) {{numberOfDaysToExpiration}} dia(s) para sua assinatura mensal (Plano R&iacute;mel) expirar!<br/>
+         <div ng-show="numberOfDaysToExpiration !== 0">
+            Ol&aacute; Empres&aacute;ria de Beleza! Falta(m) {{numberOfDaysToExpiration}} dia(s) para sua assinatura mensal (Plano R&iacute;mel) expirar!<br/>
+         </div>
+         <div ng-show="numberOfDaysToExpiration === 0">
+            Ol&aacute; Empres&aacute;ria de Beleza! A sua assinatura mensal (Plano R&iacute;mel) vai expirar hoje!<br/>
+         </div>
          Que tal j&aacute; garantir o VPink pelos pr&oacute;ximos meses com desconto especial?
       </p>
    </div>
