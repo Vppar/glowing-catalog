@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '1.3.3-61'
+# 'version' : '1.3.1-160'
 CACHE:
 apple-touch-icon.png
 apple-touch-icon-152x152.png
@@ -35,9 +35,6 @@ styles/new-button.css
 styles/new-grid.css
 styles/new-numpad.css
 styles/new-ipad-only.css
-styles/sacred-goal-poster.css
-styles/image-upload-dialog/image-upload-dialog.css
-styles/ng-img-crop/ng-img-crop.css
 
 styles/sacred-reset.css
 styles/sacred-buttons.css
@@ -67,7 +64,6 @@ styles/agenda/agenda.css
 styles/agenda/fullcalendar.css
 styles/agenda/fullcalendar.print.css
 styles/agenda/smoothness/jquery-ui-1.10.4.custom.css
-
 images/smoothness/images/animated-overlay.gif
 images/smoothness/images/ui-bg_flat_0_aaaaaa_40x100.png
 images/smoothness/images/ui-bg_flat_75_ffffff_40x100.png
@@ -145,7 +141,6 @@ components/d3-histogram/histogram.js
 components/d3-termometer/termometer.js
 components/date-range/date-range.js
 
-scripts/directives/ng-img-crop/ng-img-crop.js
 scripts/directives/anchor.js
 scripts/directives/cep.js
 scripts/directives/cpf.js
@@ -176,7 +171,6 @@ scripts/directives/focus.js
 scripts/directives/focusIf.js
 scripts/directives/equals.js
 scripts/directives/spinner-button.js
-scripts/directives/file-input.js
 
 scripts/filters/count.js
 scripts/filters/cpf.js
@@ -261,9 +255,6 @@ scripts/controllers/target/target-parent.js
 scripts/controllers/date-range-test.js
 scripts/controllers/subscription.js
 scripts/controllers/goal-poster/goal-poster.js
-scripts/controllers/goal-poster/goal-poster-edit-dialog.js
-scripts/controllers/image-upload-dialog.js
-scripts/controllers/loading-dialog.js
 
 scripts/keepers/CheckKeeper.js
 scripts/keepers/CoinKeeper.js
@@ -336,7 +327,6 @@ scripts/services/SchedulingService.js
 scripts/services/ProductsDeliveryService.js
 scripts/services/target/TargetService.js
 scripts/services/SubscriptionService.js
-scripts/services/FileReaderFactory.js
 scripts/services/goal-poster/GoalPosterService.js
 
 components/product-display/product-display.html
@@ -376,7 +366,6 @@ views/parts/global/sacred-choose-customer-dialog.html
 views/parts/global/header.html
 views/parts/global/sacred-message-dialog.html
 views/parts/global/numpad-dialog.html
-views/parts/global/loading-dialog.html
 views/parts/partial-delivery/customer-info-dialog.html
 views/parts/partial-delivery/delivery-details-dialog.html
 views/parts/payment/payment-left-advance.html
@@ -468,8 +457,6 @@ views/parts/products-delivery/sacred-products-delivery-delivered-products.html
 views/parts/products-delivery/sacred-products-delivery-delivered.html
 views/parts/products-delivery/sacred-products-delivery-delivery.html
 views/parts/products-delivery/sacred-products-delivery.html
-views/parts/goal-poster/sacred-goal-poster.html
-views/parts/goal-poster/sacred-goal-poster-edit-dialog.html
 views/catalog/sacred-best-sellers.html
 views/sacred-bi.html
 
@@ -535,14 +522,6 @@ images/catalog/best-sellers-10.png
 
 images/login/background-login-1.jpg
 images/login/background-login-2.jpg
-
-images/goal-poster-bg.jpg
-images/avatar-self.jpg
-images/goal/01.jpg
-images/goal/02.jpg
-images/goal/03.jpg
-images/goal-quotes.jpg
-images/goal/04.jpg
 
 scripts/controllers/appointments.js
 scripts/keepers/AppointmentKeeper.js

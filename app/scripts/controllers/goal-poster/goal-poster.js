@@ -15,70 +15,24 @@
             function ($scope, UserService, DialogService, GoalPosterService) {
 
                 UserService.redirectIfInvalidUser();
-                GoalPosterService.updateLocalData();
 
-                // #####################################################################################################
-                // Local variables
-                // #####################################################################################################
-
-                // #####################################################################################################
-                // Local Functions
-                // #####################################################################################################
-
-                var editImage = function (data, success) {
-                    DialogService.openImageUploadDialog(data).then(
-                        function (base64Img) {
-                            if (base64Img) {
-                                success(base64Img);
-                            }
-                        }
-                    );
-                };
-
-                // #####################################################################################################
-                // Scope variables
-                // #####################################################################################################
+                var imagesSize = GoalPosterService.getImagesSize();
 
                 $scope.consultant = GoalPosterService.getConsultant();
-                $scope.goals = GoalPosterService.getGoals();
+                $scope.goalImages = GoalPosterService.getImages();
                 $scope.alerts = GoalPosterService.getAlerts();
                 $scope.messageOfDay = GoalPosterService.getMessageOfDay();
 
-                // #####################################################################################################
-                // Scope functions
-                // #####################################################################################################
-                $scope.editGoal = function (idx) {
-                    var goal = $scope.goals[idx];
-                    DialogService.openGoalPosterEditDialog(goal).then(
-                        function (goal) {
-                            if (goal) {
-                                $scope.goals[idx].name = goal.name;
-                                $scope.goals[idx].deadline = goal.deadline;
-
-                                GoalPosterService.setGoal(idx, goal);
-                            }
-                        }
-                    );
+                $scope.goalImageUpload = function (id) {
+                    var data = imagesSize[id];
+                    data.myImage = $scope.goalImages[id];
+                    DialogService.openImageUploadDialog(data)
+                        .then(function (base64Image) {
+                            $scope.goalImages[id] = base64Image;
+                            GoalPosterService.setImage(id, base64Image);
+                        });
                 };
-
-                $scope.goalImageUpload = function (idx) {
-                    var data = $scope.goals[idx];
-                    var success = function (base64Img) {
-                        $scope.goals[idx].base64Img = base64Img;
-                        GoalPosterService.setGoalImage(idx, base64Img);
-                    };
-                    editImage(data, success);
-                };
-
-                $scope.avatarImageUpload = function () {
-                    var data = $scope.consultant.avatar;
-                    var success = function (base64Img) {
-                        $scope.consultant.avatar.base64Img = base64Img;
-                        GoalPosterService.setAvatarImage(base64Img);
-                    };
-                    editImage(data, success);
-                };
-            }
-        ]);
+            }])
+    ;
 })
 (angular);

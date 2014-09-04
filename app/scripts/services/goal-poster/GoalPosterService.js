@@ -1,193 +1,96 @@
 (function (angular) {
-    'use strict';
+    'use strict'
 
-    angular.module('tnt.catalog.goalposter.service', []).service(
-        'GoalPosterService',
-        [
-            '$q',
-            '$filter',
-            'SyncDriver',
-            'ConsultantService',
-            function ($q, $filter, SyncDriver, ConsultantService) {
+    angular.module('tnt.catalog.goalposter.service', []).service('GoalPosterService', ['$q', 'SyncDriver', 'ConsultantService', function ($q, SyncDriver, ConsultantService) {
 
-                // #####################################################################################################
-                // Local variables
-                // #####################################################################################################
+        var remote = SyncDriver.goalPoster;
+        var images = [];
+        var alerts = [];
+        var messageOfDay = {};
+        var user = localStorage.getItem('user');
+        var goalImageSizes = [{
+            areaType: 'square',
+            size: 50
+        }, {
+            areaType: 'circle',
+            size: 220
+        }, {
+            areaType: 'circle',
+            size: 250
+        }, {
+            areaType: 'circle',
+            size: 250
+        }, {
+            areaType: 'circle',
+            size: 220
+        }]
 
-                var CONSULTANT_IMG_SIZE = {
-                    areaType: 'square',
-                    size: 50
-                };
-                var GOAL_IMG_SIZE = {
-                    1: {
-                        areaType: 'circle',
-                        size: 220
-                    },
-                    2: {
-                        areaType: 'circle',
-                        size: 250
-                    },
-                    3: {
-                        areaType: 'circle',
-                        size: 250
-                    },
-                    4: {
-                        areaType: 'circle',
-                        size: 220
-                    }
-                };
+        var updateLocalData = function () {
+            images[0] = localStorage.getItem(user + ':goalPoster:image:0');
+            images[1] = localStorage.getItem(user + ':goalPoster:image:1');
+            images[2] = localStorage.getItem(user + ':goalPoster:image:2');
+            images[3] = localStorage.getItem(user + ':goalPoster:image:3');
+            images[4] = localStorage.getItem(user + ':goalPoster:image:4');
 
-                var remote = SyncDriver.goalPoster;
-                var localStorageHash = localStorage.getItem('user') + ':goalPoster:';
-                var localData = {
-                    consultant: {info: {}, avatar: {}},
-                    goals: {
-                        1: {name: 'Meta 1', deadline: 1420081200000},
-                        2: {name: 'Meta 2', deadline: 1420081200000},
-                        3: {name: 'Meta 3', deadline: 1420081200000},
-                        4: {name: 'Meta 4', deadline: 1420081200000}
-                    },
-                    alerts: [],
-                    messagesOfDay: []
-                };
+            alerts = JSON.parse(localStorage.getItem(user + ':goalPoster:alerts'));
 
-                // #####################################################################################################
-                // Local functions
-                // #####################################################################################################
+            var messagesOfDay = JSON.parse(localStorage.getItem(user + ':goalPoster:messages'));
+            var messageChoice = new Date().getDate() % 4;
 
-                var updateConsultant = function (hash, data) {
-                    data.consultant.info = ConsultantService.get();
-                    data.consultant.avatar.base64Img = localStorage.getItem(hash + 'avatar');
-                    angular.extend(data.consultant.avatar, CONSULTANT_IMG_SIZE);
-                };
+            messageOfDay = messagesOfDay[messageChoice];
+        };
 
-                var updateGoals = function (hash, data) {
-                    var goalHash = hash + 'goals:';
-                    var imageHash = hash + 'images:';
-                    for (var idx in localData.goals) {
-                        var storedGoal = localStorage.getItem(goalHash + idx);
-                        if (storedGoal) {
-                            var goal = JSON.parse(storedGoal);
-                            data.goals[idx].name = goal.name;
-                            data.goals[idx].deadline = goal.deadline;
-                        }
-                        data.goals[idx].base64Img = localStorage.getItem(imageHash + idx);
-                        angular.extend(data.goals[idx], GOAL_IMG_SIZE[idx]);
-                    }
-                };
+        var updateLocalStorage = function () {
+            remote.getData().then(function (goalPosterData) {
+                localStorage.setItem(user + ':goalPoster:lastSync', goalPosterData.lastSyncRemote);
+                localStorage.setItem(user + ':goalPoster:image:0', goalPosterData.images['0']);
+                localStorage.setItem(user + ':goalPoster:image:1', goalPosterData.images['1']);
+                localStorage.setItem(user + ':goalPoster:image:2', goalPosterData.images['2']);
+                localStorage.setItem(user + ':goalPoster:image:3', goalPosterData.images['3']);
+                localStorage.setItem(user + ':goalPoster:image:4', goalPosterData.images['4']);
 
-                var updateAlerts = function (hash, data) {
-                    var storedAlerts = localStorage.getItem(hash + 'alerts');
-                    if (storedAlerts) {
-                        data.alerts = JSON.parse(storedAlerts);
-                    }
-                };
+                localStorage.setItem(user + ':goalPoster:alerts', JSON.stringify(goalPosterData.alerts));
+                localStorage.setItem(user + ':goalPoster:messages', JSON.stringify(goalPosterData.messages));
 
-                var updateMessage = function (hash, data) {
-                    var storedMessage = localStorage.getItem(hash + 'message');
-                    if (storedMessage) {
-                        data.messageOfDay = JSON.parse(storedMessage);
-                    }
-                };
+                updateLocalData();
+            });
+        };
 
-                var updateLocalStorage = function (hash, remoteData) {
-                    if (remoteData.lastSync) {
-                        localStorage.setItem(hash + 'lastSync', remoteData.lastSync);
-                    }
+        this.setImage = function (id, base64Image) {
+            var now = new Date().getTime();
+            localStorage.setItem(user + ':goalPoster:image:' + id, base64Image);
+            localStorage.setItem(user + ':goalPoster:lastSync', now);
+            remote.setImage(id, base64Image, now);
+        };
 
-                    if (remoteData.avatar) {
-                        localStorage.setItem(hash + 'avatar', remoteData.avatar);
-                    }
+        this.getConsultant = function () {
+            return ConsultantService.get();
+        };
 
-                    if (remoteData.goals) {
-                        for (var idg in remoteData.goals) {
-                            localStorage.setItem(hash + 'goals:' + idg, JSON.stringify(remoteData.goals[idg]));
-                        }
-                    }
+        this.getImagesSize = function () {
+            return angular.copy(goalImageSizes);
+        };
 
-                    if (remoteData.images) {
-                        for (var idi in remoteData.images) {
-                            localStorage.setItem(hash + 'images:' + idi, remoteData.images[idi]);
-                        }
-                    }
-                    if (remoteData.alerts) {
-                        localStorage.setItem(hash + 'alerts', JSON.stringify(remoteData.alerts));
-                    }
-                };
+        this.getImages = function () {
+            return images;
+        };
+        this.getAlerts = function () {
+            return images;
+        };
+        this.getMessageOfDay = function () {
+            return messageOfDay;
+        };
 
-                var updateLocalStorageMessageOfDay = function (hash, messageOfDay) {
-                    localStorage.setItem(hash + 'message', JSON.stringify(messageOfDay));
-                };
+        this.checkForUpdates = function () {
+            remote.lastSync().then(function (lastSyncRemote) {
+                var lastSyncLocal = localStorage.getItem(user + ':goalPoster:lastSync');
+                if (lastSyncRemote > lastSyncLocal) {
+                    updateLocalStorage();
+                } else {
+                    updateLocalData();
+                }
+            });
+        }
+    }]);
 
-                // #####################################################################################################
-                // Published functions
-                // #####################################################################################################
-
-                this.checkForUpdates = function () {
-                    var now = new Date();
-                    var year = now.getFullYear();
-                    var month = now.getMonth() + 1;
-                    var day = now.getDate();
-
-                    remote.lastSync().then(
-                        // on success
-                        function (lastSyncRemote) {
-                            var lastSyncLocal = localStorage.getItem(localStorageHash + 'lastSync');
-                            if (lastSyncRemote && lastSyncRemote > lastSyncLocal) {
-                                remote.getData().then(function (remoteData) {
-                                    updateLocalStorage(localStorageHash, remoteData);
-                                });
-                            }
-                        });
-                    remote.getMessageOfDay(year, month, day).then(function (messageOfDay) {
-                        if (messageOfDay) {
-                            updateLocalStorageMessageOfDay(localStorageHash, messageOfDay);
-                        }
-                    });
-                };
-
-                this.updateLocalData = function () {
-                    updateConsultant(localStorageHash, localData);
-                    updateGoals(localStorageHash, localData);
-                    updateAlerts(localStorageHash, localData);
-                    updateMessage(localStorageHash, localData);
-                };
-
-                this.getConsultant = function () {
-                    return localData.consultant;
-                };
-
-                this.getGoals = function () {
-                    return localData.goals;
-                };
-
-                this.getAlerts = function () {
-                    return localData.alerts;
-                };
-
-                this.getMessageOfDay = function () {
-                    return localData.messageOfDay;
-                };
-
-                this.setAvatarImage = function (base64Image) {
-                    var now = new Date().getTime();
-                    localStorage.setItem(localStorageHash + 'avatar', base64Image);
-                    localStorage.setItem(localStorageHash + 'lastSync', now);
-                    remote.setAvatarImage(base64Image, now);
-                };
-
-                this.setGoal = function (idx, goal) {
-                    var now = new Date().getTime();
-                    localStorage.setItem(localStorageHash + 'goals:' + idx, JSON.stringify(goal));
-                    localStorage.setItem(localStorageHash + 'lastSync', now);
-                    remote.setGoal(idx, goal, now);
-                };
-
-                this.setGoalImage = function (idx, base64Image) {
-                    var now = new Date().getTime();
-                    localStorage.setItem(localStorageHash + 'images:' + idx, base64Image);
-                    localStorage.setItem(localStorageHash + 'lastSync', now);
-                    remote.setGoalImage(idx, base64Image, now);
-                };
-            }]);
 })(angular);
