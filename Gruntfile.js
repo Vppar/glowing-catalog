@@ -89,7 +89,7 @@ module.exports =
                     },
                     livereload : {
                         options : {
-                            hostname : 'localhost',
+                            hostname : '0.0.0.0',
                             open : true,
                             base : [
                                 '.tmp', '<%= yeoman.app %>'
@@ -179,7 +179,7 @@ module.exports =
                         }
                     }
                 },
-                
+
                 ngtemplates:  {
                     glowingCatalogApp: {
                         cwd:      'app',

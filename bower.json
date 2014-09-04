@@ -22,7 +22,8 @@
     "angular-once": "~0.1.6",
     "jquery-ui": "~1.10.4",
     "fullcalendar": "~1.6.4",
-    "d3": "~3.4.6"
+    "d3": "~3.4.6",
+    "ngImgCrop": "~0.2.0"
   },
   "devDependencies": {
     "angular-mocks": "1.2.14",
