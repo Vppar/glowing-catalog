@@ -1,0 +1,23 @@
+<div class="modal-image-upload">
+    <div class="modal-head">SELECIONAR IMAGEM</div>
+    <div class="modal-body text-center">
+        <div class="cropArea">
+            <img-crop image="crop.myImage" result-image="crop.myCroppedImage" area-type="{{crop.areaType}}"
+                      result-image-size="crop.size"></img-crop>
+        </div>
+        <span file-input="crop.myImage"></span>
+
+        <div class="control-group lbl-top">
+            <div class="controls">
+                <div class="btn-add btn-clear-form">
+                    <span id="confirm" class="btn-plus2 bg-vpink hover-state-pointer" ng-click="selectImage()"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-foot">
+        <hr/>
+        <button ng-click="cancel()" class="btn btn-cancel btn-large btn-login" type="button">Fechar</button>
+        <button ng-click="confirm()" class="btn btn-large btn-ok pull-right" type="button" ng-disabled="!crop.myImage">Salvar</button>
+    </div>
+</div>
