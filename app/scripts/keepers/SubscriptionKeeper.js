@@ -3,10 +3,10 @@
 
     angular.module('tnt.catalog.subscription.entity', []).factory('Subscription', function Subscription() {
 
-        var service = function svc(uuid, planType, subscriptionDate, consultant) {
+        var service = function svc(uuid, planType, subscriptionDate, consultant, paymentType) {
 
             var validProperties = [
-                'uuid', 'planType', 'subscriptionDate', 'consultant'
+                'uuid', 'planType', 'subscriptionDate', 'consultant', 'paymentType'
             ];
 
             ObjectUtils.method(svc, 'isValid', function() {
@@ -18,20 +18,21 @@
                         }
                     }
                 }
-            });			
+            });
 
             if (arguments.length !== svc.length) {
                 if (arguments.length === 1 && angular.isObject(arguments[0])) {
                     svc.prototype.isValid.apply(arguments[0]);
                     ObjectUtils.dataCopy(this, arguments[0]);
                 } else {
-                    throw 'Subscription must be initialized with planType, subscriptionDate and consultant';
+                    throw 'Subscription must be initialized with planType, subscriptionDate, consultant and paymentType';
                 }
             } else {
                 this.uuid = uuid;
                 this.planType = planType;
                 this.subscriptionDate = subscriptionDate;
                 this.consultant = consultant;
+                this.paymentType = paymentType;
             }
         };
         return service;

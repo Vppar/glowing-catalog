@@ -12,6 +12,7 @@
         var logged = false;
         var SALT = '7un7sC0rp';
         var userService = this;
+        var subscribeLaterDate;
 
         /**
          * @param {String}
@@ -161,45 +162,6 @@
         this.isLogged = function isLogged() {
             return logged;
         };
-        
-        this.redirectIfInvalidUser = function redirectIfInvalidUser() {
-            this.redirectIfIsNotLoggedIn();
-            this.redirectIfIsNotSubscribed();
-        };
-        
-        this.redirectIfIsNotLoggedIn = function redirectIfIsNotLoggedIn() {
-            if (!this.isLogged()) {
-                SyncDriver.logout().then(function(){
-                    $location.path('/login');
-                });
-            }
-        };
-        
-        this.redirectIfIsNotSubscribed = function redirectIfIsNotSubscribed() {
-            var consultant = ConsultantService.get();
-
-            if( consultant && consultant.subscriptionExpirationDate && new Date().getTime() >= consultant.subscriptionExpirationDate){
-                var lastSubscription = SubscriptionService.getLastSubscription();
-
-                if( lastSubscription && lastSubscription.planType ){
-                    if( lastSubscription.planType === CatalogConfig.GLOSS ){
-                        DialogService.openDialogSubscriptionLastPlanGloss();
-                    }
-                    else if( lastSubscription.planType === CatalogConfig.BLUSH ){
-                        DialogService.openDialogSubscriptionLastPlanBlush();
-                    }
-                    else if( lastSubscription.planType === CatalogConfig.RIMEL ){
-                        DialogService.openDialogSubscriptionLastPlanRimel();
-                    }
-                    else {
-                        DialogService.openDialogSubscriptionLastPlanNull();
-                    }
-                }
-                else {
-                    DialogService.openDialogSubscriptionLastPlanNull();
-                }
-            }
-        };
 
         this.hasUnsyncedData = function hasUnsyncedData() {
             return SyncService.hasUnsyncedEntries();
@@ -209,6 +171,76 @@
             localStorage.clear();
             return SyncService.clearData();
         };
+        
+        this.redirectIfInvalidUser = function () {
+            this.redirectIfIsNotLoggedIn();
+            this.redirectIfIsNotSubscribed();
+        };
+
+        this.defineSubscribeLaterDate = function (subscribeLaterDate) {
+            this.subscribeLaterDate = subscribeLaterDate;
+        };
+        
+        this.redirectIfIsNotLoggedIn = function () {
+            if (!this.isLogged()) {
+                SyncDriver.logout().then(function(){
+                    $location.path('/login');
+                });
+            }
+        };
+        
+        this.redirectIfIsNotSubscribed = function () {
+            var consultant = ConsultantService.get();
+            var numberOfDaysLastSubscripton;
+            
+            if( consultant && consultant.subscriptionExpirationDate) {
+                var numberOfDaysToExpiration = getDiffOfDays(consultant.subscriptionExpirationDate); 
+                var numberOfDaysSubscribeLaterDate = getDiffOfDays(this.subscribeLaterDate);
+                var lastSubscription = SubscriptionService.getLastSubscription();  
+                if(lastSubscription) {              
+                    numberOfDaysLastSubscripton = getDiffOfDays(lastSubscription.subscriptionDate);                
+                }                           
+                
+                if(numberOfDaysToExpiration<0) {
+                    openDialogSubscription(lastSubscription);
+                } else if(numberOfDaysToExpiration <=5 && numberOfDaysToExpiration >= 0) {                    
+                    if(numberOfDaysLastSubscripton && numberOfDaysLastSubscripton<=-5) {
+                        if(numberOfDaysSubscribeLaterDate === null || numberOfDaysSubscribeLaterDate !== 0) {
+                            openDialogSubscription(lastSubscription);     
+                        }
+                    }
+                }
+            }
+        };
+
+        function openDialogSubscription(lastSubscription) {
+            if( lastSubscription && lastSubscription.planType ){
+                if( lastSubscription.planType === CatalogConfig.GLOSS ){
+                    DialogService.openDialogSubscriptionLastPlanGloss();
+                }
+                else if( lastSubscription.planType === CatalogConfig.BLUSH ){
+                    DialogService.openDialogSubscriptionLastPlanBlush();
+                }
+                else if( lastSubscription.planType === CatalogConfig.RIMEL ){
+                    DialogService.openDialogSubscriptionLastPlanRimel();
+                }
+                else {
+                    DialogService.openDialogSubscriptionLastPlanNull();
+                }
+            } else {
+                DialogService.openDialogSubscriptionLastPlanNull();
+            }
+        }
+
+        function getDiffOfDays(otherDate) {
+            if(otherDate) {
+                var day=1000*60*60*24;    
+                var today = new Date().getTime();    
+                var diff = otherDate - today;   
+                return Math.round(diff/day);
+            }
+            return null;
+        }
 
         /**
          * Updates the current user's password and updates his/her MD5 hash.
