@@ -14,6 +14,7 @@
 
                 var imagesSize = GoalPosterService.getImagesSize();
 
+                $scope.consultant = GoalPosterService.getConsultant();
                 $scope.goalImages = GoalPosterService.getImages();
                 $scope.goalImageUpload = function (id) {
                     var data = imagesSize[id];
