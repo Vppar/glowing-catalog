@@ -9,7 +9,12 @@
    </div> 
    <div ng-show="subscriptionCloseToExpirationDate()">
       <p ng-style="{'text-align': 'justify'}">
-         Ol&aacute; Empres&aacute;ria de Beleza! Falta(m) {{numberOfDaysToExpiration}} dia(s) para o seu per&iacute;odo de 7 dias de testes expirar!<br/>
+         <div ng-show="numberOfDaysToExpiration !== 0">
+            Ol&aacute; Empres&aacute;ria de Beleza! Falta(m) {{numberOfDaysToExpiration}} dia(s) para o seu per&iacute;odo de 7 dias de testes expirar!<br/>
+         </div>
+         <div ng-show="numberOfDaysToExpiration === 0">
+            Ol&aacute; Empres&aacute;ria de Beleza! O seu per&iacute;odo de 7 dias de testes vai expirar hoje!<br/>
+         </div>
          N&atilde;o fique para tr&aacute;s, a sua carreira merece o melhor!<br/>
          Selecione uma das op&ccedil;&otilde;es abaixo para ativar sua assinatura VPink.
       </p>
