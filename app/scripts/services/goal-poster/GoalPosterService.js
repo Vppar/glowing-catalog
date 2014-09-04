@@ -6,7 +6,7 @@
         var remote = SyncDriver.goalPoster;
         var images = [];
         var alerts = [];
-        var messageOfDay = {};
+        var messagesOfDay = {};
         var user = localStorage.getItem('user');
         var goalImageSizes = [{
             areaType: 'square',
@@ -33,11 +33,7 @@
             images[4] = localStorage.getItem(user + ':goalPoster:image:4');
 
             alerts = JSON.parse(localStorage.getItem(user + ':goalPoster:alerts'));
-
-            var messagesOfDay = JSON.parse(localStorage.getItem(user + ':goalPoster:messages'));
-            var messageChoice = new Date().getDate() % 4;
-
-            messageOfDay = messagesOfDay[messageChoice];
+            messagesOfDay = JSON.parse(localStorage.getItem(user + ':goalPoster:messages'));
         };
 
         var updateLocalStorage = function () {
@@ -78,7 +74,8 @@
             return images;
         };
         this.getMessageOfDay = function () {
-            return messageOfDay;
+            var messageChoice = new Date().getDate() % 4;
+            return messagesOfDay[messageChoice];
         };
 
         this.checkForUpdates = function () {
