@@ -11,7 +11,7 @@
                         <div class="title">Cartaz de Metas</div>
                     </div>
                     <div class="col-10">
-                        <div class="sm-title">Maria Cláudia</div>
+                        <div class="sm-title">{{consultant.name}}</div>
                     </div>
                     <div class="col-2" ng-click="goalImageUpload(0)">
                         <img class="avatar" ng-if="goalImages[0]" ng-src="{{goalImages[0]}}"/>
@@ -48,7 +48,7 @@
                                 <img ng-if="goalImages[2]" ng-src="{{goalImages[2]}}"/>
                                 <img ng-if="!goalImages[2]" src="images/goal/02.jpg">
                             </div>
-                            <div class="circle-03" ng-click="goalImageUpload(2)">
+                            <div class="circle-03" ng-click="goalImageUpload(3)">
                                 <div class="text">
                                     <div class="title">
                                         Meta 3

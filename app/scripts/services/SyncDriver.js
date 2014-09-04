@@ -83,6 +83,7 @@
                     self.refs.user = userRef;
                     self.refs.journal = journalRef;
                     self.refs.bi = userRef.child('bi');
+                    self.refs.goalPoster = userRef.child('goalPoster');
                 }
 
 
@@ -188,7 +189,7 @@
                                 $rootScope.$broadcast('FirebaseDisconnected');
                             }
                         });
-                        
+
                         auth.login('password', {
                             email : username,
                             password : password
@@ -332,16 +333,25 @@
                 if (isConnected()) {
                     setFirebaseReferences(localStorage.firebaseUser);
                 }
-                
+
                 this.getDataAccount = function(){
-                    var deferred = $q.defer();  
-                    
+                    var deferred = $q.defer();
+
                     userRef.child('account').child('consultant').on('value', function(snapshot) {
                         deferred.resolve(snapshot.val());
                     });
                     return deferred.promise;
                 };
-                
+
+                this.setGoalPosterImage = function(){
+
+                }
+                this.getGoalPosterAlerts = function(){
+
+                }
+                this.getGoalPosterMessages = function(){
+
+                }
             }
         ]);
 }(angular));
