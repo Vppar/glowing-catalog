@@ -204,7 +204,7 @@
                 if(numberOfDaysToExpiration<0) {
                     openDialogSubscription(lastSubscription);
                 } else if(numberOfDaysToExpiration <=5 && numberOfDaysToExpiration >= 0) {                    
-                    if(numberOfDaysLastSubscripton && numberOfDaysLastSubscripton<-5) {                        
+                    if(numberOfDaysLastSubscripton && numberOfDaysLastSubscripton<=-5) {
                         if(numberOfDaysSubscribeLaterDate === null || numberOfDaysSubscribeLaterDate !== 0) {
                             openDialogSubscription(lastSubscription);     
                         }
