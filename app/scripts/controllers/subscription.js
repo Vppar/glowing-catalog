@@ -85,8 +85,10 @@ angular.module(
             };
                         
             $scope.confirmPaymentWithCC = function () {
+                
                 $scope.paymentType = CatalogConfig.PAYMENT_TYPE_CC;
-                $scope.saveSubscription(false);
+                $scope.saveSubscription(false, isRenewal());
+
                 if(CatalogConfig.GLOSS === $scope.planType) {
                     dialog.close(true);
                     $window.location.href = CatalogConfig.semesterPlanCheckoutURL;
@@ -98,10 +100,8 @@ angular.module(
                         
             $scope.confirmPaymentWithBillet = function () {
                 $scope.failed = true;
-
-                var subscriptionList = SubscriptionService.list();
                 
-                if(!subscriptionList || 1 > subscriptionList.length) {
+                if(isRenewal()) {
                     var newExpirationDate = new Date();
                     newExpirationDate.setDate(new Date().getDate()+5);
                     $scope.consultant.subscriptionExpirationDate = newExpirationDate.getTime();
@@ -109,7 +109,7 @@ angular.module(
                     if (ConsultantService.get()) {
                         return ConsultantService.update($scope.consultant).then(function() {
                                 log.info('Consultant Updated.');
-                                $scope.saveSubscription(true);
+                                $scope.saveSubscription(true, false);
                             }, function(err) {
                                 log.error('Failed to updated the consultant.');
                                 log.debug(err);
@@ -117,19 +117,19 @@ angular.module(
                     } else {
                         return ConsultantService.create($scope.consultant).then(function() {
                                 log.info('Consultant Created.');
-                                $scope.saveSubscription(true);
+                                $scope.saveSubscription(true, false);
                             }, function(err) {
                                 log.fatal('Failed to create the consultant.');
                                 log.debug(err);
                             });
                     } 
                 } else {
-                    $scope.saveSubscription(true);
+                    $scope.saveSubscription(true, true);
                 }                              
 		    };
 
-		    $scope.saveSubscription = function(isBillet){
-                var subscription = new Subscription(null, $scope.planType, new Date().getTime(), $scope.consultant, $scope.paymentType);
+		    $scope.saveSubscription = function(isBillet, isRenewal){
+                var subscription = new Subscription(null, $scope.planType, new Date().getTime(), $scope.consultant, $scope.paymentType, isRenewal);
                 
                 SubscriptionService.add(subscription).then(function() {
                     log.info('Subscription Updated.');
@@ -142,9 +142,9 @@ angular.module(
                 });
             };
 
-            $scope.subscriptionCloseToExpirationDate = function() {            
+            $scope.subscriptionCloseToExpirationDate = function() {
+                $scope.consultant = ConsultantService.get();
                 if( $scope.consultant && $scope.consultant.subscriptionExpirationDate) {
-
                     $scope.numberOfDaysToExpiration = getDiffOfDays($scope.consultant.subscriptionExpirationDate); 
 
                     if($scope.numberOfDaysToExpiration<0) {                        
@@ -179,6 +179,15 @@ angular.module(
 
                 return promiseResult;
             };
+
+            function isRenewal() {
+                var subscriptionList = SubscriptionService.list();                
+                if(!subscriptionList || 1 > subscriptionList.length) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
                           
             function warmup(){
                 var promise = ConsultantService.getDataAccount();
