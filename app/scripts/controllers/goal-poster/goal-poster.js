@@ -28,11 +28,12 @@
                     data.myImage = $scope.goalImages[id];
                     DialogService.openImageUploadDialog(data)
                         .then(function (base64Image) {
-                            $scope.goalImages[id] = base64Image;
-                            GoalPosterService.setImage(id, base64Image);
+                            if (base64Image) {
+                                $scope.goalImages[id] = base64Image;
+                                GoalPosterService.setImage(id, base64Image);
+                            }
                         });
                 };
-            }])
-    ;
+            }]);
 })
 (angular);

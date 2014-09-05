@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '1.3.1-161'
+# 'version' : '1.3.3-164'
 CACHE:
 apple-touch-icon.png
 apple-touch-icon-152x152.png
@@ -35,6 +35,7 @@ styles/new-button.css
 styles/new-grid.css
 styles/new-numpad.css
 styles/new-ipad-only.css
+styles/ng-img-crop/ng-img-crop.css
 
 styles/sacred-reset.css
 styles/sacred-buttons.css
@@ -64,6 +65,7 @@ styles/agenda/agenda.css
 styles/agenda/fullcalendar.css
 styles/agenda/fullcalendar.print.css
 styles/agenda/smoothness/jquery-ui-1.10.4.custom.css
+
 images/smoothness/images/animated-overlay.gif
 images/smoothness/images/ui-bg_flat_0_aaaaaa_40x100.png
 images/smoothness/images/ui-bg_flat_75_ffffff_40x100.png
@@ -140,6 +142,14 @@ components/d3-gauge/gauge.js
 components/d3-histogram/histogram.js
 components/d3-termometer/termometer.js
 components/date-range/date-range.js
+components/ng-img-crop/init.js
+components/ng-img-crop/ng-img-crop.js
+components/ng-img-crop/classes/crop-area.js
+components/ng-img-crop/classes/crop-area-circle.js
+components/ng-img-crop/classes/crop-area-square.js
+components/ng-img-crop/classes/crop-canvas.js
+components/ng-img-crop/classes/crop-host.js
+components/ng-img-crop/classes/crop-pubsub.js
 
 scripts/directives/anchor.js
 scripts/directives/cep.js
