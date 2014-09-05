@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '1.3.3-164'
+# 'version' : '1.3.3-168'
 CACHE:
 apple-touch-icon.png
 apple-touch-icon-152x152.png
@@ -35,6 +35,8 @@ styles/new-button.css
 styles/new-grid.css
 styles/new-numpad.css
 styles/new-ipad-only.css
+styles/sacred-goal-poster.css
+styles/image-upload-dialog/image-upload-dialog.css
 styles/ng-img-crop/ng-img-crop.css
 
 styles/sacred-reset.css
@@ -181,6 +183,7 @@ scripts/directives/focus.js
 scripts/directives/focusIf.js
 scripts/directives/equals.js
 scripts/directives/spinner-button.js
+scripts/directives/file-input.js
 
 scripts/filters/count.js
 scripts/filters/cpf.js
@@ -265,6 +268,8 @@ scripts/controllers/target/target-parent.js
 scripts/controllers/date-range-test.js
 scripts/controllers/subscription.js
 scripts/controllers/goal-poster/goal-poster.js
+scripts/controllers/image-upload-dialog.js
+scripts/controllers/loading-dialog.js
 
 scripts/keepers/CheckKeeper.js
 scripts/keepers/CoinKeeper.js
@@ -337,6 +342,7 @@ scripts/services/SchedulingService.js
 scripts/services/ProductsDeliveryService.js
 scripts/services/target/TargetService.js
 scripts/services/SubscriptionService.js
+scripts/services/FileReaderFactory.js
 scripts/services/goal-poster/GoalPosterService.js
 
 components/product-display/product-display.html

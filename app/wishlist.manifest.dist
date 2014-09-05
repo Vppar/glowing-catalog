@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '1.3.3-164'
+# 'version' : '1.3.3-168'
 
 CACHE:
 bower_components/bootstrap-sass/bootstrap-2.3.2.css
@@ -31,6 +31,7 @@ styles/new-numpad.css
 styles/new-ipad-only.css
 styles/new-grid.css
 styles/new-button.css
+styles/image-upload-dialog/image-upload-dialog.css
 styles/ng-img-crop/ng-img-crop.css
 
 styles/sacred-reset.css
@@ -56,6 +57,7 @@ styles/sacred-warm-up.css
 styles/sacred-ipad-only.css
 styles/sacred-modal.css
 styles/sacred-target.css
+styles/sacred-goal-poster.css
 
 styles/agenda/agenda.css
 styles/agenda/fullcalendar.css
@@ -155,6 +157,14 @@ images/smoothness/images/ui-icons_cd0a0a_256x240.png
 
 images/login/background-login-1.jpg
 images/login/background-login-2.jpg
+
+images/avatar-self.jpg
+images/goal/01.jpg
+images/goal/02.jpg
+images/goal/03.jpg
+images/goal/04.jpg
+images/goal-quotes.jpg
+images/goal-poster-bg.jpg
 
 NETWORK:
 *
