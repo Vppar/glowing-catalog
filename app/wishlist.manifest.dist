@@ -69,6 +69,7 @@ scripts/plugins.js
 scripts/modules.js
 scripts/scripts.js
 
+scripts/directives/ng-img-crop/ng-img-crop.js
 scripts/controllers/appointments.js
 scripts/keepers/AppointmentKeeper.js
 scripts/services/AppointmentService.js
