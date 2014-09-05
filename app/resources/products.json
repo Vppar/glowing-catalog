@@ -141,7 +141,7 @@
     {
         "id": 16,
         "session": "Edição Limitada",
-        "line": "Zen in Bloom",
+        "line": "Maquiagem - Linha Jovem",
         "image": "10-060636.jpg",
         "points": 24,
         "title": "Trio de Sombras - 10g",
@@ -159,7 +159,7 @@
     {
         "id": 18,
         "session": "Edição Limitada",
-        "line": "Zen in Bloom",
+        "line": "Fairytales & Fantasy",
         "image": "10-060585.jpg",
         "points": 11,
         "title": "Esmalte para Unhas - 4g",
@@ -267,6 +267,7 @@
         "image": "10-067480.jpg",
         "points": 33,
         "title": "Mini Coleção de Pincéis Glam",
+        "description": "Ideal para levar na bolsa e reaplicar a maquiagem a qualquer momento.",
         "price": 65
     },
     {
@@ -4497,7 +4498,7 @@
         "points": 17,
         "title": "Trio de Sombras Minerais Garden Sky - 10g",
         "price": 48,
-        "description": "Tons pastel com ótima pigmentação. Com sistema refil, fica perfeito no Mini Estojo Compacto."
+        "description": "Tons pastel com ótima pigmentação com sistema refil."
     },
     {
         "id": 513,
@@ -4741,7 +4742,7 @@
     {
         "id": 541,
         "session": "Edição Limitada",
-        "line": "Linha Jovem",
+        "line": "Maquiagem - Linha Jovem",
         "image": "10-062149.jpg",
         "points": 15,
         "title": "Trio de Sombras Efeito Brilho - Field Day - 2g",
@@ -4860,7 +4861,7 @@
     {
         "id": 555,
         "session": "Edição Limitada",
-        "line": "Zen in Bloom",
+        "line": "Fairytales & Fantasy",
         "image": "10-065497.jpg",
         "points": 12,
         "title": "Esmalte para Unhas - 7,5ml",
@@ -5224,7 +5225,7 @@
         "line": "SPA e Fragrâncias",
         "image": "10-073072.jpg",
         "points": 19,
-        "title": "Creme para as Mãos Journey of Dreams",
+        "title": "Creme para as Mãos Journey of Dreams - 85g",
         "price": 33,
         "description": "Inspirada no perfume Journey, possui a mesma fórmula do Creme para as Mãos Satin Hands."
     },
