@@ -24,7 +24,6 @@
 
         $scope.cancel = function () {
             dialog.close($q.reject());
-        }
-    }
-    ]);
+        };
+    }]);
 })(angular);
