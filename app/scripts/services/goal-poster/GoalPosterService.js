@@ -1,5 +1,5 @@
 (function (angular) {
-    'use strict'
+    'use strict';
 
     angular.module('tnt.catalog.goalposter.service', []).service('GoalPosterService', ['$q', 'SyncDriver', 'ConsultantService', function ($q, SyncDriver, ConsultantService) {
 
@@ -23,7 +23,7 @@
         }, {
             areaType: 'circle',
             size: 220
-        }]
+        }];
 
         var updateLocalData = function () {
             images[0] = localStorage.getItem(user + ':goalPoster:image:0');
@@ -87,7 +87,7 @@
                     updateLocalData();
                 }
             });
-        }
+        };
     }]);
 
 })(angular);
