@@ -24,8 +24,8 @@
 
 /* para cada item individualmente */
 #sacred .main-best-sellers .bs-product1 {
-    height:192px;
-    width:192px;
+    height:180px;
+    width:189px;
     top:60px;
     left:30px;
 }
@@ -41,81 +41,81 @@
 }
 
 #sacred .main-best-sellers .bs-product2 {
-    height:192px;
-    width:192px;
+    height:147px;
+    width:247px;
     top:33px;
     left:340px;
 }
 #sacred .main-best-sellers .bs-product2 .bs-item1 {
-    width:50px;
-    height:161px;
+    width:60px;
+    height:141px;
 }
 #sacred .main-best-sellers .bs-product2 .bs-item2 {
-    width:72px;
+    width:192px;
     height:50px;
-    top:20px;
+    top:17px;
     left:50px;
 }
 
 #sacred .main-best-sellers .bs-product3 {
-    height:260px;
-    width:260px;
-    top:53px;
-    right:20px; 
+    height:197px;
+    width:313px;
+    top:78px;
+    right:20px;
 }
 #sacred .main-best-sellers .bs-product3 .bs-item1 {
-    width:91px;
+    width:125px;
     height:191px;
     right:0;
 }
 #sacred .main-best-sellers .bs-product3 .bs-item2 {
     width:166px;
-    height:68px;
+    height:57px;
     top:101px;
     left:0;
 }
 
 #sacred .main-best-sellers .bs-product4 {
-    height:194px;
-    width:194px;
+    height:153px;
+    width:209px;
     top:205px;
-    left:80px; 
+    left:80px;
 }
 #sacred .main-best-sellers .bs-product4 .bs-item1 {
     width:41px;
     height:142px;
-    right:0;
+    right:10px;
 }
 #sacred .main-best-sellers .bs-product4 .bs-item2 {
-    width:150px;
+    width:154px;
     height:53px;
     top:58px;
     left:0;
 }
 
 #sacred .main-best-sellers .bs-product5 {
-    height:185px;
-    width:185px;
+    height:124px;
+    width:176px;
     top:255px;
-    left:390px; 
+    left:390px;
 }
 #sacred .main-best-sellers .bs-product5 .bs-item1 {
     width:33px;
     height:116px;
-    left:0;
+    left:10px;
 }
 #sacred .main-best-sellers .bs-product5 .bs-item2 {
-    width:146px;
-    height:69px;
+    width:134px;
+    height:57px;
     top:33px;
     left:34px;
 }
 
 #sacred .main-best-sellers .bs-product6 {
-    height:297px;
-    width:297px;
+    height:99px;
+    width:302px;
     top:375px;
-    left:0; 
+    left:0;
 }
 #sacred .main-best-sellers .bs-product6 .bs-item1 {
     width:143px;
@@ -130,10 +130,10 @@
 }
 
 #sacred .main-best-sellers .bs-product7 {
-    height:249px;
-    width:249px;
+    height:110px;
+    width:250px;
     top:344px;
-    right:20px; 
+    right:20px;
 }
 #sacred .main-best-sellers .bs-product7 .bs-item1 {
     width:165px;
@@ -148,10 +148,10 @@
 }
 
 #sacred .main-best-sellers .bs-product8 {
-    height:242px;
-    width:242px;
+    height:170px;
+    width:217px;
     top:430px;
-    left:348px; 
+    left:348px;
 }
 #sacred .main-best-sellers .bs-product8 .bs-item1 {
     width:59px;
@@ -166,10 +166,10 @@
 }
 
 #sacred .main-best-sellers .bs-product9 {
-    height:237px;
-    width:237px;
+    height:176px;
+    width:193px;
     top:506px;
-    left:30px; 
+    left:30px;
 }
 #sacred .main-best-sellers .bs-product9 .bs-item1 {
     width:59px;
@@ -184,10 +184,10 @@
 }
 
 #sacred .main-best-sellers .bs-product10 {
-    height:228px;
+    height:72px;
     width:228px;
     top:578px;
-    right:38px; 
+    right:38px;
 }
 #sacred .main-best-sellers .bs-product10 .bs-item1 {
     width:217px;
