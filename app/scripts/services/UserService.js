@@ -63,7 +63,6 @@
                 logger.getLogger('remotedebug.version').info(CatalogConfig.version);
                 var hashMD5 = setUserMD5(user, pass);
                 localStorage.user = user;
-                GoalPosterService.checkForUpdates();
                 return hashMD5;
             };
 

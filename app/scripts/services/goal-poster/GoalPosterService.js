@@ -1,96 +1,166 @@
 (function (angular) {
-    'use strict'
+    'use strict';
 
-    angular.module('tnt.catalog.goalposter.service', []).service('GoalPosterService', ['$q', 'SyncDriver', 'ConsultantService', function ($q, SyncDriver, ConsultantService) {
+    angular.module('tnt.catalog.goalposter.service', []).service(
+        'GoalPosterService',
+        [
+            '$q',
+            '$filter',
+            'SyncDriver',
+            'ConsultantService',
+            function ($q, $filter, SyncDriver, ConsultantService) {
 
-        var remote = SyncDriver.goalPoster;
-        var images = [];
-        var alerts = [];
-        var messageOfDay = {};
-        var user = localStorage.getItem('user');
-        var goalImageSizes = [{
-            areaType: 'square',
-            size: 50
-        }, {
-            areaType: 'circle',
-            size: 220
-        }, {
-            areaType: 'circle',
-            size: 250
-        }, {
-            areaType: 'circle',
-            size: 250
-        }, {
-            areaType: 'circle',
-            size: 220
-        }]
+                // #####################################################################################################
+                // Local variables
+                // #####################################################################################################
 
-        var updateLocalData = function () {
-            images[0] = localStorage.getItem(user + ':goalPoster:image:0');
-            images[1] = localStorage.getItem(user + ':goalPoster:image:1');
-            images[2] = localStorage.getItem(user + ':goalPoster:image:2');
-            images[3] = localStorage.getItem(user + ':goalPoster:image:3');
-            images[4] = localStorage.getItem(user + ':goalPoster:image:4');
+                var CONSULTANT_IMG_SIZE = {
+                    areaType: 'square',
+                    size: 50
+                };
+                var GOAL_IMG_SIZE = {
+                    1: {
+                        areaType: 'circle',
+                        size: 220
+                    },
+                    2: {
+                        areaType: 'circle',
+                        size: 250
+                    },
+                    3: {
+                        areaType: 'circle',
+                        size: 250
+                    },
+                    4: {
+                        areaType: 'circle',
+                        size: 220
+                    }
+                };
 
-            alerts = JSON.parse(localStorage.getItem(user + ':goalPoster:alerts'));
+                var remote = SyncDriver.goalPoster;
+                var user = localStorage.getItem('user');
+                var localData = {
+                    consultant: {info: {}, avatar: {}},
+                    goals: {
+                        1: {name: 'Meta 1', deadline: 1420081200000},
+                        2: {name: 'Meta 2', deadline: 1420081200000},
+                        3: {name: 'Meta 3', deadline: 1420081200000},
+                        4: {name: 'Meta 4', deadline: 1420081200000}
+                    },
+                    alerts: [],
+                    messagesOfDay: []
+                };
 
-            var messagesOfDay = JSON.parse(localStorage.getItem(user + ':goalPoster:messages'));
-            var messageChoice = new Date().getDate() % 4;
+                // #####################################################################################################
+                // Local functions
+                // #####################################################################################################
 
-            messageOfDay = messagesOfDay[messageChoice];
-        };
+                var updateConsultant = function (hash, data) {
+                    data.consultant.info = ConsultantService.get();
+                    data.consultant.avatar.base64Img = localStorage.getItem(hash + 'avatar');
+                    data.consultant.avatar.size = angular.copy(CONSULTANT_IMG_SIZE);
+                };
+                var updateGoals = function (hash, data) {
+                    var goalHash = hash + 'goals:';
+                    var imageHash = hash + 'images:';
+                    for (var idx in localData.goals) {
+                        var goal = JSON.parse(localStorage.getItem(goalHash + idx));
+                        if (goal) {
+                            data.goals[idx].name = goal.name;
+                            data.goals[idx].deadline = goal.deadline;
+                        }
+                        data.goals[idx].base64Img = localStorage.getItem(imageHash + idx);
+                        data.goals[idx].size = angular.copy(GOAL_IMG_SIZE[idx]);
+                    }
+                };
 
-        var updateLocalStorage = function () {
-            remote.getData().then(function (goalPosterData) {
-                localStorage.setItem(user + ':goalPoster:lastSync', goalPosterData.lastSyncRemote);
-                localStorage.setItem(user + ':goalPoster:image:0', goalPosterData.images['0']);
-                localStorage.setItem(user + ':goalPoster:image:1', goalPosterData.images['1']);
-                localStorage.setItem(user + ':goalPoster:image:2', goalPosterData.images['2']);
-                localStorage.setItem(user + ':goalPoster:image:3', goalPosterData.images['3']);
-                localStorage.setItem(user + ':goalPoster:image:4', goalPosterData.images['4']);
+                var updateAlerts = function (hash, data) {
+                    data.alerts = JSON.parse(localStorage.getItem(user + ':goalPoster:alerts'));
+                };
 
-                localStorage.setItem(user + ':goalPoster:alerts', JSON.stringify(goalPosterData.alerts));
-                localStorage.setItem(user + ':goalPoster:messages', JSON.stringify(goalPosterData.messages));
+                var updateMessages = function (hash, data) {
+                    var messagesMap = JSON.parse(localStorage.getItem(user + ':goalPoster:messages'));
+                    data.messagesOfDay.length = 0;
+                    for (var idx in messagesMap) {
+                        data.messagesOfDay.push(messagesMap[idx]);
+                    }
+                };
 
-                updateLocalData();
-            });
-        };
+                var updateLocalStorage = function (remoteData) {
+                    localStorage.setItem(user + ':goalPoster:lastSync', remoteData.lastSyncRemote);
 
-        this.setImage = function (id, base64Image) {
-            var now = new Date().getTime();
-            localStorage.setItem(user + ':goalPoster:image:' + id, base64Image);
-            localStorage.setItem(user + ':goalPoster:lastSync', now);
-            remote.setImage(id, base64Image, now);
-        };
+                    localStorage.setItem(user + ':goalPoster:avatar', remoteData.avatar);
 
-        this.getConsultant = function () {
-            return ConsultantService.get();
-        };
+                    localStorage.setItem(user + ':goalPoster:goals:1', remoteData.goals['1']);
+                    localStorage.setItem(user + ':goalPoster:goals:2', remoteData.goals['2']);
+                    localStorage.setItem(user + ':goalPoster:goals:3', remoteData.goals['3']);
+                    localStorage.setItem(user + ':goalPoster:goals:4', remoteData.goals['4']);
 
-        this.getImagesSize = function () {
-            return angular.copy(goalImageSizes);
-        };
+                    localStorage.setItem(user + ':goalPoster:images:1', remoteData.images['1']);
+                    localStorage.setItem(user + ':goalPoster:images:2', remoteData.images['2']);
+                    localStorage.setItem(user + ':goalPoster:images:3', remoteData.images['3']);
+                    localStorage.setItem(user + ':goalPoster:images:4', remoteData.images['4']);
 
-        this.getImages = function () {
-            return images;
-        };
-        this.getAlerts = function () {
-            return images;
-        };
-        this.getMessageOfDay = function () {
-            return messageOfDay;
-        };
+                    localStorage.setItem(user + ':goalPoster:alerts', JSON.stringify(remoteData.alerts));
+                    localStorage.setItem(user + ':goalPoster:messages', JSON.stringify(remoteData.messages));
+                };
 
-        this.checkForUpdates = function () {
-            remote.lastSync().then(function (lastSyncRemote) {
-                var lastSyncLocal = localStorage.getItem(user + ':goalPoster:lastSync');
-                if (lastSyncRemote > lastSyncLocal) {
-                    updateLocalStorage();
-                } else {
-                    updateLocalData();
-                }
-            });
-        }
-    }]);
+                // #####################################################################################################
+                // Published functions
+                // #####################################################################################################
+
+                this.checkForUpdates = function () {
+                    remote.lastSync().then(
+                        // on success
+                        function (lastSyncRemote) {
+                            var lastSyncLocal = localStorage.getItem(user + ':goalPoster:lastSync');
+                            if (lastSyncRemote && lastSyncRemote > lastSyncLocal) {
+                                remote.getData().then(function (remoteData) {
+                                    updateLocalStorage(remoteData);
+                                });
+                            }
+                        });
+                };
+
+                this.updateLocalData = function () {
+                    var hash = user + ':goalPoster:';
+                    updateConsultant(hash, localData);
+                    updateGoals(hash, localData);
+                    updateAlerts(hash, localData);
+                    updateMessages(hash, localData);
+                };
+
+                this.getConsultant = function () {
+                    return localData.consultant;
+                };
+
+                this.getGoals = function () {
+                    return localData.goals;
+                };
+
+                this.getAlerts = function () {
+                    return localData.alerts;
+                };
+
+                this.getMessageOfDay = function () {
+                    var messageChoice = Math.round(Math.random() * localData.messagesOfDay.length);
+                    return localData.messagesOfDay[messageChoice];
+                };
+
+                this.setAvatarImage = function (base64Image) {
+                    var now = new Date().getTime();
+                    localStorage.setItem(user + ':goalPoster:avatar', base64Image);
+                    localStorage.setItem(user + ':goalPoster:lastSync', now);
+                    remote.setAvatarImage(base64Image, now);
+                };
+
+                this.setGoalImage = function (id, base64Image) {
+                    var now = new Date().getTime();
+                    localStorage.setItem(user + ':goalPoster:images:' + id, base64Image);
+                    localStorage.setItem(user + ':goalPoster:lastSync', now);
+                    remote.setGoalImage(id, base64Image, now);
+                };
+
+            }]);
 
 })(angular);
