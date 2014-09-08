@@ -360,7 +360,26 @@
                         });
                         return deferred.promise;
                     },
-                    setImage: function (id, base64Image, now) {
+                    setAvatarImage: function (base64Image, now) {
+                        var deferred = $q.defer();
+
+                        userRef.child('goalPoster').child('data').child('avatar').set(base64Image, function (error) {
+                            if (error) {
+                                deferred.reject(error);
+                            } else {
+                                userRef.child('goalPoster').child('lastSync').set(now, function (error) {
+                                    if (error) {
+                                        deferred.reject(error);
+                                    } else {
+                                        deferred.resolve('Image updated');
+                                    }
+                                });
+                            }
+                        });
+
+                        return deferred.promise;
+                    },
+                    setGoalImage: function (id, base64Image, now) {
                         var deferred = $q.defer();
 
                         userRef.child('goalPoster').child('data').child('images').child(id).set(base64Image, function (error) {

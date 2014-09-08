@@ -8,7 +8,7 @@
 
 
         $scope.crop = {
-            myImage: dialog.data.myImage,
+            myImage: dialog.data.base64Img,
             myCroppedImage: null,
             areaType: dialog.data.areaType,
             size: dialog.data.size
