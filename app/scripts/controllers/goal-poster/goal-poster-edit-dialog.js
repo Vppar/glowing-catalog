@@ -9,9 +9,6 @@
         };
 
         $scope.confirm = function () {
-            if (angular.isDate($scope.goal.deadline)) {
-                $scope.goal.deadline = $scope.goal.deadline.getTime();
-            }
             return dialog.close($scope.goal);
         };
 

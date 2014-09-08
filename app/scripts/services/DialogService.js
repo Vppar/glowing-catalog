@@ -197,7 +197,7 @@
         };
 
         this.openGoalPosterEditDialog = function (data) {
-            return openDialog('views/parts/goal-poster/sacred-goal-poster-edit-dialog.html', 'GoalPosterEditDialogCtrl', data, 'modal-goal-poster-edit');
+            return openDialog('views/parts/goal-poster/sacred-goal-poster-edit-dialog.html', 'GoalPosterEditDialogCtrl', data, cssDefaultClass);
         };
     }]);
 
