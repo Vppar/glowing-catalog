@@ -48,12 +48,12 @@
                 // Scope functions
                 // #####################################################################################################
                 $scope.editGoal = function (idx) {
-                    var goal = $scope.goal[idx];
-                    DialogService.openImageUploadDialog(goal).then(
+                    var goal = $scope.goals[idx];
+                    DialogService.openGoalPosterEditDialog(goal).then(
                         function (goal) {
                             if (goal) {
-                                $scope.goal[idx].name = goal.name;
-                                $scope.goal[idx].deadline = goal.deadline;
+                                $scope.goals[idx].name = goal.name;
+                                $scope.goals[idx].deadline = goal.deadline;
                             }
                         }
                     );
@@ -62,7 +62,7 @@
                 $scope.goalImageUpload = function (id) {
                     var data = $scope.goals[id];
                     var success = function (base64Img) {
-                        $scope.goals[id].base64Img = base64Img
+                        $scope.goals[id].base64Img = base64Img;
                         GoalPosterService.setGoalImage(id, base64Img);
                     };
                     editImage(data, success);

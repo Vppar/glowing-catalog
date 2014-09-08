@@ -195,6 +195,10 @@
         this.openImageUploadDialog = function (data) {
             return openDialog('views/parts/global/image-upload-dialog.html', 'ImageUploadCtrl', data, cssDefaultClass);
         };
+
+        this.openGoalPosterEditDialog = function (data) {
+            return openDialog('views/parts/goal-poster/sacred-goal-poster-edit-dialog.html', 'GoalPosterEditDialogCtrl', data, cssDefaultClass);
+        };
     }]);
 
 }(angular));

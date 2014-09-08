@@ -160,7 +160,5 @@
                     localStorage.setItem(user + ':goalPoster:lastSync', now);
                     remote.setGoalImage(id, base64Image, now);
                 };
-
             }]);
-
 })(angular);
