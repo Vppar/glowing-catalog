@@ -161,7 +161,8 @@
             'tnt.utils.imageUpload.ctrl',
             'tnt.catalog.directives.fileInput',
             'tnt.catalog.goalposter.ctrl',
-            'tnt.catalog.goalposter.service'
+            'tnt.catalog.goalposter.service',
+            'tnt.catalog.goalposter.editDialog'
         ]);
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
