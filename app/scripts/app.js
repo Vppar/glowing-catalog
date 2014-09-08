@@ -262,7 +262,7 @@
         }).when('/receivable-check-old', {
             templateUrl: 'views/receivable-check.html'
         }).when('/goal-poster', {
-            templateUrl: 'views/sacred-goal-poster.html',
+            templateUrl: 'views/parts/goal-poster/sacred-goal-poster.html',
             controller: 'GoalPosterCtrl'
         }).when('/components/date-range', {
             templateUrl: 'routes/components/date-range/date-range.html',
