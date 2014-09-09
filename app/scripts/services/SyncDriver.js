@@ -355,7 +355,7 @@
                     getMessageOfDay: function (year, month, day) {
                         var deferred = $q.defer();
 
-                        baseRef.child('goalPoster').child(year).child(month).child(day).on('value', function (snapshot) {
+                        baseRef.child('goalPoster').child('messages').child(year).child(month).child(day).on('value', function (snapshot) {
                             deferred.resolve(snapshot.val());
                         });
 

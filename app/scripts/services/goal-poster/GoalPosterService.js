@@ -38,7 +38,7 @@
                 };
 
                 var remote = SyncDriver.goalPoster;
-                var user = localStorage.getItem('user');
+                var localStorageHash = localStorage.getItem('user') + ':goalPoster:';
                 var localData = {
                     consultant: {info: {}, avatar: {}},
                     goals: {
@@ -65,8 +65,9 @@
                     var goalHash = hash + 'goals:';
                     var imageHash = hash + 'images:';
                     for (var idx in localData.goals) {
-                        var goal = JSON.parse(localStorage.getItem(goalHash + idx));
-                        if (goal) {
+                        var storedGoal = localStorage.getItem(goalHash + idx);
+                        if (storedGoal) {
+                            var goal = JSON.parse(storedGoal);
                             data.goals[idx].name = goal.name;
                             data.goals[idx].deadline = goal.deadline;
                         }
@@ -83,29 +84,28 @@
                     data.messageOfDay = localStorage.getItem(hash + 'message');
                 };
 
-                var updateLocalStorage = function (remoteData) {
-                    var hash = user + ':goalPoster:';
-
-                    localStorage.setItem(hash + 'lastSync', remoteData.lastSyncRemote);
+                var updateLocalStorage = function (hash, remoteData) {
+                    localStorage.setItem(hash + 'lastSync', remoteData.lastSync);
 
                     localStorage.setItem(hash + 'avatar', remoteData.avatar);
 
                     if (remoteData.goals) {
-                        localStorage.setItem(hash + 'goals:1', remoteData.goals['1']);
-                        localStorage.setItem(hash + 'goals:2', remoteData.goals['2']);
-                        localStorage.setItem(hash + 'goals:3', remoteData.goals['3']);
-                        localStorage.setItem(hash + 'goals:4', remoteData.goals['4']);
+                        for (var idg in remoteData.goals) {
+                            localStorage.setItem(hash + 'goals:' + idg, JSON.stringify(remoteData.goals[idg]));
+                        }
                     }
 
                     if (remoteData.images) {
-                        localStorage.setItem(hash + 'images:1', remoteData.images['1']);
-                        localStorage.setItem(hash + 'images:2', remoteData.images['2']);
-                        localStorage.setItem(hash + 'images:3', remoteData.images['3']);
-                        localStorage.setItem(hash + 'images:4', remoteData.images['4']);
+                        for (var idi in remoteData.goals) {
+                            localStorage.setItem(hash + 'images:' + idi, remoteData.images[idi]);
+                        }
                     }
 
                     localStorage.setItem(hash + 'alerts', JSON.stringify(remoteData.alerts));
-                    localStorage.setItem(hash + 'messages', JSON.stringify(remoteData.messages));
+                };
+
+                var updateLocalStorageMessageOfDay = function (hash, messageOfDay) {
+                    localStorage.setItem(hash + 'message', JSON.stringify(messageOfDay));
                 };
 
                 // #####################################################################################################
@@ -113,24 +113,33 @@
                 // #####################################################################################################
 
                 this.checkForUpdates = function () {
+                    var now = new Date();
+                    var year = now.getFullYear();
+                    var month = now.getMonth() + 1;
+                    var day = now.getDate();
+
                     remote.lastSync().then(
                         // on success
                         function (lastSyncRemote) {
-                            var lastSyncLocal = localStorage.getItem(user + ':goalPoster:lastSync');
+                            var lastSyncLocal = localStorage.getItem(localStorageHash + 'lastSync');
                             if (lastSyncRemote && lastSyncRemote > lastSyncLocal) {
                                 remote.getData().then(function (remoteData) {
-                                    updateLocalStorage(remoteData);
+                                    updateLocalStorage(localStorageHash, remoteData);
                                 });
                             }
                         });
+                    remote.getMessageOfDay(year, month, day).then(function (messageOfDay) {
+                        if (messageOfDay) {
+                            updateLocalStorageMessageOfDay(localStorageHash, messageOfDay);
+                        }
+                    });
                 };
 
                 this.updateLocalData = function () {
-                    var hash = user + ':goalPoster:';
-                    updateConsultant(hash, localData);
-                    updateGoals(hash, localData);
-                    updateAlerts(hash, localData);
-                    updateMessage(hash, localData);
+                    updateConsultant(localStorageHash, localData);
+                    updateGoals(localStorageHash, localData);
+                    updateAlerts(localStorageHash, localData);
+                    updateMessage(localStorageHash, localData);
                 };
 
                 this.getConsultant = function () {
@@ -151,22 +160,22 @@
 
                 this.setAvatarImage = function (base64Image) {
                     var now = new Date().getTime();
-                    localStorage.setItem(user + ':goalPoster:avatar', base64Image);
-                    localStorage.setItem(user + ':goalPoster:lastSync', now);
+                    localStorage.setItem(localStorageHash + 'avatar', base64Image);
+                    localStorage.setItem(localStorageHash + 'lastSync', now);
                     remote.setAvatarImage(base64Image, now);
                 };
 
                 this.setGoal = function (idx, goal) {
                     var now = new Date().getTime();
-                    localStorage.setItem(user + ':goalPoster:goals:' + idx, JSON.stringify(goal));
-                    localStorage.setItem(user + ':goalPoster:lastSync', now);
+                    localStorage.setItem(localStorageHash + 'goals:' + idx, JSON.stringify(goal));
+                    localStorage.setItem(localStorageHash + 'lastSync', now);
                     remote.setGoal(idx, goal, now);
                 };
 
                 this.setGoalImage = function (idx, base64Image) {
                     var now = new Date().getTime();
-                    localStorage.setItem(user + ':goalPoster:images:' + idx, base64Image);
-                    localStorage.setItem(user + ':goalPoster:lastSync', now);
+                    localStorage.setItem(localStorageHash + 'images:' + idx, base64Image);
+                    localStorage.setItem(localStorageHash + 'lastSync', now);
                     remote.setGoalImage(idx, base64Image, now);
                 };
             }]);
