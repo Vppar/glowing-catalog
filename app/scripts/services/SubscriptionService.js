@@ -16,6 +16,7 @@
                     invalidProperty.planType = angular.isDefined(subscription.planType);
                     invalidProperty.subscriptionDate = angular.isDefined(subscription.subscriptionDate);
                     invalidProperty.consultant = angular.isDefined(subscription.consultant);
+                    invalidProperty.paymentType = angular.isDefined(subscription.paymentType);
 
                     var result = [];
                  
