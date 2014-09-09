@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '1.3.3-168'
+# 'version' : '1.3.3-61'
 CACHE:
 apple-touch-icon.png
 apple-touch-icon-152x152.png
@@ -261,6 +261,7 @@ scripts/controllers/target/target-parent.js
 scripts/controllers/date-range-test.js
 scripts/controllers/subscription.js
 scripts/controllers/goal-poster/goal-poster.js
+scripts/controllers/goal-poster/goal-poster-edit-dialog.js
 scripts/controllers/image-upload-dialog.js
 scripts/controllers/loading-dialog.js
 
@@ -466,6 +467,8 @@ views/parts/products-delivery/sacred-products-delivery-delivered-products.html
 views/parts/products-delivery/sacred-products-delivery-delivered.html
 views/parts/products-delivery/sacred-products-delivery-delivery.html
 views/parts/products-delivery/sacred-products-delivery.html
+views/parts/goal-poster/sacred-goal-poster.html
+views/parts/goal-poster/sacred-goal-poster-edit-dialog.html
 views/catalog/sacred-best-sellers.html
 views/sacred-bi.html
 

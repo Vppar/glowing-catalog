@@ -58,7 +58,7 @@
                 var updateConsultant = function (hash, data) {
                     data.consultant.info = ConsultantService.get();
                     data.consultant.avatar.base64Img = localStorage.getItem(hash + 'avatar');
-                    data.consultant.avatar.size = angular.copy(CONSULTANT_IMG_SIZE);
+                    angular.extend(data.consultant.avatar, CONSULTANT_IMG_SIZE);
                 };
 
                 var updateGoals = function (hash, data) {
@@ -72,7 +72,7 @@
                             data.goals[idx].deadline = goal.deadline;
                         }
                         data.goals[idx].base64Img = localStorage.getItem(imageHash + idx);
-                        data.goals[idx].size = angular.copy(GOAL_IMG_SIZE[idx]);
+                        angular.extend(data.goals[idx], GOAL_IMG_SIZE[idx]);
                     }
                 };
 
@@ -81,7 +81,7 @@
                 };
 
                 var updateMessage = function (hash, data) {
-                    data.messageOfDay = localStorage.getItem(hash + 'message');
+                    data.messageOfDay = JSON.parse(localStorage.getItem(hash + 'message'));
                 };
 
                 var updateLocalStorage = function (hash, remoteData) {
@@ -96,7 +96,7 @@
                     }
 
                     if (remoteData.images) {
-                        for (var idi in remoteData.goals) {
+                        for (var idi in remoteData.images) {
                             localStorage.setItem(hash + 'images:' + idi, remoteData.images[idi]);
                         }
                     }
