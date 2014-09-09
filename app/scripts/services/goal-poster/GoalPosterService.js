@@ -60,6 +60,7 @@
                     data.consultant.avatar.base64Img = localStorage.getItem(hash + 'avatar');
                     data.consultant.avatar.size = angular.copy(CONSULTANT_IMG_SIZE);
                 };
+
                 var updateGoals = function (hash, data) {
                     var goalHash = hash + 'goals:';
                     var imageHash = hash + 'images:';
@@ -75,34 +76,36 @@
                 };
 
                 var updateAlerts = function (hash, data) {
-                    data.alerts = JSON.parse(localStorage.getItem(user + ':goalPoster:alerts'));
+                    data.alerts = JSON.parse(localStorage.getItem(hash + 'alerts'));
                 };
 
-                var updateMessages = function (hash, data) {
-                    var messagesMap = JSON.parse(localStorage.getItem(user + ':goalPoster:messages'));
-                    data.messagesOfDay.length = 0;
-                    for (var idx in messagesMap) {
-                        data.messagesOfDay.push(messagesMap[idx]);
-                    }
+                var updateMessage = function (hash, data) {
+                    data.messageOfDay = localStorage.getItem(hash + 'message');
                 };
 
                 var updateLocalStorage = function (remoteData) {
-                    localStorage.setItem(user + ':goalPoster:lastSync', remoteData.lastSyncRemote);
+                    var hash = user + ':goalPoster:';
 
-                    localStorage.setItem(user + ':goalPoster:avatar', remoteData.avatar);
+                    localStorage.setItem(hash + 'lastSync', remoteData.lastSyncRemote);
 
-                    localStorage.setItem(user + ':goalPoster:goals:1', remoteData.goals['1']);
-                    localStorage.setItem(user + ':goalPoster:goals:2', remoteData.goals['2']);
-                    localStorage.setItem(user + ':goalPoster:goals:3', remoteData.goals['3']);
-                    localStorage.setItem(user + ':goalPoster:goals:4', remoteData.goals['4']);
+                    localStorage.setItem(hash + 'avatar', remoteData.avatar);
 
-                    localStorage.setItem(user + ':goalPoster:images:1', remoteData.images['1']);
-                    localStorage.setItem(user + ':goalPoster:images:2', remoteData.images['2']);
-                    localStorage.setItem(user + ':goalPoster:images:3', remoteData.images['3']);
-                    localStorage.setItem(user + ':goalPoster:images:4', remoteData.images['4']);
+                    if (remoteData.goals) {
+                        localStorage.setItem(hash + 'goals:1', remoteData.goals['1']);
+                        localStorage.setItem(hash + 'goals:2', remoteData.goals['2']);
+                        localStorage.setItem(hash + 'goals:3', remoteData.goals['3']);
+                        localStorage.setItem(hash + 'goals:4', remoteData.goals['4']);
+                    }
 
-                    localStorage.setItem(user + ':goalPoster:alerts', JSON.stringify(remoteData.alerts));
-                    localStorage.setItem(user + ':goalPoster:messages', JSON.stringify(remoteData.messages));
+                    if (remoteData.images) {
+                        localStorage.setItem(hash + 'images:1', remoteData.images['1']);
+                        localStorage.setItem(hash + 'images:2', remoteData.images['2']);
+                        localStorage.setItem(hash + 'images:3', remoteData.images['3']);
+                        localStorage.setItem(hash + 'images:4', remoteData.images['4']);
+                    }
+
+                    localStorage.setItem(hash + 'alerts', JSON.stringify(remoteData.alerts));
+                    localStorage.setItem(hash + 'messages', JSON.stringify(remoteData.messages));
                 };
 
                 // #####################################################################################################
@@ -127,7 +130,7 @@
                     updateConsultant(hash, localData);
                     updateGoals(hash, localData);
                     updateAlerts(hash, localData);
-                    updateMessages(hash, localData);
+                    updateMessage(hash, localData);
                 };
 
                 this.getConsultant = function () {
@@ -143,8 +146,7 @@
                 };
 
                 this.getMessageOfDay = function () {
-                    var messageChoice = Math.round(Math.random() * localData.messagesOfDay.length);
-                    return localData.messagesOfDay[messageChoice];
+                    return localData.messageOfDay;
                 };
 
                 this.setAvatarImage = function (base64Image) {
@@ -154,11 +156,18 @@
                     remote.setAvatarImage(base64Image, now);
                 };
 
-                this.setGoalImage = function (id, base64Image) {
+                this.setGoal = function (idx, goal) {
                     var now = new Date().getTime();
-                    localStorage.setItem(user + ':goalPoster:images:' + id, base64Image);
+                    localStorage.setItem(user + ':goalPoster:goals:' + idx, JSON.stringify(goal));
                     localStorage.setItem(user + ':goalPoster:lastSync', now);
-                    remote.setGoalImage(id, base64Image, now);
+                    remote.setGoal(idx, goal, now);
+                };
+
+                this.setGoalImage = function (idx, base64Image) {
+                    var now = new Date().getTime();
+                    localStorage.setItem(user + ':goalPoster:images:' + idx, base64Image);
+                    localStorage.setItem(user + ':goalPoster:lastSync', now);
+                    remote.setGoalImage(idx, base64Image, now);
                 };
             }]);
 })(angular);

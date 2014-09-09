@@ -352,10 +352,19 @@
                         });
                         return deferred.promise;
                     },
+                    getMessageOfDay: function (year, month, day) {
+                        var deferred = $q.defer();
+
+                        baseRef.child('goalPoster').child(year).child(month).child(day).on('value', function (snapshot) {
+                            deferred.resolve(snapshot.val());
+                        });
+
+                        return deferred.promise;
+                    },
                     getData: function () {
                         var deferred = $q.defer();
 
-                        userRef.child('goalPoster').child('data').on('value', function (snapshot) {
+                        userRef.child('goalPoster').on('value', function (snapshot) {
                             deferred.resolve(snapshot.val());
                         });
                         return deferred.promise;
@@ -363,7 +372,26 @@
                     setAvatarImage: function (base64Image, now) {
                         var deferred = $q.defer();
 
-                        userRef.child('goalPoster').child('data').child('avatar').set(base64Image, function (error) {
+                        userRef.child('goalPoster').child('avatar').set(base64Image, function (error) {
+                            if (error) {
+                                deferred.reject(error);
+                            } else {
+                                userRef.child('goalPoster').child('lastSync').set(now, function (error) {
+                                    if (error) {
+                                        deferred.reject(error);
+                                    } else {
+                                        deferred.resolve('Image updated');
+                                    }
+                                });
+                            }
+                        });
+
+                        return deferred.promise;
+                    },
+                    setGoal: function (id, goal, now) {
+                        var deferred = $q.defer();
+
+                        userRef.child('goalPoster').child('goals').child(id).set(goal, function (error) {
                             if (error) {
                                 deferred.reject(error);
                             } else {
@@ -382,7 +410,7 @@
                     setGoalImage: function (id, base64Image, now) {
                         var deferred = $q.defer();
 
-                        userRef.child('goalPoster').child('data').child('images').child(id).set(base64Image, function (error) {
+                        userRef.child('goalPoster').child('images').child(id).set(base64Image, function (error) {
                             if (error) {
                                 deferred.reject(error);
                             } else {

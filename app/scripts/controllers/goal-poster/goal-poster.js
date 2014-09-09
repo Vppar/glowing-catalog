@@ -54,16 +54,18 @@
                             if (goal) {
                                 $scope.goals[idx].name = goal.name;
                                 $scope.goals[idx].deadline = goal.deadline;
+
+                                GoalPosterService.setGoal(idx, goal);
                             }
                         }
                     );
                 };
 
-                $scope.goalImageUpload = function (id) {
-                    var data = $scope.goals[id];
+                $scope.goalImageUpload = function (idx) {
+                    var data = $scope.goals[idx];
                     var success = function (base64Img) {
-                        $scope.goals[id].base64Img = base64Img;
-                        GoalPosterService.setGoalImage(id, base64Img);
+                        $scope.goals[idx].base64Img = base64Img;
+                        GoalPosterService.setGoalImage(idx, base64Img);
                     };
                     editImage(data, success);
                 };
