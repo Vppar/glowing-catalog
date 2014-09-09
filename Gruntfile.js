@@ -89,7 +89,7 @@ module.exports =
                     },
                     livereload : {
                         options : {
-                            hostname : '0.0.0.0',
+                            hostname : 'localhost',
                             open : true,
                             base : [
                                 '.tmp', '<%= yeoman.app %>'
