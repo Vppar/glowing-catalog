@@ -71,10 +71,7 @@
                 };
 
                 $scope.avatarImageUpload = function () {
-                    var data = {
-                        base64Img: $scope.consultant.avatar.base64Img,
-                        size: $scope.consultant.avatar.size
-                    };
+                    var data = $scope.consultant.avatar;
                     var success = function (base64Img) {
                         $scope.consultant.avatar.base64Img = base64Img;
                         GoalPosterService.setAvatarImage(base64Img);
