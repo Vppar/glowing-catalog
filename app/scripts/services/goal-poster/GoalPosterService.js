@@ -77,17 +77,27 @@
                 };
 
                 var updateAlerts = function (hash, data) {
-                    data.alerts = JSON.parse(localStorage.getItem(hash + 'alerts'));
+                    var storedAlerts = localStorage.getItem(hash + 'alerts');
+                    if (storedAlerts) {
+                        data.alerts = JSON.parse(storedAlerts);
+                    }
                 };
 
                 var updateMessage = function (hash, data) {
-                    data.messageOfDay = JSON.parse(localStorage.getItem(hash + 'message'));
+                    var storedMessage = localStorage.getItem(hash + 'message');
+                    if (storedMessage) {
+                        data.messageOfDay = JSON.parse(storedMessage);
+                    }
                 };
 
                 var updateLocalStorage = function (hash, remoteData) {
-                    localStorage.setItem(hash + 'lastSync', remoteData.lastSync);
+                    if (remoteData.lastSync) {
+                        localStorage.setItem(hash + 'lastSync', remoteData.lastSync);
+                    }
 
-                    localStorage.setItem(hash + 'avatar', remoteData.avatar);
+                    if (remoteData.avatar) {
+                        localStorage.setItem(hash + 'avatar', remoteData.avatar);
+                    }
 
                     if (remoteData.goals) {
                         for (var idg in remoteData.goals) {
@@ -100,8 +110,9 @@
                             localStorage.setItem(hash + 'images:' + idi, remoteData.images[idi]);
                         }
                     }
-
-                    localStorage.setItem(hash + 'alerts', JSON.stringify(remoteData.alerts));
+                    if (remoteData.alerts) {
+                        localStorage.setItem(hash + 'alerts', JSON.stringify(remoteData.alerts));
+                    }
                 };
 
                 var updateLocalStorageMessageOfDay = function (hash, messageOfDay) {
