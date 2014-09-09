@@ -264,7 +264,7 @@
                         } else {
                             SyncAttempt.clear(counterId);
                             log.fatal('SyncDriver.save() failed! Giving up after ' +
-                                self.MAX_SYNC_ATTEMPTS + ' attempts!', entry, err);
+                            self.MAX_SYNC_ATTEMPTS + ' attempts!', entry, err);
                             deferred.reject(err);
                         }
                     });
@@ -576,10 +576,10 @@
                     JournalKeeper.findEntry(entry.sequence).then(function (journalEntry) {
                         if (journalEntry) {
                             entry.uuid === journalEntry.uuid ?
-                            // Entry is already in the journal, do nothing.
-                            deferred.resolve() :
-                            // We have a conflict! Resolve it!
-                            deferred.resolve(reSequence(entry));
+                                // Entry is already in the journal, do nothing.
+                                deferred.resolve() :
+                                // We have a conflict! Resolve it!
+                                deferred.resolve(reSequence(entry));
                         } else {
                             // FIXME(mkretschek) This odd situation should
                             // happen only when a sequence number is skipped

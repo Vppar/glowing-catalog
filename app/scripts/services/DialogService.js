@@ -1,8 +1,8 @@
-(function(angular) {
+(function (angular) {
     'use strict';
-    angular.module('tnt.catalog.service.dialog',['ui.bootstrap']).service('DialogService', ['$q','$dialog', function($q, $dialog) {
+    angular.module('tnt.catalog.service.dialog', ['ui.bootstrap']).service('DialogService', ['$q', '$dialog', function ($q, $dialog) {
 
-        
+
         // I needed a more flexible `openDialog` function but did'n wanted to change the
         // signature of the currently used one. Therefore I'm creating this underscored
         // function.
@@ -22,17 +22,17 @@
         var openSubscriptionDialog = function openSubscriptionDialog(template, controller, data, cssClass) {
 
             var options = {
-              backdrop : 'static',
-              backdropClick : false,
-              dialogClass : cssClass,
-              keyboard : false
+                backdrop: 'static',
+                backdropClick: false,
+                dialogClass: cssClass,
+                keyboard: false
             };
 
             var dialog = _openDialog(data, options);
-                        
+
             function closeDialog() {
                 dialog.$scope.cancel();
-            }            
+            }
 
             return dialog.open(template, controller);
         };
@@ -41,14 +41,14 @@
 
         var openDialog = function openDialog(template, controller, data, cssClass, parentDialog) {
             var options = {
-              backdrop : !parentDialog,
-              backdropClick : true,
-              dialogClass : cssClass
+                backdrop: !parentDialog,
+                backdropClick: true,
+                dialogClass: cssClass
             };
 
             var dialog = _openDialog(data, options);
             dialog.parentDialog = parentDialog;
-            
+
             function closeDialog() {
                 dialog.$scope.cancel();
             }
@@ -71,114 +71,118 @@
         /**
          * Message dialog that returns a promise and if the dialog is not closed
          * by the cancel button return a rejected promise.
-         * 
+         *
          * @param {object} data - Object to be passed to the dialog.
          * @returns {object} safeDialog - Dialog promise with safe exit.
          */
-        this.messageDialog = function(data) {
+        this.messageDialog = function (data) {
             var dialogPromise =
-                    openDialog(
-                            'views/parts/global/sacred-message-dialog.html', 'MessageDialogCtrl', data,
-                            cssSmallClass);
-            var safeDialog = dialogPromise.then(function(success) {
+                openDialog(
+                    'views/parts/global/sacred-message-dialog.html', 'MessageDialogCtrl', data,
+                    cssSmallClass);
+            var safeDialog = dialogPromise.then(function (success) {
                 var result = null;
-                if(success){
+                if (success) {
                     result = success;
                 } else {
                     result = $q.reject('canceledByUser');
                 }
                 return result;
             });
-            
+
             return safeDialog;
         };
 
-        this.openDialogNumpad = function(data, parent) {
+        this.openDialogNumpad = function (data, parent) {
             return openDialog('views/parts/global/numpad-dialog.html', 'NumpadDialogCtrl', data, 'modal-numpad', parent);
         };
 
-        this.openDialogAddCustomerTels = function(data) {
+        this.openDialogAddCustomerTels = function (data) {
             return openDialog('views/parts/add-customer/add-customer-phones-dialog.html', 'AddCustomerPhonesDialogCtrl', data, 'modal-add-customer-tel');
         };
 
-        this.openDialogAddCustomerEmails = function(data) {
+        this.openDialogAddCustomerEmails = function (data) {
             return openDialog('views/parts/add-customer/add-customer-emails-dialog.html', 'AddCustomerEmailsDialogCtrl', data, 'modal-add-customer-email');
         };
 
-        this.openDialogAddToBasket = function(data) {
+        this.openDialogAddToBasket = function (data) {
             return openDialog('views/parts/catalog/add-to-basket-dialog.html', 'AddToBasketDialogCtrl', data, 'modal-add-basket-dialog');
         };
 
-        this.openDialogAddToBasketSku = function(data) {
+        this.openDialogAddToBasketSku = function (data) {
             return openDialog('views/parts/catalog/add-to-basket-dialog-sku.html', 'AddToBasketDialogCtrl', data, 'modal-add-basket-payment-dialog');
         };
-        
-        this.openDialogAddToBasketDetails = function(data) {
+
+        this.openDialogAddToBasketDetails = function (data) {
             return openDialog('views/parts/catalog/add-to-basket-dialog-details.html', 'AddToBasketDialogCtrl', data, 'modal-add-basket-details-dialog');
         };
 
-        this.openDialogChangePass = function(data) {
+        this.openDialogChangePass = function (data) {
             return openDialog('views/parts/global/sacred-change-pass-dialog.html', 'ChangePassDialogCtrl', data, cssSmallClass);
         };
 
-        this.openDialogChooseCustomer = function(data) {
+        this.openDialogChooseCustomer = function (data) {
             return openDialog('views/parts/global/sacred-choose-customer-dialog.html', 'ChooseCustomerDialogCtrl', data, 'modal-choose-customer-dialog');
         };
 
-        this.openDialogChooseCustomerNoRedirect = function(data) {
+        this.openDialogChooseCustomerNoRedirect = function (data) {
             return openDialog('views/parts/global/sacred-choose-customer-dialog.html', 'ChooseCustomerDialogNoRedirectCtrl', data, 'modal-choose-customer-dialog');
         };
 
-        this.openDialogDeliveryDetails = function(data) {
+        this.openDialogDeliveryDetails = function (data) {
             return openDialog('views/parts/partial-delivery/delivery-details-dialog.html', 'DeliveryDetailsDialogCtrl', data, cssDefaultClass);
         };
 
         /* FIX-ME this shold be removed! */
-        this.openDialogCustomerInfo = function(data) {
+        this.openDialogCustomerInfo = function (data) {
             return openDialog('views/parts/partial-delivery/customer-info-dialog.html', 'CustomerInfoDialogCtrl', data, cssDefaultClass);
         };
-        
-        this.openDialogPurchaseOrderTicket = function(data) {
+
+        this.openDialogPurchaseOrderTicket = function (data) {
             return openDialog('views/parts/purchase-order/sacred-purchase-order-ticket-dialog.html', 'PurchaseOrderTicketDialogCtrl', data, 'modal-products-to-buy-ticket');
         };
 
-        this.openDialogReceivable = function(data) {
+        this.openDialogReceivable = function (data) {
             return openDialog('views/parts/receivable/receivable-dialog.html', 'ReceivableConfigureLiquidateCtrl', data, 'modal-receivable');
         };
-        
-        this.openDialogDeliveryScheduler = function(data) {
+
+        this.openDialogDeliveryScheduler = function (data) {
             return openDialog('views/parts/products-delivery/sacred-products-delivery-to-be-delivery-schedule-dialog.html', 'ScheduleDeliveryCtrl', data, 'modal-products-delivery');
         };
 
-        this.openDialogSubscriptionAdditionalInformation = function(data) {
+        this.openDialogSubscriptionAdditionalInformation = function (data) {
             return openSubscriptionDialog('views/parts/subscription/subscription-additional-information-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-additional-information-dialog');
         };
 
-        this.openDialogSubscriptionLastPlanNull = function(data) {
+        this.openDialogSubscriptionLastPlanNull = function (data) {
             return openSubscriptionDialog('views/parts/subscription/subscription-lastPlanNull-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-last-plan-dialog');
         };
 
-        this.openDialogSubscriptionLastPlanGloss = function(data) {
+        this.openDialogSubscriptionLastPlanGloss = function (data) {
             return openSubscriptionDialog('views/parts/subscription/subscription-lastPlanGloss-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-last-plan-dialog');
         };
 
-        this.openDialogSubscriptionLastPlanBlush = function(data) {
+        this.openDialogSubscriptionLastPlanBlush = function (data) {
             return openSubscriptionDialog('views/parts/subscription/subscription-lastPlanBlush-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-last-plan-dialog');
         };
 
-        this.openDialogSubscriptionFinalMessageBillet = function(data) {
+        this.openDialogSubscriptionLastPlanRimel = function (data) {
+            return openSubscriptionDialog('views/parts/subscription/subscription-lastPlanRimel-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-last-plan-dialog');
+        };
+
+        this.openDialogSubscriptionFinalMessageBillet = function (data) {
             return openSubscriptionDialog('views/parts/subscription/subscription-final-message-billet-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-final-message-dialog');
         };
 
-        this.openDialogSubscriptionFinalMessageCC = function(data) {
+        this.openDialogSubscriptionFinalMessageCC = function (data) {
             return openSubscriptionDialog('views/parts/subscription/subscription-final-message-cc-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-final-message-dialog');
         };
 
         this.openDialogLoading = function (data) {
             var options = {
-                backdrop : true,
-                backdropClick : false,
-                dialogClass : cssSmallClass
+                backdrop: true,
+                backdropClick: false,
+                dialogClass: cssSmallClass
             };
 
             var dialog = _openDialog(data, options);
@@ -186,6 +190,14 @@
             dialog.open('views/parts/global/loading-dialog.html', 'LoadingDialogCtrl');
 
             return dialog;
+        };
+
+        this.openImageUploadDialog = function (data) {
+            return openDialog('views/parts/global/image-upload-dialog.html', 'ImageUploadCtrl', data, cssDefaultClass);
+        };
+
+        this.openGoalPosterEditDialog = function (data) {
+            return openDialog('views/parts/goal-poster/sacred-goal-poster-edit-dialog.html', 'GoalPosterEditDialogCtrl', data, 'modal-goal-poster-edit');
         };
     }]);
 

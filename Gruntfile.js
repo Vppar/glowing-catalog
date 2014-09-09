@@ -179,7 +179,7 @@ module.exports =
                         }
                     }
                 },
-                
+
                 ngtemplates:  {
                     glowingCatalogApp: {
                         cwd:      'app',

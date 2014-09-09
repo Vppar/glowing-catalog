@@ -18,7 +18,7 @@
  .zoom img{
  	margin: auto;
  }
- 
+
  /* modal structure */
  .modal-head{
      border-radius: 4px 4px 0 0;
@@ -56,7 +56,7 @@
 	vertical-align: middle;
 }
 
- 
+
  .modal-body{
      padding: 20px 20px 0px 20px;
      width: 100%;
@@ -65,23 +65,23 @@
      -webkit-box-sizing: border-box;
      box-sizing:        border-box;
  }
- 
+
  .modal-foot{
      padding: 0px 20px 20px 20px;
      width: 100%;
      -moz-box-sizing:    border-box;
      -webkit-box-sizing: border-box;
-     box-sizing:        border-box;   
+     box-sizing:        border-box;
  }
  .modal-foot hr{
  	margin: 10px 0px 20px 0px;
  }
- 
+
  .modal-body .numpad-holder{
      float: left;
      display: block;
  }
- 
+
  /* numpad */
  .modal-numpad{
      position: absolute;
@@ -104,7 +104,7 @@
  	overflow:hidden;
   max-height:450px;
  }
- 
+
  .modal-add-basket-details-dialog{
      position: absolute;
      top: 80px;
@@ -117,7 +117,7 @@
      border-radius: 4px;
      box-shadow: -5px -5px 100px 10px #525151;
  }
- 
+
  .modal-add-basket-dialog {
      position: absolute;
      top: 80px;
@@ -233,7 +233,7 @@
      width: 100%;
      margin-top: 25px;
  }
- 
+
 .modal-products-to-buy-ticket {
     position: absolute;
      top: 80px;
@@ -285,7 +285,7 @@
 	all this at modal-body, maybe should be at some more restricted class....
  */
 
- .modal-body .img-holder{    
+ .modal-body .img-holder{
      text-align:center;
      vertical-align:center;
      display:block;
@@ -297,7 +297,7 @@
      display:block;
      float: left;
  }
-  
+
  .modal-body .info small{
      font-size: 12px;
      text-align: center;
@@ -318,12 +318,12 @@
      width: 60px;
      margin: auto;
  }
- 
+
  .modal-body .info .price small{
      display: inline-block;
      padding-right: 6px;
  }
- 
+
  .modal-body .info .total span{
      display: block;
  }
@@ -342,7 +342,7 @@
      text-align: center;
      color: #333;
  }
- 
+
  .modal-body .info .line-gradient{
      margin-top: 30px;
      width: 100%;
@@ -351,7 +351,7 @@
      margin-top: 10px;
      color: #aaa;
  }
- 
+
  .modal-add-basket-details-dialog-body .skus{
      width: 530px;
      float: left;
@@ -389,13 +389,13 @@
      width: 30%;
      display: inline-block;
  }
- 
+
  /*-------------------------
   end of the new stuff
  ---------------------------*/
- 
- 
- 
+
+
+
 
 /*HEADING*/
 .heading-gradient {
@@ -412,7 +412,7 @@
 	font-family: "Quicksand-Regular", Helvetica, Arial,"Helvetica Neue", sans-serif;
 	text-align:center;
 }
-.form-confirmation-dialog, 
+.form-confirmation-dialog,
 .form-add-email,
 .form-add-tel,
 .form-add-to-basket,
@@ -426,7 +426,7 @@
 .form-payment-check,
 .form-payment-exchange-modal {
 	padding: 22px;
-	border-radius: 0 0 4px 4px;	
+	border-radius: 0 0 4px 4px;
 	box-shadow: -5px -5px 100px 10px #525151;/*box-shadow: 0px 10px 50px 10px #999;*/
 	background: #fff;
 	position: absolute;
@@ -560,7 +560,7 @@
 	font-size:15px;
 }
 span.zoom {
-	margin:20px 0;	
+	margin:20px 0;
 	width: 223px;
 	height: 223px;
 }
@@ -1045,3 +1045,26 @@ input.sub-total-payment {
      border-radius: 4px;
      box-shadow: -5px -5px 100px 10px #525151;
 }
+
+.modal-goal-poster-edit {
+    position: absolute;
+    top: 80px;
+    left: 50%;
+    z-index: 1050;
+    width: 300px;
+    margin-left: -200px;
+    background-color: white;
+    border: none;
+    border-radius: 4px;
+    box-shadow: -5px -5px 100px 10px #525151;
+}
+.modal-goal-poster-edit .modal-body{
+    overflow-y: visible;
+}
+.modal-goal-poster-edit .modal-body .row-fluid:first-child {
+    margin-bottom:6px;
+}
+.modal-goal-poster-edit .modal-body .span6:first-child {
+    line-height:30px;
+}
+
