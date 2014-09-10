@@ -1,7 +1,7 @@
 <div class="views">
     <div class="view view-main">
 
-        <h1 class="form-signin-heading text-muted"><img class="vpink-logo" src="images/mobile/vpink_logo.png" alt="wishlist" /></h1>
+        <h1 class="form-signin-heading text-muted"><img class="vpink-logo" src="images/mobile/vpink_logo.png" alt="wishlist"/></h1>
 
         <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
         <div class="pages navbar-through toolbar-t  hrough">
@@ -37,26 +37,34 @@
                                     </div>
                                 </a>
                             </li>
-                            
-                            <li><a href="#/catalog">CATÁLOGO</a></li>
+
+                            <li><a href="#/catalog">CAT&Aacute;LOGO</a></li>
 
                             <li><a href="" ng-click="checkout(true)">PAGAMENTO</a></li>
 
-                            <li class="hide"><a href="#/stock" class="item-link item-content">
-                                <div class="item-inner">
-                                    <div class="item-title">PRONTA ENTREGA</div>
-                                </div>
-                            </a></li>
-                            <li class="hide"><a href="#/order-list" class="item-link item-content">
-                                <div class="item-inner">
-                                    <div class="item-title">RESUMO DE VENDA</div>
-                                </div>
-                            </a></li>
-                            <li class="hide"><a href="#/receivable" class="item-link item-content">
-                                <div class="item-inner">
-                                    <div class="item-title">CONTAS A RECEBER</div>
-                                </div>
-                            </a></li>
+                            <li><a href="#/product-delivery">ENTREGA DE PRODUTO</a></li>
+
+                            <li class="hide">
+                                <a href="#/stock" class="item-link item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">PRONTA ENTREGA</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="hide">
+                                <a href="#/order-list" class="item-link item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">RESUMO DE VENDA</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="hide">
+                                <a href="#/receivable" class="item-link item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">CONTAS A RECEBER</div>
+                                    </div>
+                                </a>
+                            </li>
                             <li class="hide"><a href="#/bi" class="item-link item-content">
                                 <div class="item-inner">
                                     <div class="item-title">ANÁLISE DE DESEMPENHO</div>
@@ -64,9 +72,9 @@
                             </a></li>
 
                             <li><a href="#/">
-                                    <div ng-click="updateCache()" ng-show="!update">VERIFICAR ATUALIZA&Ccedil;&Otilde;ES</div>
-                                    <div ng-show="update==='checking'">VERIFICANDO...</div>
-                                    <div ng-click="forceUpdate()" ng-show="update==='update'">ATUALIZAR AGORA</div>
+                                <div ng-click="updateCache()" ng-show="!update">VERIFICAR ATUALIZA&Ccedil;&Otilde;ES</div>
+                                <div ng-show="update==='checking'">VERIFICANDO...</div>
+                                <div ng-click="forceUpdate()" ng-show="update==='update'">ATUALIZAR AGORA</div>
                             </a></li>
 
                             <li><a href="#/" ng-click="logout()">SAIR</a></li>
@@ -75,8 +83,6 @@
 
                 </div>
             </div>
-
         </div>
-
     </div>
 </div>

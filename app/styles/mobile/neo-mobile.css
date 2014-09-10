@@ -73,6 +73,10 @@ margin-left: -29px;
 	height: 100%
 }
 
+#neo .content.product-delivery {
+    height: 165px;
+}
+
 /* content margins. just to each section do not touches the next one.*/
 #neo .grid-header,
 #neo .control,
@@ -85,7 +89,9 @@ margin-left: -29px;
 #neo .grid{
 	height: 100%;
 }
-
+#neo .product-delivered .control{
+    margin-top: 8px;
+}
 #neo .content.product-delivered .grid{
 	/* with footer!! height: calc(100% - 325px); /*minus grid-header, all other stuff inside content*/
 	height: calc(100% - 342px);
@@ -135,12 +141,12 @@ margin-left: -29px;
 	background-color: #ccc;
 	height: 44px;
 	line-height: 44px;
-	
+
 }
 
 #neo .scroll{
 	overflow-x: hidden;
-	overflow-y: scroll; 
+	overflow-y: scroll;
 }
 
 #neo .scroll .row{
@@ -174,7 +180,7 @@ margin-left: -29px;
 }
 
 #neo .grid .grid-row{
-	border-bottom:1px dashed #ccc; 
+	border-bottom:1px dashed #ccc;
 }
 #neo .value{
 	height: 45px;
@@ -202,7 +208,7 @@ margin-left: -29px;
 }
 
 #neo .footer{
-	border-top:1px solid #ccc; 
+	border-top:1px solid #ccc;
 	min-height: 59px;
 	padding-top: 10px;
 }
@@ -217,18 +223,18 @@ margin-left: -29px;
 #neo .search input:hover,
 #neo .search input:visited{
 	background-color: #eee;
-	border-color: #eee; 
+	border-color: #eee;
 	box-shadow: none;
 }
 
 #neo .search .input-group-addon{
 	background-color: #eee;
-	border-color: #eee; 
+	border-color: #eee;
 }
 
 
 /* modal adjustament */
 #neo .modal-body{
-    background-color:#fff; 
+    background-color:#fff;
     float: left;
 }

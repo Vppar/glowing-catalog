@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '0.0.13-34'
+# 'version' : '0.0.13-37'
 
 CACHE:
 apple-touch-icon.png
@@ -601,6 +601,7 @@ views/mobile/pedido-venda.html
 views/mobile/pronta-entrega.html
 views/mobile/troca-produto.html
 views/mobile/vale-cupom.html
+views/mobile/neo/product-delivery.html
 views/mobile/neo/product-delivery-delivered.html
 views/mobile/neo/product-delivery-delivered-details.html
 views/mobile/neo/product-delivery-to-deliver.html
