@@ -1,15 +1,13 @@
 <div class="product-delivered">
     <div class="control">
         <div class="row page-control">
-            <div class="row">
-                <div class="col-xs-6">
-                    <label for="date-start">Data Inicial</label>
-                    <input id="date-start" class="form-control" placeholder="01/08/2014">
-                </div>
-                <div class="col-xs-6">
-                    <label for="date-end">Data Inicial</label>
-                    <input id="date-end" class="form-control" placeholder="01/08/2014">
-                </div>
+            <div class="col-xs-6">
+                <label for="date-start">Data Inicial</label>
+                <input id="date-start" class="form-control" placeholder="01/08/2014">
+            </div>
+            <div class="col-xs-6">
+                <label for="date-end">Data Inicial</label>
+                <input id="date-end" class="form-control" placeholder="01/08/2014">
             </div>
         </div>
     </div>
@@ -17,26 +15,27 @@
 
 <span ng-include src="'views/mobile/neo/parts/search.html'"></span>
 
-<div class="grid-header">
-    <div class="row">
-        <div class="col-xs-8">
-            Pedido
-        </div>
-        <div class="col-xs-4 center">
-            Entregues
+<div class="content product-delivered">
+    <div class="grid-header">
+        <div class="row">
+            <div class="col-xs-8">
+                Pedido
+            </div>
+            <div class="col-xs-4 center">
+                Entregues
+            </div>
         </div>
     </div>
-</div>
-<div class="grid scroll">
-
-    <div class="row grid-row">
-        <div class="col-xs-8 composite-grid-cell">
-            <div class="order-info">27/02/2014 - 0002-20-14</div>
-            <div class="order-name">Valtanette de Paula</div>
-        </div>
-        <div class="col-xs-4">
-            <div class="value">
-                3 de 3
+    <div class="grid scroll">
+        <div class="row grid-row" ng-repeat="order in delivered" ng-click="getItems(order)">
+            <div class="col-xs-8 composite-grid-cell">
+                <div class="order-info">{{order.created | date:'dd/MM/yyyy'}} - {{order | uuidCode}}</div>
+                <div class="order-name">{{order.customerName}}</div>
+            </div>
+            <div class="col-xs-4">
+                <div class="value">
+                    {{order.totalItemsDeliv}} de {{order.totalItems}}
+                </div>
             </div>
         </div>
     </div>

@@ -1,17 +1,9 @@
-<div class="container" id="neo">
-   
-   <span ng-include src="'views/mobile/neo/parts/header.html'"></span>
-   
-    <div class="content product-to-deliver-details">
-        <div class="title">
-            <div>Entrega de Produtos</div>
-        </div>
+<div class="content product-to-deliver-details">
+    <span ng-include src="'views/mobile/neo/parts/client-info.html'"></span>
 
-        <span ng-include src="'views/mobile/neo/parts/client-info.html'"></span>
+    <div class="control">
 
-        <div class="control">
-
-          <div class="row">
+        <div class="row">
             <div class="col-xs-6">
                 <label for="appointment">Agendamento</label>
                 <input id="appointment" class="form-control" placeholder="01/08/2014">
@@ -23,13 +15,12 @@
         </div>
     </div>
 
-
     <div class="grid-header">
         <div class="row">
-            <div class="col-xs-8">
-            Ítem
+            <div class="col-xs-7">
+                Ítem
             </div>
-            <div class="col-xs-4 center">
+            <div class="col-xs-5 center">
                 Entregar
             </div>
         </div>
@@ -37,13 +28,13 @@
     <div class="grid scroll">
 
         <div class="row grid-row">
-            <div class="col-xs-8 composite-grid-cell">
-                 <div class="product-name">Lápis Retrátil para olhos - 0.28g</div>
-                 <div class="product-info">10-078024 - Black</div>
-                 <div class="product-info">Qtde 6 - Disp 5</div>
+            <div class="col-xs-7 composite-grid-cell">
+                <div class="product-name">Lápis Retrátil para olhos - 0.28g</div>
+                <div class="product-info">10-078024 - Black</div>
+                <div class="product-info">Qtde 6 - Disp 5</div>
             </div>
-            <div class="col-xs-4 center">
-                     <tnt-number-picker ng-model="item.qty" min="0"></tnt-number-picker>
+            <div class="col-xs-5 center">
+                <tnt-number-picker ng-model="item.qty" min="0"></tnt-number-picker>
             </div>
         </div>
 
@@ -51,10 +42,9 @@
     <div class="footer">
         <div class="row">
             <div class="col-xs-12">
-                <button type="submit" class="btn btn-primary pull-left">Voltar</button> 
-                <button type="submit" class="btn btn-success pull-right">confirmar</button>                    
+                <button type="submit" class="btn btn-primary pull-left">Voltar</button>
+                <button type="submit" class="btn btn-success pull-right">confirmar</button>
             </div>
         </div>
     </div>
-</div>
 </div>

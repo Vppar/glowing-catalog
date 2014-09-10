@@ -15,8 +15,8 @@
             function ($scope, $filter, ArrayUtils, UserService, logger, ProductsDeliveryService) {
 
                 var log = logger.getLogger('tnt.catalog.productsDelivery.ProductsDeliveryCtrl');
-                
-                UserService.redirectIfInvalidUser();
+
+                //UserService.redirectIfInvalidUser();
                 $scope.toBeDelivered = [];
                 $scope.delivered = [];
                 $scope.toBeDeliveredOrdersTotals = [];
@@ -91,7 +91,7 @@
                         }
                         withoutScheduling = $filter('orderBy')(withoutScheduling, 'created');
                         return  withScheduling.concat(withoutScheduling);
-                }    
+                }
                 // #################################################################################################################
                 // Aux functions
                 // #################################################################################################################

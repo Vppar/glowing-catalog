@@ -12,14 +12,14 @@
         </div>
     </div>
     <div class="grid scroll">
-        <div class="row grid-row">
+        <div class="row grid-row" ng-repeat="order in toBeDelivered" ng-click="getItems(order)">
             <div class="col-xs-8 composite-grid-cell">
-                <div class="order-info">27/02/2014 - 0002-20-14</div>
-                <div class="order-name">Valtanette de Paula</div>
+                <div class="order-info">{{order.created | date:'dd/MM/yyyy'}} - {{order | uuidCode}}</div>
+                <div class="order-name">{{order.customerName}}</div>
             </div>
             <div class="col-xs-4">
                 <div class="value">
-                    1
+                    {{order.totalRemaining}}
                 </div>
             </div>
         </div>
