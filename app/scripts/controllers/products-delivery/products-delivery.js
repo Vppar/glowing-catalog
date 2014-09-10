@@ -16,7 +16,7 @@
 
                 var log = logger.getLogger('tnt.catalog.productsDelivery.ProductsDeliveryCtrl');
 
-                //UserService.redirectIfInvalidUser();
+                UserService.redirectIfInvalidUser();
                 $scope.toBeDelivered = [];
                 $scope.delivered = [];
                 $scope.toBeDeliveredOrdersTotals = [];

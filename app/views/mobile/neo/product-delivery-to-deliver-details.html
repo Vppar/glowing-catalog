@@ -18,7 +18,7 @@
     <div class="grid-header">
         <div class="row">
             <div class="col-xs-7">
-                Ítem
+                Item
             </div>
             <div class="col-xs-5 center">
                 Entregar
@@ -27,14 +27,14 @@
     </div>
     <div class="grid scroll">
 
-        <div class="row grid-row">
+        <div class="row grid-row" ng-repeat="product in selectedOrder.selectedOrderProducts">
             <div class="col-xs-7 composite-grid-cell">
-                <div class="product-name">Lápis Retrátil para olhos - 0.28g</div>
-                <div class="product-info">10-078024 - Black</div>
-                <div class="product-info">Qtde 6 - Disp 5</div>
+                <div class="product-name">{{product.title}}</div>
+                <div class="product-info">{{product.uniqueName}}</div>
+                <div class="product-info">Qtde {{product.qty}} - Disp {{product.stock}}</div>
             </div>
             <div class="col-xs-5 center">
-                <tnt-number-picker ng-model="item.qty" min="0"></tnt-number-picker>
+                <tnt-number-picker ng-model="ticket.watchedQty[$index]" min="0" max="{{product.maxDeliver}}"></tnt-number-picker>
             </div>
         </div>
 
@@ -42,8 +42,10 @@
     <div class="footer">
         <div class="row">
             <div class="col-xs-12">
-                <button type="submit" class="btn btn-primary pull-left">Voltar</button>
-                <button type="submit" class="btn btn-success pull-right">confirmar</button>
+                <button type="submit" class="btn btn-primary pull-left" ng-click="cancel()">Voltar</button>
+                <spinner-button class="btn btn-ok pull-right button-confirm-size" ng-disabled="disableConfirm" spinner-promise="confirm()">
+                    Confirmar
+                </spinner-button>
             </div>
         </div>
     </div>
