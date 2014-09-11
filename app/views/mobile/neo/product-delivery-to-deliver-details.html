@@ -1,7 +1,7 @@
 <div class="content product-to-deliver-details">
     <span ng-include src="'views/mobile/neo/parts/client-info.html'"></span>
 
-    <div class="control">
+    <div class="control scheduling">
 
         <div class="row">
             <div class="col-xs-6">
@@ -27,14 +27,16 @@
     </div>
     <div class="grid scroll">
 
-        <div class="row grid-row" ng-repeat="product in selectedOrder.selectedOrderProducts">
-            <div class="col-xs-7 composite-grid-cell">
-                <div class="product-name">{{product.title}}</div>
-                <div class="product-info">{{product.uniqueName}}</div>
-                <div class="product-info">Qtde {{product.qty}} - Disp {{product.stock}}</div>
-            </div>
-            <div class="col-xs-5 center">
-                <tnt-number-picker ng-model="ticket.watchedQty[$index]" min="0" max="{{product.maxDeliver}}"></tnt-number-picker>
+        <div class="row grid-row-details" ng-repeat="product in selectedOrder.selectedOrderProducts">
+            <div class="item">
+                <div class="col-xs-7 composite-grid-cell">
+                    <div class="product-name">{{product.title}}</div>
+                    <div class="product-info">{{product.uniqueName}}</div>
+                    <div class="product-info">Qtde {{product.qty}} - Disp {{product.maxDeliver}}</div>
+                </div>
+                <div class="col-xs-5 center">
+                    <tnt-number-picker ng-model="ticket.watchedQty[$index]" min="0" max="{{product.maxDeliver}}"></tnt-number-picker>
+                </div>
             </div>
         </div>
 

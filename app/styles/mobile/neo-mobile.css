@@ -84,6 +84,10 @@ margin-left: -29px;
 	margin-top: 15px;
 }
 
+#neo .control.scheduling {
+    margin-top: 10px;
+}
+
 /* grid sizes!!!!! each screen has its taylor maded grid size!*/
 
 #neo .grid{
@@ -104,11 +108,11 @@ margin-left: -29px;
 }
 
 #neo .content.product-to-deliver-details .grid{
-	height: calc(100% - 418px);
+	height: calc(100% - 406px);
 }
-
-
-
+#neo .content.product-delivered-details .grid{
+    height: calc(100% - 341px);
+}
 
 #neo .product-to-deliver-details .input-qty{
 	margin-top: 12px;
@@ -180,7 +184,18 @@ margin-left: -29px;
 }
 
 #neo .grid .grid-row{
-	border-bottom:1px dashed #ccc;
+     border-bottom:1px dashed #ccc;
+}
+#neo .grid .grid-row-details{
+    border-bottom:1px dashed #ccc;
+    min-height: 81px;
+}
+#neo .grid .grid-row-details .item {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 #neo .value{
 	height: 45px;
@@ -189,7 +204,7 @@ margin-left: -29px;
 }
 
 #neo .client-info{
-	margin: 15px 0;
+	margin: 10px 0;
 }
 
 #neo .client-info .order{
@@ -210,7 +225,7 @@ margin-left: -29px;
 #neo .footer{
 	border-top:1px solid #ccc;
 	min-height: 59px;
-	padding-top: 10px;
+	padding-top: 8px;
 }
 
 /* styles the search box for mobile version*/
