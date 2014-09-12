@@ -583,6 +583,7 @@ styles/mobile/troca-produto.css
 styles/mobile/new-numpad.css
 styles/mobile/neo-mobile.css
 styles/mobile/pagamento-emitir-voucher-cupom.css
+styles/mobile/neo-calendar.css
 
 views/mobile/catalog.html
 views/mobile/catalog_orig.html
