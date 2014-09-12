@@ -13,14 +13,14 @@
     </div>
     <div class="grid scroll">
 
-        <div class="row grid-row">
+        <div class="row grid-row" ng-repeat="product in selectedOrder.selectedOrderProducts">
             <div class="col-xs-9 composite-grid-cell">
-                <div class="product-name">Lápis Retrátil para olhos - 0.28g</div>
-                <div class="product-info">10-078024 - Black</div>
+                <div class="product-name">{{product.title}}</div>
+                <div class="product-info">{{product.uniqueName}}</div>
             </div>
             <div class="col-xs-3 qty">
                 <div class="value">
-                    1
+                    {{product.dQty}}
                 </div>
             </div>
         </div>
