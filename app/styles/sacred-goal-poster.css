@@ -11,6 +11,9 @@
     position: relative;
 }
 
+#sacred .sacred-goal-poster-page .poster .text .default-title{
+    color: #7f7f7f;
+}
 
 #sacred .sacred-goal-poster-page .poster .circle-01{
     position: absolute;
@@ -26,7 +29,8 @@
     color: #f49907;
     font-weight: bold;
     top:90px;
-    left: -80px;
+    left: -160px;
+    width: 150px;
 }
 #sacred .sacred-goal-poster-page .poster .circle-01 img {
     border-radius: 120px;
@@ -95,6 +99,7 @@
     font-weight: bold;
     top: 90px;
     left: 233px;
+    width: 150px;
 }
 #sacred .sacred-goal-poster-page .poster .circle-04 img {
     border-radius: 120px;

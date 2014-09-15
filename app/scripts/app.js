@@ -167,6 +167,9 @@
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/', {
+            templateUrl: 'views/parts/goal-poster/sacred-goal-poster.html',
+            controller: 'GoalPosterCtrl'
+        }).when('/main',{
             templateUrl: 'views/main.html',
             controller: 'MainCtrl'
         }).when('/basket', {
@@ -202,7 +205,7 @@
         }).when('/receivable-list', {
             templateUrl: 'views/receivable-list.html'
         }).when('/cash-flow', {
-            templateUrl: 'views/cash-flow.html',
+            templateUrl: 'views/cash-flow.html'
         }).when('/book-keeping-report', {
             templateUrl: 'views/book-keeping-report.html',
             controller: 'BookKeepingReportCtrl'

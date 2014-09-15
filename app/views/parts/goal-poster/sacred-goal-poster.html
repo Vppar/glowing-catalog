@@ -15,7 +15,7 @@
                     </div>
                     <div class="col-2" ng-click="avatarImageUpload()">
                         <img class="avatar" ng-if="consultant.avatar.base64Img" ng-src="{{consultant.avatar.base64Img}}"/>
-                        <img class="avatar" ng-if="!consultant.avatar.base64Img" src="images/avatar-self.jpg">
+                        <img class="avatar" ng-if="!consultant.avatar.base64Img" src="images/goal/add-avatar-50.png">
                     </div>
                 </div>
             </div>
@@ -26,67 +26,103 @@
                         <div class="poster">
                             <div class="circle-01">
                                 <div class="text" ng-click="editGoal(1)">
-                                    <div class="title">
-                                        {{goals[1].name}}
+                                    <div ng-if="!goals[1].name">
+                                        <div class="default-title">
+                                            Clique para adicionar<br>
+                                            a meta
+                                        </div>
                                     </div>
-                                    <div class="day">
-                                        {{goals[1].deadline | date:'dd/MM/yyyy'}}
+                                    <div ng-if="goals[1].name">
+                                        <div class="title">
+                                            {{goals[1].name}}
+                                        </div>
+                                        <div class="day">
+                                            {{goals[1].deadline | date:'dd/MM/yyyy'}}
+                                        </div>
                                     </div>
                                 </div>
                                 <div ng-click="goalImageUpload(1)">
                                     <img ng-if="goals[1].base64Img" ng-src="{{goals[1].base64Img}}"/>
-                                    <img ng-if="!goals[1].base64Img" src="images/goal/01.jpg">
+                                    <img ng-if="!goals[1].base64Img" src="images/goal/add-image-250.png">
                                 </div>
                             </div>
                             <div class="circle-02">
                                 <div class="text" ng-click="editGoal(2)">
-                                    <div class="title">
-                                        {{goals[2].name}}
+                                    <div ng-if="!goals[2].name">
+                                        <div class="default-title">
+                                            Clique para adicionar<br>
+                                            a meta
+                                        </div>
                                     </div>
-                                    <div class="day">
-                                        {{goals[2].deadline | date:'dd/MM/yyyy'}}
+                                    <div ng-if="goals[2].name">
+                                        <div class="title">
+                                            {{goals[2].name}}
+                                        </div>
+                                        <div class="day">
+                                            {{goals[2].deadline | date:'dd/MM/yyyy'}}
+                                        </div>
                                     </div>
                                 </div>
                                 <div ng-click="goalImageUpload(2)">
                                     <img ng-if="goals[2].base64Img" ng-src="{{goals[2].base64Img}}"/>
-                                    <img ng-if="!goals[2].base64Img" src="images/goal/02.jpg">
+                                    <img ng-if="!goals[2].base64Img" src="images/goal/add-image-250.png">
                                 </div>
                             </div>
                             <div class="circle-03">
                                 <div class="text" ng-click="editGoal(3)">
-                                    <div class="title">
-                                        {{goals[3].name}}
+                                    <div ng-if="!goals[3].name">
+                                        <div class="default-title">
+                                            Clique para adicionar<br>
+                                            a meta
+                                        </div>
                                     </div>
-                                    <div class="day">
-                                        {{goals[3].deadline | date:'dd/MM/yyyy'}}
+                                    <div ng-if="goals[3].name">
+                                        <div class="text" ng-click="editGoal(3)">
+                                            <div class="title">
+                                                {{goals[3].name}}
+                                            </div>
+                                            <div class="day">
+                                                {{goals[3].deadline | date:'dd/MM/yyyy'}}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div ng-click="goalImageUpload(3)">
                                     <img ng-if="goals[3].base64Img" ng-src="{{goals[3].base64Img}}"/>
-                                    <img ng-if="!goals[3].base64Img" src="images/goal/03.jpg">
+                                    <img ng-if="!goals[3].base64Img" src="images/goal/add-image-250.png">
                                 </div>
                             </div>
                             <div class="circle-04">
                                 <div class="text" ng-click="editGoal(4)">
-                                    <div class="title">
-                                        {{goals[4].name}}
+                                    <div ng-if="!goals[4].name">
+                                        <div class="default-title">
+                                            Clique para adicionar<br>
+                                            a meta
+                                        </div>
                                     </div>
-                                    <div class="day">
-                                        {{goals[4].deadline | date:'dd/MM/yyyy'}}
+                                    <div ng-if="goals[4].name">
+                                        <div class="text" ng-click="editGoal(4)">
+                                            <div class="title">
+                                                {{goals[4].name}}
+                                            </div>
+                                            <div class="day">
+                                                {{goals[4].deadline | date:'dd/MM/yyyy'}}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div ng-click="goalImageUpload(4)">
                                     <img ng-if="goals[4].base64Img" ng-src="{{goals[4].base64Img}}"/>
-                                    <img ng-if="!goals[4].base64Img" src="images/goal/04.jpg">
+                                    <img ng-if="!goals[4].base64Img" src="images/goal/add-image-250.png">
                                 </div>
                                 <!-- <img src="images/goal-poster.jpg"> -->
                             </div>
                         </div>
                     </div>
                     <div class="col-6">
-                        <div class="alerts">
+                        <div class="alerts" ng-if="alerts.length>0">
                             <div class="title">
-                                Alertas
+                                Novidades
                             </div>
                             <div class="content">
                                 <div class="alert alert-info" role="alert" ng-repeat="alert in alerts">

@@ -42,10 +42,10 @@
                 var localData = {
                     consultant: {info: {}, avatar: {}},
                     goals: {
-                        1: {name: 'Meta 1', deadline: 1420081200000},
-                        2: {name: 'Meta 2', deadline: 1420081200000},
-                        3: {name: 'Meta 3', deadline: 1420081200000},
-                        4: {name: 'Meta 4', deadline: 1420081200000}
+                        1: {},
+                        2: {},
+                        3: {},
+                        4: {}
                     },
                     alerts: [],
                     messagesOfDay: []
