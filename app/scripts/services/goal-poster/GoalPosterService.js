@@ -123,27 +123,41 @@
                 // Published functions
                 // #####################################################################################################
 
-                this.checkForUpdates = function () {
-                    var now = new Date();
-                    var year = now.getFullYear();
-                    var month = now.getMonth() + 1;
-                    var day = now.getDate();
+                this.isConnected = SyncDriver.isConnected;
 
-                    remote.lastSync().then(
-                        // on success
-                        function (lastSyncRemote) {
-                            var lastSyncLocal = localStorage.getItem(localStorageHash + 'lastSync');
-                            if (lastSyncRemote && lastSyncRemote > lastSyncLocal) {
-                                remote.getData().then(function (remoteData) {
-                                    updateLocalStorage(localStorageHash, remoteData);
-                                });
+                this.checkForUpdates = function () {
+
+                    var result = null;
+
+                    if (SyncDriver.isConnected()) {
+                        var now = new Date();
+                        var year = now.getFullYear();
+                        var month = now.getMonth() + 1;
+                        var day = now.getDate();
+
+                        var lastSyncPromise = remote.lastSync().then(
+                            // on success
+                            function (lastSyncRemote) {
+                                var lastSyncLocal = localStorage.getItem(localStorageHash + 'lastSync');
+                                if (lastSyncRemote && lastSyncRemote > lastSyncLocal) {
+                                    remote.getData().then(function (remoteData) {
+                                        updateLocalStorage(localStorageHash, remoteData);
+                                    });
+                                }
+                            });
+                        var messageOfDayPromise = remote.getMessageOfDay(year, month, day).then(function (messageOfDay) {
+                            if (messageOfDay) {
+                                updateLocalStorageMessageOfDay(localStorageHash, messageOfDay);
                             }
                         });
-                    remote.getMessageOfDay(year, month, day).then(function (messageOfDay) {
-                        if (messageOfDay) {
-                            updateLocalStorageMessageOfDay(localStorageHash, messageOfDay);
-                        }
-                    });
+                        result = [lastSyncPromise, messageOfDayPromise];
+                    } else {
+                        var deferred = $q.defer();
+                        deferred.resolve('Disconnected from firebase');
+                        result = [deferred.promise];
+                    }
+
+                    return $q.all();
                 };
 
                 this.updateLocalData = function () {

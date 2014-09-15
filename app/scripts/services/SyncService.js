@@ -11,7 +11,8 @@
             'JournalKeeper',
             'JournalEntry',
             'SyncDriver',
-            function SyncService ($q, logger, $rootScope, JournalKeeper, JournalEntry, SyncDriver) {
+            'GoalPosterService',
+            function SyncService($q, logger, $rootScope, JournalKeeper, JournalEntry, SyncDriver, GoalPosterService) {
 
                 var log = logger.getLogger('tnt.catalog.sync.service.SyncService');
 
@@ -59,7 +60,7 @@
                      *
                      * @type {Object}
                      */
-                    attempts : {},
+                    attempts: {},
 
                     /**
                      * Increments the attempt counter for the given uuid.
@@ -67,7 +68,7 @@
                      * @param {UUID} uuid Failed entry's uuid.
                      * @return {Number} The new attempt count value.
                      */
-                    increment : function (uuid) {
+                    increment: function (uuid) {
                         if (!this.attempts[uuid]) {
                             this.attempts[uuid] = 0;
                         }
@@ -82,7 +83,7 @@
                      *
                      * @param {UUID?} uuid The para
                      */
-                    clear : function (uuid) {
+                    clear: function (uuid) {
                         if (!uuid) {
                             this.attempts = {};
                         } else {
@@ -97,11 +98,11 @@
                  * @return {Boolean} Whether there's a synchronization in
                  *         progress
                  */
-                function isSynching () {
+                function isSynching() {
                     return !!syncDeferred;
                 }
 
-                function isWaitingToSync () {
+                function isWaitingToSync() {
                     return waitingToSync;
                 }
 
@@ -110,7 +111,7 @@
                  *
                  * @return {Promise}
                  */
-                function sync () {
+                function sync() {
                     log.debug('Starting synchronization attempt');
 
                     if (isSynching()) {
@@ -142,7 +143,7 @@
                         // Remove the reference to the syncPromise once
                         // finished,
                         // either with rejection or resolution
-                        function clearPromise () {
+                        function clearPromise() {
                             syncDeferred = null;
                             // Clear all attempt counters
                             SyncAttempt.clear();
@@ -166,10 +167,10 @@
                  * @param {JournalEntry} entry - The target entry.
                  * @return {JournalEntry} cleanEntry - Entry freed of $$hashKey
                  */
-                function removeHashKey (cleanObject) {
+                function removeHashKey(cleanObject) {
                     if (cleanObject) {
                         delete cleanObject.$$hashKey;
-                        for ( var ix in cleanObject) {
+                        for (var ix in cleanObject) {
                             var prop = cleanObject[ix];
                             if (angular.isObject(prop)) {
                                 removeHashKey(prop);
@@ -188,7 +189,7 @@
                  *
                  * @private
                  */
-                function syncReadOldestUnsynced (deferred) {
+                function syncReadOldestUnsynced(deferred) {
                     var promise = JournalKeeper.readOldestUnsynced();
 
                     promise.then(function (entry) {
@@ -218,7 +219,7 @@
                  *
                  * @private
                  */
-                function syncSaveEntry (deferred, entry) {
+                function syncSaveEntry(deferred, entry) {
                     if (!SyncDriver.isConnected()) {
                         deferred.reject('Not connected to Firebase');
                         return;
@@ -284,7 +285,7 @@
                  *
                  * @private
                  */
-                function syncMarkAsSynced (deferred, entry) {
+                function syncMarkAsSynced(deferred, entry) {
                     var promise = JournalKeeper.markAsSynced(entry);
 
                     promise.then(function () {
@@ -325,7 +326,7 @@
                  *
                  * @return {Number}
                  */
-                function getLastSyncedSequence () {
+                function getLastSyncedSequence() {
                     return JournalKeeper.getSyncedSequence();
                 }
 
@@ -337,7 +338,7 @@
                  *            server.
                  * @return {Promise} The promise returned by the JournalKeeper.
                  */
-                function insert (entry, transacted) {
+                function insert(entry, transacted) {
                     if (entry instanceof Array) {
                         var all = [];
                         var len, i, e;
@@ -345,10 +346,12 @@
 
                         for (i = 0, len = entry.length; i < len; i += 1) {
                             e = entry[i];
-                            if (!e) { continue; }
+                            if (!e) {
+                                continue;
+                            }
 
                             se = insert(e, true);
-                            if(se.then){
+                            if (se.then) {
                                 console.log('>>>>>>>>', se);
                                 se.finally(function (err) {
                                     console.log('!!!!!!!!!!!!!', err);
@@ -408,14 +411,14 @@
                         return sequenceConflictPromise;
                     }
 
-                    if(transacted){
+                    if (transacted) {
                         return entry;
                     } else {
                         return JournalKeeper.insert(entry);
                     }
                 }
 
-                function decreaseInsertionCounter () {
+                function decreaseInsertionCounter() {
                     insertionCounter--;
 
                     if (insertionCounter === 0) {
@@ -440,7 +443,7 @@
                  *
                  * @return {Array} A shallow copy of the stash array.
                  */
-                function getStashedEntries () {
+                function getStashedEntries() {
                     return (stash && getStash().slice(0)) || [];
                 }
 
@@ -450,7 +453,7 @@
                  *
                  * @return {Promise}
                  */
-                function stashEntries () {
+                function stashEntries() {
                     var deferred = $q.defer();
 
                     // FIXME: what should we do if stashEntries() is called
@@ -465,7 +468,7 @@
                         var promises = [];
                         var entry;
 
-                        for ( var idx in entries) {
+                        for (var idx in entries) {
                             entry = entries[idx];
                             stash.push(entry);
                             promises.push(JournalKeeper.remove(entry));
@@ -485,7 +488,7 @@
                  *
                  * @return {Promise}
                  */
-                function unstashEntries () {
+                function unstashEntries() {
                     if (!stash) {
                         var deferred = $q.defer();
                         deferred.resolve(true);
@@ -495,7 +498,7 @@
 
                     var promises = [];
 
-                    for ( var idx in stash) {
+                    for (var idx in stash) {
                         // FIXME: should we create a new entry without a
                         // sequence
                         // or just send the entry as is and let the keeper
@@ -519,11 +522,11 @@
                     return promise;
                 }
 
-                function clearStash () {
+                function clearStash() {
                     stash = null;
                 }
 
-                function getStash () {
+                function getStash() {
                     if (!stash) {
                         stash = [];
                     }
@@ -540,7 +543,7 @@
                  *            server.
                  * @return {Promise}
                  */
-                function reSequence (entry) {
+                function reSequence(entry) {
                     log.debug('Resolving sequence conflict!', entry);
 
                     var deferred = $q.defer();
@@ -566,11 +569,11 @@
                     return deferred.promise;
                 }
 
-                function isResolvingConflict () {
+                function isResolvingConflict() {
                     return !!sequenceConflictPromise;
                 }
 
-                function resolveSequenceConflict (entry) {
+                function resolveSequenceConflict(entry) {
                     var deferred = $q.defer();
 
                     JournalKeeper.findEntry(entry.sequence).then(function (journalEntry) {
@@ -610,11 +613,11 @@
                 /**
                  * Clears all synced and unsynced entries.
                  */
-                function clearData () {
+                function clearData() {
                     return JournalKeeper.clear();
                 }
 
-                function hasUnsyncedEntries () {
+                function hasUnsyncedEntries() {
                     return JournalKeeper.readUnsynced().then(function (result) {
                         return !!(result && result.length);
                     });
@@ -622,7 +625,7 @@
 
                 // FIXME This is a dirty proxy to the JournalKeeper's method.
                 this.resync = function () {
-                    return JournalKeeper.resync();
+                    return $q.all([JournalKeeper.resync(), GoalPosterService.checkForUpdates()]);
                 };
 
                 this.insert = insert;

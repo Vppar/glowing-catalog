@@ -3,8 +3,8 @@
 
     angular.module('tnt.catalog.user', [
         'tnt.util.log', 'angular-md5', 'tnt.catalog.sync.driver', 'tnt.catalog.sync.service', 'tnt.catalog.prefetch.service', 'tnt.catalog.config', 'tnt.catalog.service.dialog', 'tnt.catalog.subscription.service', 'tnt.catalog.goalposter.service'
-    ]).service('UserService', ['$q', '$location', '$timeout', 'logger', 'md5', 'SyncDriver', 'SyncService', 'PrefetchService', 'CatalogConfig', 'DialogService', 'SubscriptionService', 'ConsultantService', 'GoalPosterService',
-        function UserService($q, $location, $timeout, logger, md5, SyncDriver, SyncService, PrefetchService, CatalogConfig, DialogService, SubscriptionService, ConsultantService, GoalPosterService) {
+    ]).service('UserService', ['$q', '$location', '$timeout', 'logger', 'md5', 'SyncDriver', 'SyncService', 'PrefetchService', 'CatalogConfig', 'DialogService', 'SubscriptionService', 'ConsultantService',
+        function UserService($q, $location, $timeout, logger, md5, SyncDriver, SyncService, PrefetchService, CatalogConfig, DialogService, SubscriptionService, ConsultantService) {
 
             var log = logger.getLogger('tnt.catalog.user.UserService');
 
@@ -63,7 +63,6 @@
                 logger.getLogger('remotedebug.version').info(CatalogConfig.version);
                 var hashMD5 = setUserMD5(user, pass);
                 localStorage.user = user;
-                GoalPosterService.checkForUpdates();
                 return hashMD5;
             };
 

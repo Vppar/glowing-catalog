@@ -25,6 +25,14 @@
                 // Local Functions
                 // #####################################################################################################
 
+                var offlineWarning = function () {
+                    DialogService.messageDialog({
+                        title: 'Cartaz de metas',
+                        message: 'Não é possível editar o cartaz de metas em modo offline.',
+                        btnYes: 'Fechar'
+                    });
+                };
+
                 var editImage = function (data, success) {
                     DialogService.openImageUploadDialog(data).then(
                         function (base64Img) {
@@ -48,35 +56,47 @@
                 // Scope functions
                 // #####################################################################################################
                 $scope.editGoal = function (idx) {
-                    var goal = $scope.goals[idx];
-                    DialogService.openGoalPosterEditDialog(goal).then(
-                        function (goal) {
-                            if (goal) {
-                                $scope.goals[idx].name = goal.name;
-                                $scope.goals[idx].deadline = goal.deadline;
+                    if (GoalPosterService.isConnected()) {
+                        var goal = $scope.goals[idx];
+                        DialogService.openGoalPosterEditDialog(goal).then(
+                            function (goal) {
+                                if (goal) {
+                                    $scope.goals[idx].name = goal.name;
+                                    $scope.goals[idx].deadline = goal.deadline;
 
-                                GoalPosterService.setGoal(idx, goal);
+                                    GoalPosterService.setGoal(idx, goal);
+                                }
                             }
-                        }
-                    );
+                        );
+                    } else {
+                        offlineWarning();
+                    }
                 };
 
                 $scope.goalImageUpload = function (idx) {
-                    var data = $scope.goals[idx];
-                    var success = function (base64Img) {
-                        $scope.goals[idx].base64Img = base64Img;
-                        GoalPosterService.setGoalImage(idx, base64Img);
-                    };
-                    editImage(data, success);
+                    if (GoalPosterService.isConnected()) {
+                        var data = $scope.goals[idx];
+                        var success = function (base64Img) {
+                            $scope.goals[idx].base64Img = base64Img;
+                            GoalPosterService.setGoalImage(idx, base64Img);
+                        };
+                        editImage(data, success);
+                    } else {
+                        offlineWarning();
+                    }
                 };
 
                 $scope.avatarImageUpload = function () {
-                    var data = $scope.consultant.avatar;
-                    var success = function (base64Img) {
-                        $scope.consultant.avatar.base64Img = base64Img;
-                        GoalPosterService.setAvatarImage(base64Img);
-                    };
-                    editImage(data, success);
+                    if (GoalPosterService.isConnected()) {
+                        var data = $scope.consultant.avatar;
+                        var success = function (base64Img) {
+                            $scope.consultant.avatar.base64Img = base64Img;
+                            GoalPosterService.setAvatarImage(base64Img);
+                        };
+                        editImage(data, success);
+                    } else {
+                        offlineWarning();
+                    }
                 };
             }
         ]);
