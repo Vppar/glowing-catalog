@@ -1,7 +1,7 @@
 (function (angular) {
 
     angular.module('tnt.catalog.sync.service', [
-        'tnt.util.log', 'tnt.catalog.journal.keeper', 'tnt.catalog.sync.driver'
+        'tnt.util.log', 'tnt.catalog.journal.keeper', 'tnt.catalog.sync.driver','tnt.catalog.goalposter.service'
     ]).service(
         'SyncService',
         [
