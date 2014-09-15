@@ -1,7 +1,7 @@
 (function (angular) {
     'use strict';
 
-    angular.module('tnt.catalog.goalposter.service', []).service(
+    angular.module('tnt.catalog.goalposter.service', ['tnt.catalog.sync.driver', 'tnt.catalog.consultant.service']).service(
         'GoalPosterService',
         [
             '$q',
