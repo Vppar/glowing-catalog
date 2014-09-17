@@ -12,6 +12,7 @@
         var logged = false;
         var SALT = '7un7sC0rp';
         var userService = this;
+        var subscribeLaterDate;
 
         /**
          * @param {String}
@@ -175,6 +176,10 @@
             this.redirectIfIsNotLoggedIn();
             this.redirectIfIsNotSubscribed();
         };
+
+        this.defineSubscribeLaterDate = function (subscribeLaterDate) {
+            this.subscribeLaterDate = subscribeLaterDate;
+        };
         
         this.redirectIfIsNotLoggedIn = function () {
             if (!this.isLogged()) {
@@ -190,6 +195,7 @@
             
             if( consultant && consultant.subscriptionExpirationDate) {
                 var numberOfDaysToExpiration = getDiffOfDays(consultant.subscriptionExpirationDate); 
+                var numberOfDaysSubscribeLaterDate = getDiffOfDays(this.subscribeLaterDate);
                 var lastSubscription = SubscriptionService.getLastSubscription();  
                 if(lastSubscription) {              
                     numberOfDaysLastSubscripton = getDiffOfDays(lastSubscription.subscriptionDate);                
@@ -197,9 +203,11 @@
                 
                 if(numberOfDaysToExpiration<0) {
                     openDialogSubscription(lastSubscription);
-                } else if(numberOfDaysToExpiration <=5 && numberOfDaysToExpiration >= 0) {
-                    if(numberOfDaysLastSubscripton && numberOfDaysLastSubscripton<-5) {
-                        openDialogSubscription(lastSubscription);     
+                } else if(numberOfDaysToExpiration <=5 && numberOfDaysToExpiration >= 0) {                    
+                    if(numberOfDaysLastSubscripton && numberOfDaysLastSubscripton<-5) {                        
+                        if(numberOfDaysSubscribeLaterDate === null || numberOfDaysSubscribeLaterDate !== 0) {
+                            openDialogSubscription(lastSubscription);     
+                        }
                     }
                 }
             }
