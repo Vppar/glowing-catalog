@@ -1,18 +1,17 @@
 (function(angular) {
-    'use strict';
-
-    angular.module(
-        'tnt.catalog.subscription.ctrl',
-        [
-        'tnt.catalog.user', 'tnt.catalog.service.dialog', 'tnt.catalog.consultant.service', 'tnt.catalog.consultant',
-        'tnt.catalog.subscription.service', 'tnt.catalog.subscription', 'tnt.catalog.config'
+'use strict';
+angular.module(
+    'tnt.catalog.subscription.ctrl',
+    [
+    'tnt.catalog.service.dialog', 'tnt.catalog.consultant.service', 'tnt.catalog.consultant',
+    'tnt.catalog.subscription.service', 'tnt.catalog.subscription', 'tnt.catalog.config'
     ]).controller(
         'SubscriptionCtrl',
         [
-        '$scope', '$q', '$log', '$location', '$window', '$dialog', 'DataProvider', 'ConsultantService', 'DialogService', 'dialog', 'CepService', 'logger',
-        'SubscriptionService', 'Subscription', 'CatalogConfig',
-        function($scope, $q, $log, $location, $window, $dialog, DataProvider, ConsultantService, DialogService, dialog, CepService,
-                 logger, SubscriptionService, Subscription, CatalogConfig) {
+        '$scope', '$location', '$window', 'DataProvider', 'ConsultantService', 'DialogService', 'dialog', 'CepService', 'logger',
+        'SubscriptionService', 'Subscription', 'CatalogConfig', 'UserService',
+            function($scope, $location, $window, DataProvider, ConsultantService, DialogService, dialog, CepService,
+                logger, SubscriptionService, Subscription, CatalogConfig, UserService) {
 
             var log = logger.getLogger('tnt.catalog.subscription.ctrl.SubscriptionCtrl');
 
@@ -73,6 +72,8 @@
 
             $scope.verifyIfMustRedirectLoginPage = function () {
                 dialog.close(true);
+
+                UserService.defineSubscribeLaterDate(new Date().getTime());
 
                 if(!$scope.numberOfDaysToExpiration) {                    
                     $scope.numberOfDaysToExpiration = getDiffOfDays($scope.consultant.subscriptionExpirationDate);
