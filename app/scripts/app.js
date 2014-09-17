@@ -5,6 +5,7 @@
         angular.module('glowingCatalogApp', [
             'once',
             'ngRoute',
+            'ngImgCrop',
             'ui.bootstrap',
             'ui.select2',
             'angular-md5',
@@ -155,122 +156,133 @@
             'tnt.catalog.target.list.ctrl',
             'tnt.catalog.target.parent.ctrl',
             'tnt.catalog.subscription.service',
-            'tnt.catalog.subscription.ctrl'
+            'tnt.catalog.subscription.ctrl',
+            'tnt.utils.fileinput',
+            'tnt.utils.imageUpload.ctrl',
+            'tnt.catalog.directives.fileInput',
+            'tnt.catalog.goalposter.ctrl',
+            'tnt.catalog.goalposter.service',
+            'tnt.catalog.goalposter.editDialog'
         ]);
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/', {
-            templateUrl : 'views/main.html',
-            controller : 'MainCtrl'
+            templateUrl: 'views/parts/goal-poster/sacred-goal-poster.html',
+            controller: 'GoalPosterCtrl'
+        }).when('/main',{
+            templateUrl: 'views/main.html',
+            controller: 'MainCtrl'
         }).when('/basket', {
-            templateUrl : 'views/basket.html',
-            controller : 'BasketCtrl'
+            templateUrl: 'views/basket.html',
+            controller: 'BasketCtrl'
         }).when('/payment', {
-            templateUrl : 'views/payment.html',
-            controller : 'PaymentCtrl'
+            templateUrl: 'views/payment.html',
+            controller: 'PaymentCtrl'
         }).when('/partial-delivery', {
-            templateUrl : 'views/partial-delivery.html',
-            controller : 'PartialDeliveryCtrl'
+            templateUrl: 'views/partial-delivery.html',
+            controller: 'PartialDeliveryCtrl'
         }).when('/pending-delivery', {
-            templateUrl : 'views/pending-delivery.html'
+            templateUrl: 'views/pending-delivery.html'
         }).when('/previous-entries', {
-            templateUrl : 'views/previous-entries.html'
+            templateUrl: 'views/previous-entries.html'
         }).when('/inventory', {
-            templateUrl : 'views/inventory.html'
+            templateUrl: 'views/inventory.html'
         }).when('/delivery', {
-            templateUrl : 'views/delivery.html',
-            controller : 'DeliveryCtrl'
+            templateUrl: 'views/delivery.html',
+            controller: 'DeliveryCtrl'
         }).when('/financial', {
-            templateUrl : 'views/financial.html',
-            controller : 'FinancialCtrl'
+            templateUrl: 'views/financial.html',
+            controller: 'FinancialCtrl'
         }).when('/expense', {
-            templateUrl : 'views/expense.html',
-            controller : 'ExpenseCtrl'
+            templateUrl: 'views/expense.html',
+            controller: 'ExpenseCtrl'
         }).when('/receivable', {
-            templateUrl : 'views/receivable.html',
-            controller : 'ReceivableCtrl'
+            templateUrl: 'views/receivable.html',
+            controller: 'ReceivableCtrl'
         }).when('/income-statement', {
-            templateUrl : 'views/income-statement.html',
-            controller : 'IncomeStatementCtrl'
+            templateUrl: 'views/income-statement.html',
+            controller: 'IncomeStatementCtrl'
         }).when('/receivable-list', {
-            templateUrl : 'views/receivable-list.html'
+            templateUrl: 'views/receivable-list.html'
         }).when('/cash-flow', {
-            templateUrl : 'views/cash-flow.html',
+            templateUrl: 'views/cash-flow.html'
         }).when('/book-keeping-report', {
-            templateUrl : 'views/book-keeping-report.html',
-            controller : 'BookKeepingReportCtrl'
+            templateUrl: 'views/book-keeping-report.html',
+            controller: 'BookKeepingReportCtrl'
         }).when('/appointment', {
-            templateUrl : 'views/appointments.html',
-            controller : 'AppointmentsCtrl'
+            templateUrl: 'views/appointments.html',
+            controller: 'AppointmentsCtrl'
         }).when('/tutorial-ipad', {
-            templateUrl : 'views/tutorial-ipad.html'
+            templateUrl: 'views/tutorial-ipad.html'
         }).when('/tutorial-android', {
-            templateUrl : 'views/tutorial-android.html'
+            templateUrl: 'views/tutorial-android.html'
 
         }).when('/add-customer', {
-            templateUrl : 'views/sacred-add-customer.html',
-            controller : 'AddCustomerCtrl'
+            templateUrl: 'views/sacred-add-customer.html',
+            controller: 'AddCustomerCtrl'
         }).when('/login', {
-            templateUrl : 'views/sacred-login.html',
-            controller : 'LoginCtrl'
+            templateUrl: 'views/sacred-login.html',
+            controller: 'LoginCtrl'
         }).when('/products-delivery', {
-            templateUrl : 'views/parts/products-delivery/sacred-products-delivery.html',
-            controller : 'ProductsDeliveryCtrl'
+            templateUrl: 'views/parts/products-delivery/sacred-products-delivery.html',
+            controller: 'ProductsDeliveryCtrl'
         }).when('/pagpop', {
-            templateUrl : 'views/sacred-pagpop.html',
-            controller : 'PagpopCtrl'
+            templateUrl: 'views/sacred-pagpop.html',
+            controller: 'PagpopCtrl'
         }).when('/purchase-order', {
-            templateUrl : 'views/parts/purchase-order/sacred-purchase-order.html',
-            controller : 'PurchaseOrderCtrl'
+            templateUrl: 'views/parts/purchase-order/sacred-purchase-order.html',
+            controller: 'PurchaseOrderCtrl'
         }).when('/registration', {
-            templateUrl : 'views/sacred-registration.html'
+            templateUrl: 'views/sacred-registration.html'
         }).when('/stock', {
-            templateUrl : 'views/sacred-stock.html',
-            controller : 'StockCtrl'
+            templateUrl: 'views/sacred-stock.html',
+            controller: 'StockCtrl'
         }).when('/third-parties', {
-            templateUrl : 'views/sacred-third-parties.html',
+            templateUrl: 'views/sacred-third-parties.html',
             controller: 'ThirdPartyCtrl'
         }).when('/target', {
-            templateUrl : 'views/sacred-target.html',
-            controller : 'TargetParentCtrl'
+            templateUrl: 'views/sacred-target.html',
+            controller: 'TargetParentCtrl'
         }).when('/target-list', {
-            templateUrl : 'views/sacred-target-list.html',
-            controller : 'TargetListCtrl'
+            templateUrl: 'views/sacred-target-list.html',
+            controller: 'TargetListCtrl'
         }).when('/voucher', {
-            templateUrl : 'views/sacred-voucher.html',
-            controller : 'VoucherCtrl'
+            templateUrl: 'views/sacred-voucher.html',
+            controller: 'VoucherCtrl'
         }).when('/warmup', {
-            templateUrl : 'views/sacred-warm-up.html',
-            controller : 'WarmupCtrl'
+            templateUrl: 'views/sacred-warm-up.html',
+            controller: 'WarmupCtrl'
         }).when('/bi', {
-            templateUrl : 'views/sacred-bi.html',
-            controller : 'BiCtrl'
+            templateUrl: 'views/sacred-bi.html',
+            controller: 'BiCtrl'
         }).when('/order-list-old', {
-            templateUrl : 'views/order-list.html',
-            controller : 'OrderListCtrl'
+            templateUrl: 'views/order-list.html',
+            controller: 'OrderListCtrl'
         }).when('/order-list', {
-            templateUrl : 'views/sacred-order-list.html',
-            controller : 'OrderListCtrl'
+            templateUrl: 'views/sacred-order-list.html',
+            controller: 'OrderListCtrl'
         }).when('/receivable-check', {
-            templateUrl : 'views/sacred-receivable-check.html'
+            templateUrl: 'views/sacred-receivable-check.html'
         }).when('/receivable-check-old', {
-            templateUrl : 'views/receivable-check.html'
-
+            templateUrl: 'views/receivable-check.html'
+        }).when('/goal-poster', {
+            templateUrl: 'views/parts/goal-poster/sacred-goal-poster.html',
+            controller: 'GoalPosterCtrl'
         }).when('/components/date-range', {
-            templateUrl : 'routes/components/date-range/date-range.html',
-            controller : 'DateRangeTestCtrl'
+            templateUrl: 'routes/components/date-range/date-range.html',
+            controller: 'DateRangeTestCtrl'
         }).when('/components/tnt-numpad', {
-            templateUrl : 'routes/components/tnt-numpad/tnt-numpad.html'
+            templateUrl: 'routes/components/tnt-numpad/tnt-numpad.html'
         }).when('/components/tnt-number-picker', {
-            templateUrl : 'routes/components/tnt-number-picker/tnt-number-picker.html'
+            templateUrl: 'routes/components/tnt-number-picker/tnt-number-picker.html'
         }).when('/scenarios/ipad-keyboard-focus-scenario', {
-            templateUrl : 'routes/scenarios/ipad-keyboard-focus-scenario/ipad-keyboard-focus-scenario.html'
+            templateUrl: 'routes/scenarios/ipad-keyboard-focus-scenario/ipad-keyboard-focus-scenario.html'
         }).when('/spinner-button-promise', {
-            templateUrl : 'views/spinner-button-promise.html'
+            templateUrl: 'views/spinner-button-promise.html'
         }).otherwise({
-            redirectTo : '/'
+            redirectTo: '/'
         });
-    }]).run(function(){
+    }]).run(function () {
         window.glowingCatalogAppReady = true;
     });
 })(angular, window);
@@ -283,7 +295,7 @@
     var $injector = angular.injector([
         'ng'
     ]);
-    $injector.invoke(['$log',function (_$log_) {
+    $injector.invoke(['$log', function (_$log_) {
         $log = _$log_;
     }]);
 
@@ -292,7 +304,7 @@
     // may or may not cause you hassle in the future. Find a better place to
     // handle the mousedown event
     $.event.special.tap = {
-        setup : function () {
+        setup: function () {
             var self = this, $self = $(self);
 
             var field = $self.context;
