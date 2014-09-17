@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '1.3.3-79'
+# 'version' : '1.3.3-87'
 
 CACHE:
 bower_components/bootstrap-sass/bootstrap-2.3.2.css
@@ -160,6 +160,7 @@ images/login/background-login-1.jpg
 images/login/background-login-2.jpg
 
 images/goal/add-avatar-50.png
+images/goal/add-image-220.png
 images/goal/add-image-250.png
 images/goal-quotes.jpg
 images/goal-poster-bg.jpg

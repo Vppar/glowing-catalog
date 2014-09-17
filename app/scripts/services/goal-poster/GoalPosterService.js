@@ -57,6 +57,16 @@
 
                 var updateConsultant = function (hash, data) {
                     data.consultant.info = ConsultantService.get();
+
+                    if (data.consultant.info && data.consultant.info.name) {
+                        var splitedName = data.consultant.info.name.split(' ');
+                        if (splitedName.length > 1) {
+                            data.consultant.info.firstAndLastName = splitedName[0] + ' ' + splitedName[splitedName.length - 1];
+                        } else {
+                            data.consultant.info.firstAndLastName = data.consultant.info.name;
+                        }
+                    }
+
                     data.consultant.avatar.base64Img = localStorage.getItem(hash + 'avatar');
                     angular.extend(data.consultant.avatar, CONSULTANT_IMG_SIZE);
                 };
@@ -125,6 +135,13 @@
 
                 this.isConnected = SyncDriver.isConnected;
 
+                this.updateLocalData = function () {
+                    updateConsultant(localStorageHash, localData);
+                    updateGoals(localStorageHash, localData);
+                    updateAlerts(localStorageHash, localData);
+                    updateMessage(localStorageHash, localData);
+                };
+
                 this.checkForUpdates = function () {
 
                     var result = null;
@@ -153,18 +170,12 @@
                         result = [lastSyncPromise, messageOfDayPromise];
                     } else {
                         var deferred = $q.defer();
-                        deferred.resolve('Disconnected from firebase');
+                        this.updateLocalData();
+                        deferred.resolve('Not connected to firebase');
                         result = [deferred.promise];
                     }
 
                     return $q.all();
-                };
-
-                this.updateLocalData = function () {
-                    updateConsultant(localStorageHash, localData);
-                    updateGoals(localStorageHash, localData);
-                    updateAlerts(localStorageHash, localData);
-                    updateMessage(localStorageHash, localData);
                 };
 
                 this.getConsultant = function () {

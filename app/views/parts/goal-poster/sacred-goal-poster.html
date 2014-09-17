@@ -11,7 +11,7 @@
                         <div class="title">Cartaz de Metas</div>
                     </div>
                     <div class="col-10">
-                        <div class="sm-title">{{consultant.info.name}}</div>
+                        <div class="sm-title">{{consultant.info.firstAndLastName}}</div>
                     </div>
                     <div class="col-2" ng-click="avatarImageUpload()">
                         <img class="avatar" ng-if="consultant.avatar.base64Img" ng-src="{{consultant.avatar.base64Img}}"/>
@@ -43,7 +43,7 @@
                                 </div>
                                 <div ng-click="goalImageUpload(1)">
                                     <img ng-if="goals[1].base64Img" ng-src="{{goals[1].base64Img}}"/>
-                                    <img ng-if="!goals[1].base64Img" src="images/goal/add-image-250.png">
+                                    <img ng-if="!goals[1].base64Img" src="images/goal/add-image-220.png">
                                 </div>
                             </div>
                             <div class="circle-02">
@@ -70,20 +70,16 @@
                             </div>
                             <div class="circle-03">
                                 <div class="text" ng-click="editGoal(3)">
-                                    <div ng-if="!goals[3].name">
-                                        <div class="default-title">
-                                            Clique para adicionar<br>
-                                            a meta
-                                        </div>
+                                    <div class="default-title" ng-if="!goals[3].name">
+                                        Clique para adicionar<br>
+                                        a meta
                                     </div>
                                     <div ng-if="goals[3].name">
-                                        <div class="text" ng-click="editGoal(3)">
-                                            <div class="title">
-                                                {{goals[3].name}}
-                                            </div>
-                                            <div class="day">
-                                                {{goals[3].deadline | date:'dd/MM/yyyy'}}
-                                            </div>
+                                        <div class="title">
+                                            {{goals[3].name}}
+                                        </div>
+                                        <div class="day">
+                                            {{goals[3].deadline | date:'dd/MM/yyyy'}}
                                         </div>
                                     </div>
                                 </div>
@@ -94,26 +90,22 @@
                             </div>
                             <div class="circle-04">
                                 <div class="text" ng-click="editGoal(4)">
-                                    <div ng-if="!goals[4].name">
-                                        <div class="default-title">
-                                            Clique para adicionar<br>
-                                            a meta
-                                        </div>
+                                    <div class="default-title" ng-if="!goals[4].name">
+                                        Clique para adicionar<br>
+                                        a meta
                                     </div>
                                     <div ng-if="goals[4].name">
-                                        <div class="text" ng-click="editGoal(4)">
-                                            <div class="title">
-                                                {{goals[4].name}}
-                                            </div>
-                                            <div class="day">
-                                                {{goals[4].deadline | date:'dd/MM/yyyy'}}
-                                            </div>
+                                        <div class="title">
+                                            {{goals[4].name}}
+                                        </div>
+                                        <div class="day">
+                                            {{goals[4].deadline | date:'dd/MM/yyyy'}}
                                         </div>
                                     </div>
                                 </div>
                                 <div ng-click="goalImageUpload(4)">
                                     <img ng-if="goals[4].base64Img" ng-src="{{goals[4].base64Img}}"/>
-                                    <img ng-if="!goals[4].base64Img" src="images/goal/add-image-250.png">
+                                    <img ng-if="!goals[4].base64Img" src="images/goal/add-image-220.png">
                                 </div>
                                 <!-- <img src="images/goal-poster.jpg"> -->
                             </div>
@@ -135,7 +127,8 @@
                                 Mensagem do Dia
                             </div>
                             <ul>
-                                <li>{{messageOfDay.message}}
+                                <li>
+                                    {{messageOfDay.message}}
                                 </li>
                             </ul>
                             <div class="author">

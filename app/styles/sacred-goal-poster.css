@@ -75,8 +75,9 @@
     text-align: center;
     color: #9032a2;
     font-weight: bold;
-    top: 255px;
-    left: 88px;
+    top: 260px;
+    left: 35px;
+    width: 150px;
 }
 #sacred .sacred-goal-poster-page .poster .circle-03 img {
     border-radius: 135px;
@@ -97,8 +98,8 @@
     text-align: left;
     color: #6d85c3;
     font-weight: bold;
-    top: 90px;
-    left: 233px;
+    top: 100px;
+    left: 230px;
     width: 150px;
 }
 #sacred .sacred-goal-poster-page .poster .circle-04 img {
