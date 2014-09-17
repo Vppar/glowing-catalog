@@ -70,6 +70,7 @@
                 function refreshDate() {
                     $scope.now.date = $filter('date')(new Date(), 'dd MMM yyyy');
                     $scope.now.time = $filter('date')(new Date(), 'HH:mm');
+                    $scope.now.weekday = $filter('date')(new Date(), 'EEEE');
                 }
                 $interval(refreshDate, 10000);
                 refreshDate();

@@ -76,5 +76,30 @@
                         };
                     }
                 };
-            }]);
+            }]).directive(
+        'fixTitle',
+        ['$window', function($window) {
+          return {
+            restrict : 'A',
+            link : function(scope, elem, attrs, ctrl) {
+              function fixTitle() {
+                elem.find('.swiper-slide').each(function () {
+                  var $this = $(this);
+                  var offset = $this.offset().top;
+                  var scrollTop = elem.scrollTop();
+
+                  if (scrollTop > offset) {
+                    console.log('hahay -======================================');
+                    $this.addClass('fixed');
+                  } else {
+                    console.log('hehey -======================================');
+                    $this.removeClass('fixed');
+                  }
+                });
+              }
+
+              elem.scroll(fixTitle);
+            }
+          };
+        }]);
 })(angular);

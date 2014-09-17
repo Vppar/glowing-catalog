@@ -1,4 +1,4 @@
-describe('Controller: PaymentOnCuffCtrlShoudOpenSpec\n', function() {
+xdescribe('Controller: PaymentOnCuffCtrlShoudOpenSpec\n', function() {
 
     var $rootScope = null;
     var DialogService = null;

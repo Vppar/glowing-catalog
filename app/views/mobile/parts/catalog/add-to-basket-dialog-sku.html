@@ -1,0 +1,66 @@
+
+<div class="container-mobile" scroll-spy>
+
+    <div class="row-fluid">
+        <span class="span12"> <span ng-include src="'views/mobile/header.html'"></span></span>
+    </div>
+
+    <div class="page-title text-center">{{product.title}}</div>
+
+    <div class="modal-body modal-add-basket-dialog-body">
+
+        <!-- até aqui correto -->
+
+        <div class="img-holder">
+            <img once-src="getImageData(product.image)" onload="javascript:initMagnifier();" alt="" />
+        </div>
+
+        <div class="unique-name-holder" ng-class="{ 'without-img' : !grid[0].image}">
+            <small ng-if="!getImageData(grid[0].SKU)">{{uniqueName}}</small>
+            <img ng-if="grid[0].image&&gridLength>1" once-src="getImageData(grid[0].SKU)" alt="sample"/>
+        </div>
+
+        <div class="info-item quantity">
+            <tnt-number-picker ng-model="grid[0].qty" min="0"></tnt-number-picker>
+        </div>
+
+        <div class="box-price-total">
+
+            <span>Preço Unitário</span>
+            <div class="info-item price">
+                {{product.price | currency:''}}</span>
+            </div>
+
+            <span>Subtotal</span>
+            <div class="info-item total">
+                <span class="total-value">
+                    {{product.price * grid[0].qty | currency:''}}
+                </span>
+            </div>
+
+            <div class="box-info" fast-click>
+                <div class="info-item discount" ng-show="showDiscount">
+                    <span>Desconto</span>
+                    <span class="fake-input" tnt-promise-click="openDialogNumpad()">{{(itemDiscount || 0) | currency:''}}</span>
+                </div>
+            </div>
+
+
+            <span>Total com desconto</span>
+            <div class="info-item price">
+                {{(product.price * grid[0].qty) - itemDiscount | currency:''}}</span>
+            </div>
+
+        </div>
+
+
+        <!--<div class="stock">{{product.inventory}} em estoque</div>-->
+
+    </div>
+
+    <div class="modal-foot effect7" fast-click>
+        <button ng-click='cancel()' class="btn btn-cancel btn-large btn-login"  type="submit">Cancelar</button>
+        <button ng-click='addToBasket()' class="btn btn-ok btn-large btn-login pull-right" type="submit">Adicionar</button>
+    </div>
+
+</div>

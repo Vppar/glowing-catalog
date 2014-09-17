@@ -1,0 +1,22 @@
+<div class="container-mobile">
+
+    <div class="row-fluid">
+        <span class="span12"> <span ng-include src="'views/mobile/header.html'"></span></span>
+    </div>
+
+    <div class="payment-body-mobile" ng-switch on="selectedPaymentMethod">
+
+        <span ng-switch-default><span ng-include src="'views/mobile/pagamento.html'"></span></span>
+        <span ng-switch-when="none"><span ng-include src="'views/mobile/pedido-venda.html'"></span></span>
+        <span ng-switch-when="step2"><span ng-include src="'views/mobile/pagamento.html'"></span></span>
+        <span ng-switch-when="money"><span ng-include src="'views/mobile/pagamento-dinheiro.html'"></span></span>
+        <span ng-switch-when="check"><span ng-include src="'views/mobile/pagamento-cheque.html'"></span></span>
+        <span ng-switch-when="creditcard"><span ng-include src="'views/mobile/pagamento-cartao.html'"></span></span>
+        <span ng-switch-when="exchange"><span ng-include src="'views/mobile/troca-produto.html'"></span></span>
+        <span ng-switch-when="discount"><span ng-include src="'views/mobile/vale-cupom.html'"></span></span>
+        <span ng-switch-when="oncuff"><span ng-include src="'views/mobile/contas-receber.html'"></span></span>
+
+        <span ng-switch-when="voucher"><span ng-include src="'views/parts/payment/payment-left-voucher.html'"></span></span>
+    </div>
+
+</div>

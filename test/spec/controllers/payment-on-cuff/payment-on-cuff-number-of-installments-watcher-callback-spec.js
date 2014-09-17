@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Controller: PaymentOnCuffCtrlNumberOfInstallmentsWatcherCallBackSpec\n', function() {
+xdescribe('Controller: PaymentOnCuffCtrlNumberOfInstallmentsWatcherCallBackSpec\n', function() {
 
     var DialogService = null;
     var OrderService = null;
