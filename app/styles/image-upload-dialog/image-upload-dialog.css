@@ -1,0 +1,19 @@
+.modal-image-upload .cropArea {
+    background: #E4E4E4;
+    overflow: hidden;
+    width: 520px;
+    height: 293px;
+}
+
+.modal-image-upload .btn-add {
+    padding: 5px 0px;
+}
+
+.modal-image-upload input[type="file"] {
+    height: 0px;
+    width: 0px
+}
+
+.modal-image-upload .text-center{
+    text-align: center;
+}
