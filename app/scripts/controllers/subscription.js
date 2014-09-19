@@ -72,11 +72,11 @@ angular.module(
 
             $scope.verifyIfMustRedirectLoginPage = function () {
                 dialog.close(true);
-
-                UserService.defineSubscribeLaterDate(new Date().getTime());
+                var deviceDate = DateUtils.getDeviceDate();
+                UserService.defineSubscribeLaterDate(deviceDate);
 
                 if(!$scope.numberOfDaysToExpiration) {                    
-                    $scope.numberOfDaysToExpiration = getDiffOfDays($scope.consultant.subscriptionExpirationDate);
+                    $scope.numberOfDaysToExpiration = DateUtils.getDiffOfDays($scope.consultant.subscriptionExpirationDate, deviceDate);
                 }
 
                 if($scope.numberOfDaysToExpiration<0) {
@@ -87,7 +87,7 @@ angular.module(
             $scope.confirmPaymentWithCC = function () {
                 
                 $scope.paymentType = CatalogConfig.PAYMENT_TYPE_CC;
-                $scope.saveSubscription(false, isRenewal());
+                $scope.saveSubscription(false, $scope.isRenewal());
 
                 if(CatalogConfig.GLOSS === $scope.planType) {
                     dialog.close(true);
@@ -101,10 +101,8 @@ angular.module(
             $scope.confirmPaymentWithBillet = function () {
                 $scope.failed = true;
                 
-                if(isRenewal()) {
-                    var newExpirationDate = new Date();
-                    newExpirationDate.setDate(new Date().getDate()+5);
-                    $scope.consultant.subscriptionExpirationDate = newExpirationDate.getTime();
+                if(!$scope.isRenewal()) {                    
+                    $scope.consultant.subscriptionExpirationDate = DateUtils.getDeviceDate()+ 432000000;
 
                     if (ConsultantService.get()) {
                         return ConsultantService.update($scope.consultant).then(function() {
@@ -129,7 +127,7 @@ angular.module(
 		    };
 
 		    $scope.saveSubscription = function(isBillet, isRenewal){
-                var subscription = new Subscription(null, $scope.planType, new Date().getTime(), $scope.consultant, $scope.paymentType, isRenewal);
+                var subscription = new Subscription(null, $scope.planType, DateUtils.getDeviceDate(), $scope.consultant, $scope.paymentType, isRenewal);
                 
                 SubscriptionService.add(subscription).then(function() {
                     log.info('Subscription Updated.');
@@ -145,7 +143,7 @@ angular.module(
             $scope.subscriptionCloseToExpirationDate = function() {
                 $scope.consultant = ConsultantService.get();
                 if( $scope.consultant && $scope.consultant.subscriptionExpirationDate) {
-                    $scope.numberOfDaysToExpiration = getDiffOfDays($scope.consultant.subscriptionExpirationDate); 
+                    $scope.numberOfDaysToExpiration = DateUtils.getDiffOfDays($scope.consultant.subscriptionExpirationDate, DateUtils.getDeviceDate()); 
 
                     if($scope.numberOfDaysToExpiration<0) {                        
                         return false;
@@ -180,14 +178,14 @@ angular.module(
                 return promiseResult;
             };
 
-            function isRenewal() {
+            $scope.isRenewal = function() {
                 var subscriptionList = SubscriptionService.list();                
                 if(!subscriptionList || 1 > subscriptionList.length) {
                     return false;
                 } else {
                     return true;
                 }
-            }
+            };
                           
             function warmup(){
                 var promise = ConsultantService.getDataAccount();
@@ -198,16 +196,6 @@ angular.module(
                         }
                     });
                 }
-            }
-
-            function getDiffOfDays(otherDate) {
-                if(otherDate) {
-                    var day=1000*60*60*24;    
-                    var today = new Date().getTime();    
-                    var diff = otherDate - today;   
-                    return Math.round(diff/day);
-                }
-                return null;
             }
             
             function populateFields(userDataAccount){
