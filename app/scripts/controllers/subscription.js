@@ -58,11 +58,15 @@ angular.module(
                 $scope.planType = planType;
                 $scope.paymentType = paymentType;
                 
-	            if(CatalogConfig.PAYMENT_TYPE_BILLET === $scope.paymentType) {	             		                	
-	                DialogService.openDialogSubscriptionAdditionalInformation({'planType': planType, 'paymentType': paymentType});   
-	            } else {                    
-	                DialogService.openDialogSubscriptionFinalMessageCC({'planType': planType, 'paymentType': paymentType});
-    		    }
+                if(!DateUtils.getDeviceDate()) {
+                   $location.path('/login');
+                } else {
+                    if(CatalogConfig.PAYMENT_TYPE_BILLET === $scope.paymentType) {                                         
+                        DialogService.openDialogSubscriptionAdditionalInformation({'planType': planType, 'paymentType': paymentType});   
+                    } else {                    
+                        DialogService.openDialogSubscriptionFinalMessageCC({'planType': planType, 'paymentType': paymentType});
+                    }
+                }
             };
 
             $scope.openDialogSubscriptionFinalMessageBillet = function () {
@@ -70,64 +74,83 @@ angular.module(
                 DialogService.openDialogSubscriptionFinalMessageBillet();
             };
 
+            $scope.closeLostDateDriftDialog = function() {
+                console.log('sdfsdf');
+                dialog.close($q.reject());
+            };
+
             $scope.verifyIfMustRedirectLoginPage = function () {
                 dialog.close(true);
                 var deviceDate = DateUtils.getDeviceDate();
-                UserService.defineSubscribeLaterDate(deviceDate);
+                if(!deviceDate) {
+                   $location.path('/login');
+                } else {
+                    UserService.defineSubscribeLaterDate(deviceDate);
 
-                if(!$scope.numberOfDaysToExpiration) {                    
-                    $scope.numberOfDaysToExpiration = DateUtils.getDiffOfDays($scope.consultant.subscriptionExpirationDate, deviceDate);
-                }
+                    if(!$scope.numberOfDaysToExpiration) {                    
+                        $scope.numberOfDaysToExpiration = DateUtils.getDiffOfDays($scope.consultant.subscriptionExpirationDate, deviceDate);
+                    }
 
-                if($scope.numberOfDaysToExpiration<0) {
-                    $location.path('/login');
-                }
+                    if($scope.numberOfDaysToExpiration<0) {
+                        $location.path('/login');
+                    }
+                }                
             };
                         
             $scope.confirmPaymentWithCC = function () {
-                
-                $scope.paymentType = CatalogConfig.PAYMENT_TYPE_CC;
-                $scope.saveSubscription(false, $scope.isRenewal());
 
-                if(CatalogConfig.GLOSS === $scope.planType) {
-                    dialog.close(true);
-                    $window.location.href = CatalogConfig.semesterPlanCheckoutURL;
+                var deviceDate = DateUtils.getDeviceDate();
+                if(!deviceDate) {
+                   $location.path('/login');
                 } else {
-                    dialog.close(true);
-                    $window.location.href = CatalogConfig.annualPlanCheckoutURL;
+                    $scope.paymentType = CatalogConfig.PAYMENT_TYPE_CC;
+                    $scope.saveSubscription(false, $scope.isRenewal(), deviceDate);
+
+                    if(CatalogConfig.GLOSS === $scope.planType) {
+                        dialog.close(true);
+                        $window.location.href = CatalogConfig.semesterPlanCheckoutURL;
+                    } else {
+                        dialog.close(true);
+                        $window.location.href = CatalogConfig.annualPlanCheckoutURL;
+                    }
                 }
             };
                         
             $scope.confirmPaymentWithBillet = function () {
                 $scope.failed = true;
-                
-                if(!$scope.isRenewal()) {                    
-                    $scope.consultant.subscriptionExpirationDate = DateUtils.getDeviceDate()+ 432000000;
 
-                    if (ConsultantService.get()) {
-                        return ConsultantService.update($scope.consultant).then(function() {
-                                log.info('Consultant Updated.');
-                                $scope.saveSubscription(true, false);
-                            }, function(err) {
-                                log.error('Failed to updated the consultant.');
-                                log.debug(err);
-                            });
-                    } else {
-                        return ConsultantService.create($scope.consultant).then(function() {
-                                log.info('Consultant Created.');
-                                $scope.saveSubscription(true, false);
-                            }, function(err) {
-                                log.fatal('Failed to create the consultant.');
-                                log.debug(err);
-                            });
-                    } 
+                var deviceDate = DateUtils.getDeviceDate();
+                if(!deviceDate) {
+                   $location.path('/login'); 
                 } else {
-                    $scope.saveSubscription(true, true);
-                }                              
+                     if(!$scope.isRenewal()) {                    
+                        $scope.consultant.subscriptionExpirationDate = deviceDate+ 432000000;
+
+                        if (ConsultantService.get()) {
+                            return ConsultantService.update($scope.consultant).then(function() {
+                                    log.info('Consultant Updated.');
+                                    $scope.saveSubscription(true, false, deviceDate);
+                                }, function(err) {
+                                    log.error('Failed to updated the consultant.');
+                                    log.debug(err);
+                                });
+                        } else {
+                            return ConsultantService.create($scope.consultant).then(function() {
+                                    log.info('Consultant Created.');
+                                    $scope.saveSubscription(true, false, deviceDate);
+                                }, function(err) {
+                                    log.fatal('Failed to create the consultant.');
+                                    log.debug(err);
+                                });
+                        } 
+                    } else {
+                        $scope.saveSubscription(true, true, deviceDate);
+                    }  
+                }                         
 		    };
 
-		    $scope.saveSubscription = function(isBillet, isRenewal){
-                var subscription = new Subscription(null, $scope.planType, DateUtils.getDeviceDate(), $scope.consultant, $scope.paymentType, isRenewal);
+		    $scope.saveSubscription = function(isBillet, isRenewal, deviceDate){
+                var subscription = new Subscription(null, $scope.planType, deviceDate, $scope.consultant, $scope.paymentType, isRenewal);
                 
                 SubscriptionService.add(subscription).then(function() {
                     log.info('Subscription Updated.');
@@ -140,18 +163,25 @@ angular.module(
                 });
             };
 
-            $scope.subscriptionCloseToExpirationDate = function() {
-                $scope.consultant = ConsultantService.get();
-                if( $scope.consultant && $scope.consultant.subscriptionExpirationDate) {
-                    $scope.numberOfDaysToExpiration = DateUtils.getDiffOfDays($scope.consultant.subscriptionExpirationDate, DateUtils.getDeviceDate()); 
+            $scope.subscriptionCloseToExpirationDate = function() {                
 
-                    if($scope.numberOfDaysToExpiration<0) {                        
-                        return false;
-                    } else {                         
-                        return true;                        
+                var deviceDate = DateUtils.getDeviceDate();
+                if(!deviceDate) {
+                   $location.path('/login');
+                   return false;
+                } else {
+                    $scope.consultant = ConsultantService.get();
+                    if( $scope.consultant && $scope.consultant.subscriptionExpirationDate) {
+                        $scope.numberOfDaysToExpiration = DateUtils.getDiffOfDays($scope.consultant.subscriptionExpirationDate, deviceDate); 
+
+                        if($scope.numberOfDaysToExpiration<0) {                        
+                            return false;
+                        } else {                         
+                            return true;                        
+                        }
                     }
-                }
-                return false;
+                    return false;
+                }                
             };
 		        
             $scope.getCep = function() {

@@ -204,28 +204,32 @@
         /**
          * Show subscription dialog when user is not subscribed.
          */
-        this.redirectIfIsNotSubscribed = function () {
-            var consultant = ConsultantService.get();
+        this.redirectIfIsNotSubscribed = function () {            
             var today = DateUtils.getDeviceDate();
-            var numberOfDaysLastSubscripton;
-            
-            if( consultant && consultant.subscriptionExpirationDate && today) {                
-                var numberOfDaysToExpiration = DateUtils.getDiffOfDays(consultant.subscriptionExpirationDate, today); 
-
-                var numberOfDaysSubscribeLaterDate = DateUtils.getDiffOfDays(this.subscribeLaterDate, today);
-
-                var lastSubscription = SubscriptionService.getLastSubscription();  
-
-                if(lastSubscription) {              
-                    numberOfDaysLastSubscripton = DateUtils.getDiffOfDays(lastSubscription.subscriptionDate, today);   
-                 }                           
+            if(!today) {
+                $location.path('/login');
+            } else {
+                var consultant = ConsultantService.get();
+                var numberOfDaysLastSubscripton;
                 
-                if(numberOfDaysToExpiration<0) {
-                    this.openDialogSubscription(lastSubscription);
-                } else if(numberOfDaysToExpiration <=5 && numberOfDaysToExpiration >= 0) {                    
-                    if(numberOfDaysLastSubscripton && numberOfDaysLastSubscripton<=-5) {
-                        if(numberOfDaysSubscribeLaterDate === null || numberOfDaysSubscribeLaterDate !== 0) {
-                            this.openDialogSubscription(lastSubscription);     
+                if( consultant && consultant.subscriptionExpirationDate && today) {                
+                    var numberOfDaysToExpiration = DateUtils.getDiffOfDays(consultant.subscriptionExpirationDate, today); 
+
+                    var numberOfDaysSubscribeLaterDate = DateUtils.getDiffOfDays(this.subscribeLaterDate, today);
+
+                    var lastSubscription = SubscriptionService.getLastSubscription();  
+
+                    if(lastSubscription) {              
+                        numberOfDaysLastSubscripton = DateUtils.getDiffOfDays(lastSubscription.subscriptionDate, today);   
+                    }
+                    
+                    if(numberOfDaysToExpiration<0) {
+                        this.openDialogSubscription(lastSubscription);
+                    } else if(numberOfDaysToExpiration <=5 && numberOfDaysToExpiration >= 0) {                    
+                        if(numberOfDaysLastSubscripton && numberOfDaysLastSubscripton<=-5) {
+                            if(numberOfDaysSubscribeLaterDate === null || numberOfDaysSubscribeLaterDate !== 0) {
+                                this.openDialogSubscription(lastSubscription);     
+                            }
                         }
                     }
                 }

@@ -23,11 +23,10 @@
         */
         getDeviceDate : function() {
             var dateDrift = localStorage.getItem('dateDrift');
-            if(!dateDrift) {
-               return new Date().getTime();
-            } else { 
+            if(dateDrift) {
                return new Date().getTime() - dateDrift;               
             }
+            return null;
         }
     };
 }(window));

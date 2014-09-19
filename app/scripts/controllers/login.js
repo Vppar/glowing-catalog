@@ -57,9 +57,17 @@
         };
 
         $scope.login = function() {
-            return UserService.login($scope.user, $scope.pass, $scope.rememberMe).then(function() {
+            return UserService.login($scope.user, $scope.pass, $scope.rememberMe).then(function() {                
                 $log.debug('Logged in as ', $scope.user);
-                $location.path('/');
+                if(!DateUtils.getDeviceDate()) {
+                    DialogService.messageDialog({
+                        title : 'Atenção',
+                        message : 'Por favor, realize um login online!',
+                        btnYes : 'OK'
+                    });
+                } else {
+                    $location.path('/');    
+                }                
             }, function(err) {
                 $log.debug('Failed to login!', err);
 
@@ -74,5 +82,6 @@
                 });
             });
         };
+
     }]);
 }(angular));
