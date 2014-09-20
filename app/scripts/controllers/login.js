@@ -59,7 +59,8 @@
         $scope.login = function() {
             return UserService.login($scope.user, $scope.pass, $scope.rememberMe).then(function() {                
                 $log.debug('Logged in as ', $scope.user);
-                if(!DateUtils.getDeviceDate()) {
+                $location.path('/');
+                /*if(!DateUtils.getDeviceDate()) {
                     DialogService.messageDialog({
                         title : 'Atenção',
                         message : 'Por favor, realize um login online!',
@@ -67,7 +68,7 @@
                     });
                 } else {
                     $location.path('/');    
-                }                
+                }*/                
             }, function(err) {
                 $log.debug('Failed to login!', err);
 
