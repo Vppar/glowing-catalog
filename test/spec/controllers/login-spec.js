@@ -11,6 +11,9 @@ describe('Controller : LoginCtrl', function() {
     });
 
     beforeEach(inject(function($controller, $rootScope, _$q_) {
+
+        localStorage.dateDrift = 0;
+
         // mock
         scope = $rootScope.$new();
         $q = _$q_;

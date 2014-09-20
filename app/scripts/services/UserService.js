@@ -60,7 +60,7 @@
         /**
          * Define date drift between local date and server date.
          */
-        function setDateDrift () {
+        function setDateDrift() {
             var offsetRef = new Firebase(CatalogConfig.firebaseURL+'/.info/serverTimeOffset');
             offsetRef.on("value", function(snap) {
                 var offset = snap.val();

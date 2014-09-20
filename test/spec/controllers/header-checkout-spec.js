@@ -9,6 +9,9 @@ describe('Controller: HeaderCtrl', function() {
     var location = {};
     var UserService = {};
     var element = {};
+    var CatalogConfigMock = null;
+    var SubscriptionServiceMock = {};
+
     element.find = jasmine.createSpy('element.find').andCallFake(function () {
         return {
             css : function () {
@@ -18,6 +21,13 @@ describe('Controller: HeaderCtrl', function() {
     
     // Initialize the controller and a mock scope
     beforeEach(inject(function($controller, $rootScope) {
+
+        CatalogConfigMock = {
+            RIMEL : 'RIMEL',
+            BLUSH : 'BLUSH',           
+            GLOSS : 'GLOSS'
+        };
+
         // $location mock
         location.path = jasmine.createSpy('$location.path');
         
@@ -33,7 +43,7 @@ describe('Controller: HeaderCtrl', function() {
         UserService = jasmine.createSpy('UserService');
         // $scope mock
         scope = $rootScope.$new();
-        
+
         // HeaderCtrl injection
         $controller('HeaderCtrl', {
             $scope : scope,
@@ -41,7 +51,9 @@ describe('Controller: HeaderCtrl', function() {
             OrderService : os,
             DialogService : ds,
             UserService : UserService,
-            $element: element
+            $element: element,
+            SubscriptionService : SubscriptionServiceMock,
+            CatalogConfig : CatalogConfigMock
         });
     }));
 
