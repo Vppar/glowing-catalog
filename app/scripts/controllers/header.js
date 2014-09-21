@@ -59,7 +59,7 @@
                     } else {
                         DialogService.openDialogSubscriptionLastPlanNull();
                     }
-                }
+                };
 
                 $scope.now = {};
 
@@ -113,7 +113,7 @@
                 function addCacheUpdateListeners(){
                     CacheController.getPromise().then(function(status){
                         $element.find('img.loading-icon').css('visibility', 'hidden');
-                        if(status==="UPDATEREADY"){
+                        if(status==='UPDATEREADY'){
                             $scope.update=true;
                             CacheController.userConfirmationPopUp();
                         }else{
@@ -127,8 +127,8 @@
                 addCacheUpdateListeners();
 
                 $scope.forceUpdate = function(){
-                        $scope.update=false;
-                        location.reload();
+                    $scope.update=false;
+                    location.reload();
                 };
 
                 $scope.updateCache = function(){

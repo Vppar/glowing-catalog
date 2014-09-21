@@ -5,6 +5,7 @@ describe('Controller : LoginCtrl', function() {
     var DialogService = {};
     var UserService = {};
     var location = {};
+    var DateUtilsMock = {};
 
     beforeEach(function() {
         module('tnt.catalog.login.ctrl');
@@ -27,6 +28,7 @@ describe('Controller : LoginCtrl', function() {
             DialogService : DialogService,
             UserService : UserService,
             $location : location,
+            DateUtils : DateUtilsMock
         });
     }));
 

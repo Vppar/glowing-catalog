@@ -22,12 +22,6 @@ describe('Controller: HeaderCtrl', function() {
     // Initialize the controller and a mock scope
     beforeEach(inject(function($controller, $rootScope) {
 
-        CatalogConfigMock = {
-            RIMEL : 'RIMEL',
-            BLUSH : 'BLUSH',           
-            GLOSS : 'GLOSS'
-        };
-
         // $location mock
         location.path = jasmine.createSpy('$location.path');
         
