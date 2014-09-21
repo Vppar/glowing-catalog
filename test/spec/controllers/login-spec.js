@@ -5,7 +5,7 @@ describe('Controller : LoginCtrl', function() {
     var DialogService = {};
     var UserService = {};
     var location = {};
-    var DateUtilsMock = {};
+    var DateUtils = {};
 
     beforeEach(function() {
         module('tnt.catalog.login.ctrl');
@@ -22,13 +22,21 @@ describe('Controller : LoginCtrl', function() {
         location.path = jasmine.createSpy('location.path');
         DialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog');
 
+        DateUtils = {
+            getDeviceDate: function() {
+                return 0;
+            }
+        };
+
+        spyOn(DateUtils, 'getDeviceDate').andReturn(1212312312);
+
         controller = $controller('LoginCtrl', {
             $q : _$q_,
             $scope : scope,
             DialogService : DialogService,
             UserService : UserService,
             $location : location,
-            DateUtils : DateUtilsMock
+            DateUtils : DateUtils
         });
     }));
 
