@@ -12,9 +12,10 @@
                     // 'session');
                     //
                     sections.push('Mais Vendidos');
-                    sections.push('Cuidados com a Pele');
-                    sections.push('Maquiagem');
-                    sections.push('SPA e Fragrâncias');
+                    sections.push('Catálogo');
+                    // sections.push('Cuidados com a Pele');
+                    // sections.push('Maquiagem');
+                    // sections.push('SPA e Fragrâncias');
 
                     // Ed. Limitada
                     // Lançamentos

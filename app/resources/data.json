@@ -287,11 +287,14 @@
     	}
     ],
     "lines": [
-    {"name": "Olhos","color": "medium-yellow-gray"},
-		{"name": "Sinais Moderados","color": "light-pink"},
-		{"name": "Zen in Bloom","color": "dark-magenta"},
-		{"name": "Hollywood Mystique","color": "dark-magenta"},
-		{"name": "Acessórios","color": "soft-pink"},
+    {"name": "Controle de Peso","color": "light-green"},
+    {"name": "Nutrição Complementar","color": "light-green"},
+    {"name": "Nutrição Esportiva","color": "light-green"},
+    {"name": "Nutrição Externa","color": "light-green"},
+    {"name": "Lanches Saldáveis","color": "light-green"},
+    {"name": "Disposição","color": "light-green"},
+    {"name": "Hidratação","color": "light-green"},
+
 		{"name": "Fragrâncias Femininas","color": "light-magenta"},
 		{"name": "Sinais Avançados","color": "black"},
 		{"name": "Linha Jovem","color": "green"},

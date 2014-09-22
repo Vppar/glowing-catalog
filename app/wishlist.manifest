@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '1.2.37-1'
+# 'version' : '1.2.37-3'
 CACHE:
 apple-touch-icon.png
 apple-touch-icon-152x152.png
@@ -254,6 +254,7 @@ scripts/controllers/target/target-list.js
 scripts/controllers/target/target-parent.js
 scripts/controllers/date-range-test.js
 scripts/controllers/subscription.js
+scripts/controllers/loading-dialog.js
 
 scripts/keepers/CheckKeeper.js
 scripts/keepers/CoinKeeper.js
@@ -364,6 +365,7 @@ views/parts/global/sacred-choose-customer-dialog.html
 views/parts/global/header.html
 views/parts/global/sacred-message-dialog.html
 views/parts/global/numpad-dialog.html
+views/parts/global/loading-dialog.html
 views/parts/partial-delivery/customer-info-dialog.html
 views/parts/partial-delivery/delivery-details-dialog.html
 views/parts/payment/payment-left-advance.html
@@ -492,10 +494,16 @@ images/arrow-left-pink.png
 images/loading-20-pink.gif
 images/loading-btn_20.gif
 images/loading-btn-20-pink.gif
-images/vpink.jpg
+images/logo.png
+images/logo_verde.png
+images/logoH.png
 images/vpurse.gif
+images/vpink.jpg
 images/logo-home.png
 images/tooltip-arrow.png
+images/ico_login.png
+images/senha.png
+images/star_12.png
 
 images/icons/ic-calendar.png
 images/icons/ic-calendar-pink.png
@@ -506,17 +514,9 @@ images/thirdparty/magnifier/icon.png
 images/tutorial/tutorial-android-mockup-full.png
 images/tutorial/tutorial-ipad-mockup-full.png
 
-images/catalog/best-sellers-0.png
-images/catalog/best-sellers-1.png
-images/catalog/best-sellers-2.png
-images/catalog/best-sellers-3.png
-images/catalog/best-sellers-4.png
-images/catalog/best-sellers-5.png
-images/catalog/best-sellers-6.png
-images/catalog/best-sellers-7.png
-images/catalog/best-sellers-8.png
-images/catalog/best-sellers-9.png
-images/catalog/best-sellers-10.png
+images/catalog/hinode-1.png
+images/catalog/hinode-2.png
+images/catalog/hinode-3.png
 
 images/login/background-login-1.jpg
 images/login/background-login-2.jpg

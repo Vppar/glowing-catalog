@@ -8,13 +8,12 @@
 				<form class="form-signin">
 					<h2 class="form-signin-heading"><img src="images/logo-home.png" alt="" /></h2>
 					<div class="control-group lbl-top" >
-						<label>Login</label>
-						<input type="text" class="input-xlarge" ng-model="user" ng-disabled="hasPersistedUser()" lower-case placeholder="" name="username">
+						<img src="images/ico_login.png">
+						<input type="text" class="input-xlarge" ng-model="user" ng-disabled="hasPersistedUser()" lower-case placeholder="Login" name="username">
 					</div>
 
 					<div class="control-group lbl-top" >
-						<label>Senha</label>
-						<input type="password" class="input-xlarge" ng-model="pass" placeholder="">
+						<input type="password" class="input-xlarge" ng-model="pass" placeholder="Senha">
 					</div>
 
           <button ng-click="changeUser()" ng-if="hasPersistedUser()" class="btn btn-large btn-cancel btn-change-user" type="button">

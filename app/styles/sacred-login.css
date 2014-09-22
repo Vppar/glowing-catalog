@@ -1,10 +1,21 @@
 #sacred .login *{
 	box-sizing: border-box;
 }
+
+#sacred .login-input{
+	background: url(../images/ico_login.png) no-repeat scroll 7px 4px; 
+	padding-left: 30px;
+}
+
+#sacred .senha-input{
+	background: url(../images/senha.png) no-repeat scroll 7px 4px; 
+	padding-left: 30px;
+}
+
 #sacred .login{
 	width: 330px;
 	box-shadow: 0 10px 50px 10px #999;
-	background: #fff;
+	background: rgba(255,255,255,0.85);
 	top: 200px;
 	position: absolute;
 	left: 50%;
@@ -17,7 +28,6 @@
 
 #sacred .login h1{
 	margin: 0;
-	background: #fff;
 	border-top-left-radius: 3px;
 	border-top-right-radius: 3px;
 	color: #fff;
@@ -25,13 +35,15 @@
 	width: 100%;
 }
 #sacred .login h1 img{
-	margin: 9px 0 0 8px;
+	margin: 15px 0 0 14px;
+	width: 130px;
 
 }
 
 #sacred .login input{
 	height: 34px;
 	font-size: 16px;
+	background-color: #fff;
 }
 
 #sacred .login .login-body{
