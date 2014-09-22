@@ -3,17 +3,6 @@
 
 		<a class="brand" href="#"><img src="images/logo.png" /></a>
 		<nav id="topMenuHome">
-            <ul class="nav" fast-click> 
-                <li>
-                    <a href="#/?highlight=Destaques"  ng-class="{selected: selectedSection == 'Destaques'}">Destaques</a>
-                </li>
-                <li>
-                    <a href="#/?highlight=Novidades" ng-class="{selected: selectedSection == 'Novidades'}">Novidades</a>
-                </li>
-                <li>
-                    <a href="#/?highlight=Inovações" ng-class="{selected: selectedSection == 'Inovações'}">Inovações</a>
-                </li>
-            </ul>
             <ul class="nav">
               <li class="bag pull-right" ng-click='checkout(false)'><span>{{order.items | count: 'qty'}}</span></li>
               <li class="header-hour" ng-controller="DevelopmentHeaderCtrl" style="position: relative;">
