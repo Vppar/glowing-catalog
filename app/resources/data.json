@@ -270,7 +270,7 @@
     		"type": "BRINDE",
     		"entityId": 17,
 			"remarks": "COMPRA DE BRINDE PARA OS CLIENTES",
-			"amount": "250.00"     		
+			"amount": "250.00"
     	},
     	{
     		"id": 2,
@@ -283,36 +283,23 @@
     		"type": "BRINDE",
     		"entityId": 17,
 			"remarks": "COMPRA DE BRINDE PARA OS CLIENTES",
-			"amount": "500.00"     		
+			"amount": "500.00"
     	}
     ],
     "lines": [
-    {"name": "Controle de Peso","color": "light-green"},
-    {"name": "Nutrição Complementar","color": "light-green"},
-    {"name": "Nutrição Esportiva","color": "light-green"},
-    {"name": "Nutrição Externa","color": "light-green"},
-    {"name": "Lanches Saldáveis","color": "light-green"},
-    {"name": "Disposição","color": "light-green"},
-    {"name": "Hidratação","color": "light-green"},
-
-		{"name": "Fragrâncias Femininas","color": "light-magenta"},
-		{"name": "Sinais Avançados","color": "black"},
-		{"name": "Linha Jovem","color": "green"},
-		{"name": "Linha Antiacne","color": "light-gray"},
-		{"name": "Linha Clássica","color": "color-dark-lilac"},
-		{"name": "Linha Masculina","color": "black"},
-		{"name": "Cuidados Personalizados","color": "soft-lila"},
-		{"name": "Cuidados com o Corpo","color": "light-green"},
-		{"name": "Solar","color": "orange"},
-		{"name": "Bases","color": "soft-orange"},
-		{"name": "Corretivo","color": "black"},
-		{"name": "Pó Mineral Compacto","color": "soft2-orange"},
-		{"name": "Iluminador","color": "soft-black"},
-		{"name": "Sobrancelhas","color": "medium2-yellow-gray"},
-		{"name": "Rosto","color": "soft-orange"},
-		{"name": "Lábios","color": "color-soft-red"},
-		{"name": "Fragrâncias Masculinas","color": "light-blue"},
-		{"name": "Art Of Nature","color": "dark-magenta"}
+        {"name": "Rosto","color": "medium-yellow-gray"},
+        {"name": "Maquiagem","color": "light-pink"},
+        {"name": "Corpo","color": "dark-magenta"},
+        {"name": "Pernas e Pés","color": "soft2-orange"},
+        {"name": "Cabelos","color": "soft-pink"},
+        {"name": "Desodorante","color": "light-magenta"},
+        {"name": "Perfumaria","color": "black"},
+        {"name": "Proteção Solar","color": "green"},
+        {"name": "Homem","color": "light-gray"},
+        {"name": "Teen","color": "color-dark-lilac"},
+        {"name": "Sensual","color": "black"},
+        {"name": "Empório","color": "soft-lila"},
+        {"name": "Bem-Estar","color": "light-green"}
 	],
 	"banks" : {
 		"001":	"Banco do Brasil S.A.",
