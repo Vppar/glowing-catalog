@@ -188,7 +188,7 @@
                                 $rootScope.$broadcast('FirebaseDisconnected');
                             }
                         });
-                        
+
                         auth.login('password', {
                             email : username,
                             password : password
@@ -257,6 +257,7 @@
                         var startIndex = lastSynced === null ? 0 : lastSynced + 1;
 
                         function setChildAddedHandler() {
+                            if (journalRef){
                             journalRef
                                 .startAt(startIndex)
                                 .on('child_added', function (snapshot) {
@@ -264,8 +265,10 @@
                                     SyncService.insert(snapshot.val());
                                     $rootScope.$broadcast('EntryReceived', entry);
                                 });
-
                             $log.debug('Waiting for new entries');
+                            } else {
+                              $log.debug('There is no journalRef, impossible to add a listener');
+                            }
                         }
 
                         if(!lastSynced){
@@ -332,16 +335,16 @@
                 if (isConnected()) {
                     setFirebaseReferences(localStorage.firebaseUser);
                 }
-                
+
                 this.getDataAccount = function(){
-                    var deferred = $q.defer();  
-                    
+                    var deferred = $q.defer();
+
                     userRef.child('account').child('consultant').on('value', function(snapshot) {
                         deferred.resolve(snapshot.val());
                     });
                     return deferred.promise;
                 };
-                
+
             }
         ]);
 }(angular));
