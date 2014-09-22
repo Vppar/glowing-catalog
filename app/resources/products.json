@@ -119,7 +119,7 @@
         "id": 14,
         "session": "Catálogo",
         "line": "Corpo",
-        "image": "3-locao-hidratante-suspiro-limao.jpg",
+        "image": "3-smell-locao-hidratante.jpg",
         "points": 12,
         "title": "Smell Loção Hidratante - 200ml",
         "price": 27,
@@ -128,18 +128,18 @@
     {
         "id": 15,
         "parent": 14,
-        "SKU": "3-locao-hidratante-suspiro-limao",
-        "image": "3-locao-hidratante-suspiro-limao.jpg",
+        "SKU": "3-smell-suspiro-limao",
+        "image": "3-smell-suspiro-limao.jpg",
         "active": true,
         "option": "Suspiro Limão",
         "price": 27,
         "points": 12
     },
     {
-        "id": 17,
-        "parent": 16,
-        "SKU": "3-smell-locao-hidratante",
-        "image": "3-smell-locao-hidratante.jpg",
+        "id": 16,
+        "parent": 14,
+        "SKU": "3-smell-mouse-maracuja",
+        "image": "3-smell-mouse-maracuja.jpg",
         "active": true,
         "option": "Mouse Maracujá",
         "price": 28,
@@ -320,6 +320,7 @@
         "id": 36,
         "session": "Catálogo",
         "line": "Perfumaria",
+        "bestSeller": 2,
         "image": "7-traducoes-gold-62-100ml.jpg",
         "points": 17,
         "title": "Traduções Gold 62 - 100ml",
@@ -624,6 +625,7 @@
         "id": 68,
         "session": "Catálogo",
         "line": "Bem-Estar",
+        "bestSeller": 1,
         "image": "13-diamond-energy-drink.jpg",
         "points": 23,
         "title": "HND Diamond Energy Drink - 269ml",
@@ -637,6 +639,26 @@
         "image": "13-diamond-energy-drink.jpg",
         "active": true,
         "price": 15,
+        "points": 23
+    },
+    {
+        "id": 70,
+        "session": "Catálogo",
+        "line": "Bem-Estar",
+        "bestSeller": 3,
+        "image": "14-joli-oleo-em-creme.jpg",
+        "points": 23,
+        "title": "Joli Óleo em Creme Cupuaçu - 140ml",
+        "price": 35,
+        "description": "Joli Óleo em Creme amacia a pele deixando um toque aveludado e perfume agradável. Formulado com Manteiga de Cupuaçu"
+    },
+    {
+        "id": 71,
+        "parent": 70,
+        "SKU": "14-joli-oleo-em-creme",
+        "image": "14-joli-oleo-em-creme.jpg",
+        "active": true,
+        "price": 35,
         "points": 23
     }
 ]
