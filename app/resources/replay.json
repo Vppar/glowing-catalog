@@ -75,7 +75,7 @@
         "type": "stockAdd",
         "version": 1,
         "event": {
-            "inventoryId": 17,
+            "inventoryId": 16,
             "cost": 0,
             "quantity": 0
         }
@@ -310,6 +310,15 @@
         "version": 1,
         "event": {
             "inventoryId": 69,
+            "cost": 0,
+            "quantity": 0
+        }
+    },
+    {
+        "type": "stockAdd",
+        "version": 1,
+        "event": {
+            "inventoryId": 71,
             "cost": 0,
             "quantity": 0
         }
