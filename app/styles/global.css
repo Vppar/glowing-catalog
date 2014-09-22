@@ -680,8 +680,8 @@ nav .dropdown ul li:hover , nav .dropdown ul li:active {
 }
 
 .container .navbar .nav {
-	float: none;
-	margin: 18px auto 0 auto;
+	float: right;
+	margin: 0 auto;
 	font-weight:normal;
 }
 
