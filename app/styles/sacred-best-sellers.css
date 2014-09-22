@@ -62,11 +62,11 @@
 #sacred .main-best-sellers .bs-product1 {
     height:192px;
     width:420px;
-    top:100px;
+    top:120px;
     left:0px;
 }
 #sacred .main-best-sellers .bs-product1 img{
-    width:250px;
+    width:198px;
 }
 #sacred .main-best-sellers .bs-product1 .bs-text{
     top: 55px;
@@ -77,11 +77,11 @@
 #sacred .main-best-sellers .bs-product2 {
     height:192px;
     width:390px;
-    top:130px;
-    left:420px;
+    top:124px;
+    left:290px;
 }
 #sacred .main-best-sellers .bs-product2 img{
-    width:225px;
+    width:211px;
 }
 #sacred .main-best-sellers .bs-product2 .bs-text{
     top: 40px;
@@ -92,12 +92,12 @@
 #sacred .main-best-sellers .bs-product3 {
     height:192px;
     width:352px;
-    top:345px;
-    left:70px;
+    top:110px;
+    left:450px;
 }
 
 #sacred .main-best-sellers .bs-product3 img{
-   width:225px;
+   width:201px;
    float: right;
 }
 
