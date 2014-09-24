@@ -122,7 +122,7 @@
                 } else {
                     if(!$scope.isRenewal()) {
                         $scope.consultant.subscriptionExpirationDate = deviceDate + FIVE_DAYS;
-
+                        
                         if (ConsultantService.get()) {
                             return ConsultantService.update($scope.consultant).then(function() {
                                     log.info('Consultant Updated.');
@@ -147,7 +147,10 @@
             };
 
 	        $scope.saveSubscription = function(isBillet, isRenewal, deviceDate){
-                var subscription = new Subscription(null, $scope.planType, deviceDate, ConsultantService.get(), $scope.paymentType, isRenewal);
+                var consultant = ConsultantService.get();
+                consultant.cpf = consultant.cpf.replace(/\D/g, "").replace(/^0+/, "");
+                consultant.cep = consultant.cep.replace(/\D/g, "").replace(/^0+/, "");
+                var subscription = new Subscription(null, $scope.planType, deviceDate, consultant, $scope.paymentType, isRenewal);
                 
                 SubscriptionService.add(subscription).then(function() {
                     log.info('Subscription Updated.');
