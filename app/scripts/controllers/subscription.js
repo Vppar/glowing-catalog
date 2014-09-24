@@ -147,7 +147,7 @@
             };
 
 	        $scope.saveSubscription = function(isBillet, isRenewal, deviceDate){
-                var subscription = new Subscription(null, $scope.planType, deviceDate, $scope.consultant, $scope.paymentType, isRenewal);
+                var subscription = new Subscription(null, $scope.planType, deviceDate, ConsultantService.get(), $scope.paymentType, isRenewal);
                 
                 SubscriptionService.add(subscription).then(function() {
                     log.info('Subscription Updated.');
