@@ -44,6 +44,7 @@
             'tnt.catalog.financial.expense',
             'tnt.catalog.financial.incomeStatement',
             'tnt.utils.array',
+	        'tnt.utils.date',
             'tnt.catalog.components.product-display',
             'tnt.catalog.components.catalog-section',
             'tnt.catalog.components.highlight-display',

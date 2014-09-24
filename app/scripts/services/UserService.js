@@ -3,8 +3,8 @@
 
     angular.module('tnt.catalog.user', [
         'tnt.util.log', 'angular-md5', 'tnt.catalog.sync.driver', 'tnt.catalog.sync.service', 'tnt.catalog.prefetch.service', 'tnt.catalog.config', 'tnt.catalog.service.dialog', 'tnt.catalog.subscription.service'
-    ]).service('UserService', ['$q', '$location', '$timeout', 'logger', 'md5', 'SyncDriver', 'SyncService', 'PrefetchService', 'CatalogConfig', 'DialogService', 'SubscriptionService', 'ConsultantService',
-        function UserService($q, $location, $timeout, logger, md5, SyncDriver, SyncService, PrefetchService, CatalogConfig, DialogService, SubscriptionService, ConsultantService) {
+    ]).service('UserService', ['$q', '$location', '$timeout', 'logger', 'md5', 'SyncDriver', 'SyncService', 'PrefetchService', 'CatalogConfig', 'DialogService', 'SubscriptionService', 'ConsultantService', 'Firebase', 'DateUtils',
+                               function UserService($q, $location, $timeout, logger, md5, SyncDriver, SyncService, PrefetchService, CatalogConfig, DialogService, SubscriptionService, ConsultantService, Firebase, DateUtils) {
 
             var log = logger.getLogger('tnt.catalog.user.UserService');
 
@@ -12,7 +12,6 @@
             var logged = false;
             var SALT = '7un7sC0rp';
             var userService = this;
-            var subscribeLaterDate;
 
             /**
              * @param {String}
@@ -24,14 +23,15 @@
                 var deferred = $q.defer();
 
                 var promise = SyncDriver.login(user, pass);
+                var message;
 
                 var timer = $timeout(function(){
                     if(localStorage.hashMD5) {
-                        var message = 'Login is taking too long, falling back!';
+                        message = 'Login is taking too long, falling back!';
                         log.error(message);
                         deferred.reject(message);
                     } else {
-                        var message = 'Login is taking too long, cannot fallback because the device is new!';
+                        message = 'Login is taking too long, cannot fallback because the device is new!';
                         log.fatal(message);
                     }
                 }, 5000);
@@ -111,6 +111,7 @@
                 var loggedIn = this.loggedIn;
                 var onlineLoginErrorHandler = this.onlineLoginErrorHandler;
                 var loggedPromise = onlineLoggedPromise.then(function() {
+		            setDateDrift();
                     return loggedIn(user, pass);
                 }, function(err) {
                     return onlineLoginErrorHandler(err, user, pass);
@@ -188,32 +189,47 @@
                     });
                 }
             };
-
+        
+            /**
+            * Show subscription dialog when user is not subscribed.
+            */
             this.redirectIfIsNotSubscribed = function () {
-                var consultant = ConsultantService.get();
-                var numberOfDaysLastSubscripton;
+                var today = DateUtils.getDeviceDate();
+                if(!today) {
+                    $location.path('/login');
+                } else {
+                    var consultant = ConsultantService.get();
+                    var numberOfDaysLastSubscripton;
 
-                if( consultant && consultant.subscriptionExpirationDate) {
-                    var numberOfDaysToExpiration = getDiffOfDays(consultant.subscriptionExpirationDate);
-                    var numberOfDaysSubscribeLaterDate = getDiffOfDays(this.subscribeLaterDate);
-                    var lastSubscription = SubscriptionService.getLastSubscription();
-                    if(lastSubscription) {
-                        numberOfDaysLastSubscripton = getDiffOfDays(lastSubscription.subscriptionDate);
-                    }
+                    if( consultant && consultant.subscriptionExpirationDate && today) {
+                        var numberOfDaysToExpiration = DateUtils.getDiffOfDays(consultant.subscriptionExpirationDate, today);
 
-                    if(numberOfDaysToExpiration<0) {
-                        openDialogSubscription(lastSubscription);
-                    } else if(numberOfDaysToExpiration <=5 && numberOfDaysToExpiration >= 0) {
-                        if(numberOfDaysLastSubscripton && numberOfDaysLastSubscripton<=-5) {
-                            if(numberOfDaysSubscribeLaterDate === null || numberOfDaysSubscribeLaterDate !== 0) {
-                                openDialogSubscription(lastSubscription);
+                        var numberOfDaysSubscribeLaterDate = DateUtils.getDiffOfDays(this.subscribeLaterDate, today);
+
+                        var lastSubscription = SubscriptionService.getLastSubscription();
+
+                        if(lastSubscription) {
+                            numberOfDaysLastSubscripton = DateUtils.getDiffOfDays(lastSubscription.subscriptionDate, today);
+                        }
+
+                        if(numberOfDaysToExpiration<0) {
+                            this.openDialogSubscription(lastSubscription);
+                        } else if(numberOfDaysToExpiration <=5 && numberOfDaysToExpiration >= 0) {
+                            if(numberOfDaysLastSubscripton && numberOfDaysLastSubscripton<=-5) {
+                                if(numberOfDaysSubscribeLaterDate === null || numberOfDaysSubscribeLaterDate !== 0) {
+                                    this.openDialogSubscription(lastSubscription);
+                                }
                             }
                         }
                     }
                 }
             };
 
-            function openDialogSubscription(lastSubscription) {
+            /**
+            * Open subscription dialog according to last plan type.
+            * @param {object} lastSubscription last subscription.
+            */
+            this.openDialogSubscription = function(lastSubscription) {
                 if( lastSubscription && lastSubscription.planType ){
                     if( lastSubscription.planType === CatalogConfig.GLOSS ){
                         DialogService.openDialogSubscriptionLastPlanGloss();
@@ -230,16 +246,18 @@
                 } else {
                     DialogService.openDialogSubscriptionLastPlanNull();
                 }
-            }
-
-            function getDiffOfDays(otherDate) {
-                if(otherDate) {
-                    var day=1000*60*60*24;
+            };
+            /**
+            * Define date drift between local date and server date.
+            */
+            function setDateDrift() {
+                var offsetRef = new Firebase(CatalogConfig.firebaseURL+'/.info/serverTimeOffset');
+                offsetRef.on('value', function(snap) {
+                    var offset = snap.val();
                     var today = new Date().getTime();
-                    var diff = otherDate - today;
-                    return Math.round(diff/day);
-                }
-                return null;
+                    var firebaseTimestamp = today + offset;
+                    localStorage.setItem('dateDrift', today - firebaseTimestamp);
+                });
             }
 
             /**

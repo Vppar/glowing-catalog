@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.login.ctrl', [
         'tnt.catalog.user'
-    ]).controller('LoginCtrl', ['$scope', '$log', '$location', 'UserService', 'DialogService', function($scope, $log, $location, UserService, DialogService) {
+    ]).controller('LoginCtrl', ['$scope', '$log', '$location', 'UserService', 'DialogService', 'DateUtils', function($scope, $log, $location, UserService, DialogService, DateUtils) {
 
         function hasPersistedUser() {
             return !!localStorage.user;
@@ -16,7 +16,7 @@
         $scope.hasPersistedUser = hasPersistedUser;
 
         var imageNumber = Math.floor(Math.random() * (2)) + 1;
-        $scope.backgroundImage = {'background-position': 'top center', 'background-repeat':'no-repeat', 
+        $scope.backgroundImage = {'background-position': 'top center', 'background-repeat':'no-repeat',
                                   'background-image': 'url(images/login/background-login-'+imageNumber+'.jpg)'};
 
         $scope.changeUser = function () {
@@ -59,7 +59,15 @@
         $scope.login = function() {
             return UserService.login($scope.user, $scope.pass, $scope.rememberMe).then(function() {
                 $log.debug('Logged in as ', $scope.user);
-                $location.path('/');
+                if(!DateUtils.getDeviceDate()) {
+                    DialogService.messageDialog({
+                        title : 'Atenção',
+                        message : 'Por favor, realize um login online!',
+                        btnYes : 'OK'
+                    });
+                } else {
+                    $location.path('/');
+                }
             }, function(err) {
                 $log.debug('Failed to login!', err);
 
@@ -74,5 +82,6 @@
                 });
             });
         };
+
     }]);
 }(angular));

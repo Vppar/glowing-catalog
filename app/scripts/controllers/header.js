@@ -3,8 +3,8 @@
 
     angular.module('tnt.catalog.header', ['tnt.catalog.manifest', 'tnt.catalog.service.intent']).controller(
             'HeaderCtrl',
-            ['$scope', '$element', '$filter', '$location', '$interval', 'OrderService', 'DialogService', 'UserService', 'CacheController', 'IntentService',
-            function($scope, $element, $filter, $location, $interval, OrderService, DialogService, UserService, CacheController, IntentService) {
+            ['$scope', '$element', '$filter', '$location', '$interval', 'OrderService', 'DialogService', 'UserService', 'CacheController', 'IntentService', 'SubscriptionService', 'CatalogConfig',
+            function($scope, $element, $filter, $location, $interval, OrderService, DialogService, UserService, CacheController, IntentService, SubscriptionService, CatalogConfig) {
 
                 // #############################################################################################################
                 // Scope variables from services
@@ -38,6 +38,28 @@
                  * Opens the dialog to input a product.
                  */
                 $scope.openDialogInputProducts = DialogService.openDialogInputProducts;
+                /**
+                 * Opens the dialog to subscribe.
+                 */
+                $scope.openDialogSubscribeNow = function openDialogSubscribeNow() {
+                    var lastSubscription = SubscriptionService.getLastSubscription();
+                    if( lastSubscription && lastSubscription.planType ){
+                        if( lastSubscription.planType === CatalogConfig.GLOSS ){
+                            DialogService.openDialogSubscriptionLastPlanGloss();
+                        }
+                        else if( lastSubscription.planType === CatalogConfig.BLUSH ){
+                            DialogService.openDialogSubscriptionLastPlanBlush();
+                        }
+                        else if( lastSubscription.planType === CatalogConfig.RIMEL ){
+                            DialogService.openDialogSubscriptionLastPlanRimel();
+                        }
+                        else {
+                            DialogService.openDialogSubscriptionLastPlanNull();
+                        }
+                    } else {
+                        DialogService.openDialogSubscriptionLastPlanNull();
+                    }
+                };
 
                 $scope.now = {};
 
@@ -91,7 +113,7 @@
                 function addCacheUpdateListeners(){
                     CacheController.getPromise().then(function(status){
                         $element.find('img.loading-icon').css('visibility', 'hidden');
-                        if(status==="UPDATEREADY"){
+                        if(status==='UPDATEREADY'){
                             $scope.update=true;
                             CacheController.userConfirmationPopUp();
                         }else{
@@ -105,8 +127,8 @@
                 addCacheUpdateListeners();
 
                 $scope.forceUpdate = function(){
-                        $scope.update=false;
-                        location.reload();
+                    $scope.update=false;
+                    location.reload();
                 };
 
                 $scope.updateCache = function(){
