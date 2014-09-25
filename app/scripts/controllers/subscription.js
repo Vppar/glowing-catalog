@@ -112,14 +112,16 @@
             };
                         
             $scope.confirmPaymentWithBillet = function () {
-                $scope.failed = true;
 
+                $scope.failed = true;                
+                var FIVE_DAYS = 432000000;
                 var deviceDate = DateUtils.getDeviceDate();
+
                 if(!deviceDate) {
                     $location.path('/login');
                 } else {
                     if(!$scope.isRenewal()) {
-                        $scope.consultant.subscriptionExpirationDate = deviceDate+ 432000000;
+                        $scope.consultant.subscriptionExpirationDate = deviceDate + FIVE_DAYS;
 
                         if (ConsultantService.get()) {
                             return ConsultantService.update($scope.consultant).then(function() {
