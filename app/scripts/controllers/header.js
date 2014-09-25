@@ -54,10 +54,10 @@
                             DialogService.openDialogSubscriptionLastPlanRimel();
                         }
                         else {
-                            DialogService.openDialogSubscriptionLastPlanNull();
+                            DialogService.openDialogSubscriptionLastPlanNullByMenu();
                         }
                     } else {
-                        DialogService.openDialogSubscriptionLastPlanNull();
+                        DialogService.openDialogSubscriptionLastPlanNullByMenu();
                     }
                 };
 

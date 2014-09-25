@@ -171,7 +171,7 @@
                     if( $scope.consultant && $scope.consultant.subscriptionExpirationDate) {
                         $scope.numberOfDaysToExpiration = DateUtils.getDiffOfDays($scope.consultant.subscriptionExpirationDate, deviceDate);
 
-                        if($scope.numberOfDaysToExpiration<0) {
+                        if(!$scope.numberOfDaysToExpiration || $scope.numberOfDaysToExpiration<0) {
                             return false;
                         } else {
                             return true;
