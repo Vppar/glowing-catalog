@@ -121,7 +121,7 @@
                 } else {
                     if(!$scope.isRenewal()) {
                         $scope.consultant.subscriptionExpirationDate = deviceDate + FIVE_DAYS;
-                        
+                        UserService.defineSubscribed(1);
                         if (ConsultantService.get()) {
                             return ConsultantService.update($scope.consultant).then(function() {
                                     log.info('Consultant Updated.');

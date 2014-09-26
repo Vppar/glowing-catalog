@@ -174,6 +174,10 @@
                 return subscribed;
             };
 
+            this.defineSubscribed = function isSubscribed(value) {
+                subscribed = value;
+            };
+
             this.hasUnsyncedData = function hasUnsyncedData() {
                 return SyncService.hasUnsyncedEntries();
             };
@@ -263,12 +267,10 @@
 
                         if(numberOfDaysToExpiration<0) {
                             subscribed = 3;
-                            openDialogSubscription();
                         } else if(numberOfDaysToExpiration <=5 && numberOfDaysToExpiration >= 0) {
                             if(numberOfDaysLastSubscripton && numberOfDaysLastSubscripton<=-5) {
                                 if(numberOfDaysSubscribeLaterDate === null || numberOfDaysSubscribeLaterDate !== 0) {
                                     subscribed = 2;
-                                    openDialogSubscription();
                                 }
                             }
                         }
