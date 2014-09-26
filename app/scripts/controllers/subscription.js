@@ -81,7 +81,6 @@
                     $location.path('/login');
                 } else {
                     UserService.defineSubscribeLaterDate(deviceDate);
-
                     if(!$scope.numberOfDaysToExpiration) {
                         $scope.numberOfDaysToExpiration = DateUtils.getDiffOfDays($scope.consultant.subscriptionExpirationDate, deviceDate);
                     }
@@ -113,7 +112,7 @@
                         
             $scope.confirmPaymentWithBillet = function () {
 
-                $scope.failed = true;                
+                $scope.failed = true;
                 var FIVE_DAYS = 432000000;
                 var deviceDate = DateUtils.getDeviceDate();
 
@@ -148,8 +147,8 @@
 
 	        $scope.saveSubscription = function(isBillet, isRenewal, deviceDate){
                 var consultant = ConsultantService.get();
-                consultant.cpf = consultant.cpf.replace(/\D/g, "").replace(/^0+/, "");
-                consultant.cep = consultant.cep.replace(/\D/g, "").replace(/^0+/, "");
+                consultant.cpf = consultant.cpf.replace(/\D/g, '').replace(/^0+/, '');
+                consultant.cep = consultant.cep.replace(/\D/g, '').replace(/^0+/, '');
                 var subscription = new Subscription(null, $scope.planType, deviceDate, consultant, $scope.paymentType, isRenewal);
                 
                 SubscriptionService.add(subscription).then(function() {

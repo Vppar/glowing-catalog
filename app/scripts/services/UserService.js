@@ -10,8 +10,10 @@
 
             // FIXME change default value to FALSE
             var logged = false;
+            var subscribed = 1;
             var SALT = '7un7sC0rp';
             var userService = this;
+            var subscribeLaterDate;
 
             /**
              * @param {String}
@@ -142,6 +144,10 @@
                                     deferred.resolve();
                                 }, 1000);
 
+                                setTimeout(function () {
+                                    defineIfMustShowSubscriptionDialog();
+                                }, 10000);
+
                                 return deferred.promise;
                             });
                         });
@@ -164,6 +170,10 @@
                 return logged;
             };
 
+            this.isSubscribed = function isSubscribed() {
+                return subscribed;
+            };
+
             this.hasUnsyncedData = function hasUnsyncedData() {
                 return SyncService.hasUnsyncedEntries();
             };
@@ -178,8 +188,8 @@
                 this.redirectIfIsNotSubscribed();
             };
 
-            this.defineSubscribeLaterDate = function (subscribeLaterDate) {
-                this.subscribeLaterDate = subscribeLaterDate;
+            this.defineSubscribeLaterDate = function (date) {
+                subscribeLaterDate = date;
             };
 
             this.redirectIfIsNotLoggedIn = function () {
@@ -189,47 +199,28 @@
                     });
                 }
             };
-        
+
             /**
             * Show subscription dialog when user is not subscribed.
             */
-            this.redirectIfIsNotSubscribed = function () {
-                var today = DateUtils.getDeviceDate();
-                if(!today) {
-                    $location.path('/login');
-                } else {
-                    var consultant = ConsultantService.get();
-                    var numberOfDaysLastSubscripton;
+            this.redirectIfIsNotSubscribed = function redirectIfIsNotSubscribed() {
 
-                    if( consultant && consultant.subscriptionExpirationDate && today) {
-                        var numberOfDaysToExpiration = DateUtils.getDiffOfDays(consultant.subscriptionExpirationDate, today);
-
-                        var numberOfDaysSubscribeLaterDate = DateUtils.getDiffOfDays(this.subscribeLaterDate, today);
-
-                        var lastSubscription = SubscriptionService.getLastSubscription();
-
-                        if(lastSubscription) {
-                            numberOfDaysLastSubscripton = DateUtils.getDiffOfDays(lastSubscription.subscriptionDate, today);
-                        }
-
-                        if(numberOfDaysToExpiration<0) {
-                            this.openDialogSubscription(lastSubscription);
-                        } else if(numberOfDaysToExpiration <=5 && numberOfDaysToExpiration >= 0) {
-                            if(numberOfDaysLastSubscripton && numberOfDaysLastSubscripton<=-5) {
-                                if(numberOfDaysSubscribeLaterDate === null || numberOfDaysSubscribeLaterDate !== 0) {
-                                    this.openDialogSubscription(lastSubscription);
-                                }
-                            }
-                        }
+                if (this.isSubscribed()===2) {
+                    var numberOfDaysSubscribeLaterDate = DateUtils.getDiffOfDays(subscribeLaterDate, DateUtils.getDeviceDate());
+                    if(numberOfDaysSubscribeLaterDate === null || numberOfDaysSubscribeLaterDate !== 0) {
+                        openDialogSubscription();
                     }
+                } else if (this.isSubscribed()===3) {
+                    openDialogSubscription();
                 }
             };
-
+        
             /**
             * Open subscription dialog according to last plan type.
             * @param {object} lastSubscription last subscription.
             */
-            this.openDialogSubscription = function(lastSubscription) {
+            function openDialogSubscription() {
+                var lastSubscription = SubscriptionService.getLastSubscription();
                 if( lastSubscription && lastSubscription.planType ){
                     if( lastSubscription.planType === CatalogConfig.GLOSS ){
                         DialogService.openDialogSubscriptionLastPlanGloss();
@@ -246,7 +237,45 @@
                 } else {
                     DialogService.openDialogSubscriptionLastPlanNull();
                 }
-            };
+            }
+
+            /**
+            * Define if necessary show subscription dialog.
+            */
+            function defineIfMustShowSubscriptionDialog(){
+                var today = DateUtils.getDeviceDate();
+                if(!today) {
+                    $location.path('/login');
+                } else {
+                    var consultant = ConsultantService.get();
+                    var numberOfDaysLastSubscripton;
+
+                    if( consultant && consultant.subscriptionExpirationDate && today) {
+                        var numberOfDaysToExpiration = DateUtils.getDiffOfDays(consultant.subscriptionExpirationDate, today);
+
+                        var numberOfDaysSubscribeLaterDate = DateUtils.getDiffOfDays(subscribeLaterDate, today);
+
+                        var lastSubscription = SubscriptionService.getLastSubscription();
+
+                        if(lastSubscription) {
+                            numberOfDaysLastSubscripton = DateUtils.getDiffOfDays(lastSubscription.subscriptionDate, today);
+                        }
+
+                        if(numberOfDaysToExpiration<0) {
+                            subscribed = 3;
+                            openDialogSubscription();
+                        } else if(numberOfDaysToExpiration <=5 && numberOfDaysToExpiration >= 0) {
+                            if(numberOfDaysLastSubscripton && numberOfDaysLastSubscripton<=-5) {
+                                if(numberOfDaysSubscribeLaterDate === null || numberOfDaysSubscribeLaterDate !== 0) {
+                                    subscribed = 2;
+                                    openDialogSubscription();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             /**
             * Define date drift between local date and server date.
             */
