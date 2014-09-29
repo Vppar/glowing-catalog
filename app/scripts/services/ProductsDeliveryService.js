@@ -42,7 +42,7 @@
                     };
 
                 function prepareOrders (orders, type) {
-                    for ( var ix = 0 in orders) {
+                    for ( var ix in orders) {
                         var order = orders[ix];
                         var entity = EntityService.read(order.customerId);
                         
@@ -71,7 +71,7 @@
                             return item.type ? false : true;
                         });
                         var totalRemaining =0;
-                        for ( var ix2 = 0 in order.items) {
+                        for ( var ix2 in order.items) {
                             var item = order.items[ix2];
 
                             if (!item.dQty) {
