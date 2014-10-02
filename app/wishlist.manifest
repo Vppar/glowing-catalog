@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '0.0.13-34'
+# 'version' : '0.1.0-mobile'
 
 CACHE:
 apple-touch-icon.png
@@ -583,6 +583,7 @@ styles/mobile/troca-produto.css
 styles/mobile/new-numpad.css
 styles/mobile/neo-mobile.css
 styles/mobile/pagamento-emitir-voucher-cupom.css
+styles/mobile/neo-calendar.css
 
 views/mobile/catalog.html
 views/mobile/catalog_orig.html
@@ -601,6 +602,7 @@ views/mobile/pedido-venda.html
 views/mobile/pronta-entrega.html
 views/mobile/troca-produto.html
 views/mobile/vale-cupom.html
+views/mobile/neo/product-delivery.html
 views/mobile/neo/product-delivery-delivered.html
 views/mobile/neo/product-delivery-delivered-details.html
 views/mobile/neo/product-delivery-to-deliver.html

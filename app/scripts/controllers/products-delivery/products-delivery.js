@@ -15,7 +15,7 @@
             function ($scope, $filter, ArrayUtils, UserService, logger, ProductsDeliveryService) {
 
                 var log = logger.getLogger('tnt.catalog.productsDelivery.ProductsDeliveryCtrl');
-                
+
                 UserService.redirectIfInvalidUser();
                 $scope.toBeDelivered = [];
                 $scope.delivered = [];
@@ -34,7 +34,7 @@
                 $scope.dtFilter = {
                     dtInitial : setTime(new Date(), 0, 0, 0, 0),
                     dtFinal : new Date(),
-                    dtMax : setTime(new Date(), 0, 0, 0, 0),
+                    dtMax : setTime(new Date(), 0, 0, 0, 0)
                 };
 
                 $scope.nameFilter = {
@@ -64,7 +64,7 @@
                     delivered : 0,
                     products : 0,
                     remaining : 0,
-                    totalItemsScheduled : 0,
+                    totalItemsScheduled : 0
                 };
 
                 $scope.resetOrders =
@@ -91,7 +91,7 @@
                         }
                         withoutScheduling = $filter('orderBy')(withoutScheduling, 'created');
                         return  withScheduling.concat(withoutScheduling);
-                }    
+                }
                 // #################################################################################################################
                 // Aux functions
                 // #################################################################################################################

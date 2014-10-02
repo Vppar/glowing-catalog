@@ -1,0 +1,48 @@
+<div class="container" id="neo">
+
+    <span ng-include src="'views/mobile/neo/parts/header.html'"></span>
+
+    <div class="content product-delivery">
+        <div class="title">
+            <div>Entrega de Produtos</div>
+        </div>
+
+        <div class="control">
+            <div class="row page-control">
+                <div class="col-xs-12">
+                    <div class="btn-group btn-group-justified">
+                        <a href=""
+                           class="btn btn-default"
+                           ng-class="{active: selected.tab=='toBeDelivered' || selected.tab=='toBeDeliveredProducts'}"
+                           ng-click="selected.tab='toBeDelivered'">Pedidos a Entregar</a>
+                        <a href=""
+                           class="btn btn-default"
+                           ng-class="{active: selected.tab=='delivered' || selected.tab=='deliveredProducts'}"
+                           ng-click="selected.tab='delivered'">Pedidos Entregues</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid" ng-switch="selected.tab">
+        <div class="grid" ng-switch-when="toBeDelivered">
+            <div class="grid" ng-include src="'views/mobile/neo/product-delivery-to-deliver.html'"
+                 ng-controller="ProductsToBeDeliveryCtrl"></div>
+        </div>
+
+        <div class="grid" ng-switch-when="toBeDeliveredProducts">
+            <div class="grid" ng-include src="'views/mobile/neo/product-delivery-to-deliver-details.html'"
+                 ng-controller="ProductsToBeDeliveryProductsCtrl"></div>
+        </div>
+
+        <div class="grid" ng-switch-when="delivered">
+            <div class="grid" ng-include src="'views/mobile/neo/product-delivery-delivered.html'"
+                 ng-controller="ProductsDeliveredCtrl"></div>
+        </div>
+        <div class="grid" ng-switch-when="deliveredProducts">
+            <div class="grid" ng-include src="'views/mobile/neo/product-delivery-delivered-details.html'"
+                 ng-controller="ProductsDeliveredProductsCtrl"></div>
+        </div>
+    </div>
+</div>

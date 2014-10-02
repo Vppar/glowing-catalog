@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '0.0.13-34'
+# 'version' : '0.1.0-mobile'
 
 CACHE:
 bower_components/bootstrap-sass/bootstrap-2.3.2.css
@@ -200,6 +200,7 @@ styles/mobile/catalog.css
 styles/mobile/colors.css
 styles/mobile/neo-mobile.css
 styles/mobile/pagamento-emitir-voucher-cupom.css
+styles/mobile/neo-calendar.css
 
 NETWORK:
 *
