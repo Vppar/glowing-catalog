@@ -84,8 +84,9 @@
             'ArrayUtils',
             'Entity',
             'IdentityService',
+            '$rootScope',
             function EntityKeeper ($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Entity,
-                IdentityService) {
+                IdentityService, $rootScope) {
 
                 var type = 3;
                 var currentEventVersion = 1;
