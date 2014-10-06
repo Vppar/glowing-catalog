@@ -86,7 +86,7 @@
 
     angular.module('tnt.catalog.bookkeeping.keeper', [
         'tnt.catalog.journal.replayer', 'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.keeper'
-    ]).service('BookKeeper', ['$q','$filter', 'Replayer', 'ArrayUtils', 'Book', 'BookEntry', 'JournalEntry', 'JournalKeeper', 'IdentityService', function($q, $filter, Replayer, ArrayUtils, Book, BookEntry, JournalEntry, JournalKeeper, IdentityService) {
+    ]).service('BookKeeper', ['$q','$filter', 'Replayer', 'ArrayUtils', 'Book', 'BookEntry', 'JournalEntry', 'JournalKeeper', 'IdentityService', '$rootScope', function($q, $filter, Replayer, ArrayUtils, Book, BookEntry, JournalEntry, JournalKeeper, IdentityService, $rootScope) {
 
         var type = 8;
         var books = [];
@@ -117,7 +117,7 @@
 
             event = new Book(event);
             books.push(event);
-
+            $rootScope.$emit('addBook');
             return event.uuid;
         });
 
@@ -136,7 +136,7 @@
 
             var entry = new BookEntry(event);
             bookEntries.push(entry);
-
+            $rootScope.$emit('bookWrite');
             return entry;
         });
 
@@ -148,6 +148,7 @@
             books.length = 0;
             books = eventData;
             currentCounter = books.length;
+            $rootScope.$emit('snapBooks');
         });
         /**
          * nukeBooks
@@ -155,6 +156,7 @@
         // Nuke event for clearing the books list
         ObjectUtils.ro(this.handlers, 'nukeBooksV1', function() {
             books.length = 0;
+            $rootScope.$emit('nukeBooks');
             return true;
         });
         
@@ -164,6 +166,7 @@
         // Nuke event for clearing the books list
         ObjectUtils.ro(this.handlers, 'nukeEntriesV1', function() {
             bookEntries.length = 0;
+            $rootScope.$emit('nukeEntries');
             return true;
         });
 

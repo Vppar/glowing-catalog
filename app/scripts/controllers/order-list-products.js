@@ -23,15 +23,13 @@
                     
                     var log = logger.getLogger('tnt.catalog.orderList.products.ctrl');
                     
-                    var allBookEntries = BookService.listEntries();
-                    
                     function updateFilteredProducts (orders) {
                         $scope.filteredProducts.totalStock = 0;
                         $scope.filteredProducts.length = 0;
                         var productsMap = {};
                         for ( var ix in orders) {
                             var order = orders[ix];
-                            var discountCoupom = OrderListService.getDiscountCoupomByOrder(order.uuid, allBookEntries);
+                            var discountCoupom = OrderListService.getDiscountCoupomByOrder(order.uuid, $scope.allBookEntries);
                             
                             if(discountCoupom > 0 ){
                                 OrderListService.distributeDiscountCoupon(order, discountCoupom);
@@ -119,7 +117,11 @@
                             $scope.generateVA($scope.filteredProducts);
                         };
                     
-                    $scope.updateProducts();
+                    function init(){
+                      $scope.updateProducts();
+                    }
+
+                    init();
                     
                     $scope.$watch('customerId', function (newVal, oldVal) {
                         if (newVal !== oldVal) {
@@ -130,6 +132,22 @@
                     $scope.$on('dtFilterUpdated', function(e) {  
                         $scope.updateProducts();
                     });
+
+                    $scope.on('orderAdd', init);
+                    $scope.on('orderCancel', init);
+                    $scope.on('orderUpdate', init);
+                    $scope.on('orderUpdateItemQty', init);
+                    $scope.on('nukeOrders', init);
+
+                    $scope.on('nukeEntities', init);
+                    $scope.on('entityCreate', init);
+                    $scope.on('entityUpdate', init);
+
+                    $scope.on('addBook', init);
+                    $scope.on('bookWrite', init);
+                    $scope.on('snapBooks', init);
+                    $scope.on('nukeBooks', init);
+                    $scope.on('nukeEntries', init);
                     
                 }
             ]);

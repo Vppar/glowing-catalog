@@ -101,6 +101,7 @@
                 // Nuke event for clearing the entities list
                 ObjectUtils.ro(this.handlers, 'nukeEntitiesV1', function () {
                     entities.length = 0;
+                    $rootScope.$emit('nukeEntities');
                     return true;
                 });
 
@@ -115,7 +116,7 @@
 
                     event = new Entity(event);
                     entities.push(event);
-
+                    $rootScope.$emit('entityCreate');
                     return event.uuid;
                 });
 
@@ -131,7 +132,7 @@
                     } else {
                         throw 'User not found.';
                     }
-
+                    $rootScope.$emit('entityUpdate');
                     return entry.uuid;
                 });
 

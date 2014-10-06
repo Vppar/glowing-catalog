@@ -111,7 +111,7 @@
 
             event = new Order(event);
             orders.push(event);
-
+            $rootScope.$emit('orderAdd');
             return event.uuid;
         });
 
@@ -119,6 +119,7 @@
             var orderEntry = ArrayUtils.find(orders, 'uuid', event.id);
             if (orderEntry) {
                 orderEntry.canceled = event.canceled;
+                $rootScope.$emit('orderCancel');
             } else {
                 throw 'Unable to find an order with uuid=\'' + event.uuid + '\'';
             }
@@ -129,6 +130,7 @@
             if (orderEntry) {
                 orderEntry.items = event.items;
                 orderEntry.updated = event.updated;
+                $rootScope.$emit('orderUpdate');
             } else {
                 throw 'Unable to find an order with uuid=\'' + event.uuid + '\'';
             }
@@ -157,6 +159,7 @@
                     }
                     item.dQty += event.items[ix].dQty;
                 }
+                $rootScope.$emit('orderUpdateItemQty');
             } else {
                 throw 'Unable to find an order with uuid=\'' + event.uuid + '\'';
             }
@@ -165,6 +168,7 @@
         // Nuke event for clearing the orders list
         ObjectUtils.ro(this.handlers, 'nukeOrdersV1', function () {
             orders.length = 0;
+            $rootScope.$emit('nukeOrders');
             return true;
         });
 

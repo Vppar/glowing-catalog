@@ -11,7 +11,6 @@
 
                 // Login verify
                 UserService.redirectIfInvalidUser();
-                var allBookEntries = BookService.listEntries();
                 var hideOptions = true;
                 /**
                  * Templates
@@ -295,7 +294,7 @@
                         var total = 0;
                         var totalVoucherSold = 0;
                         var bookEntries =
-                            $filter('filter')(allBookEntries, function (entry) {
+                            $filter('filter')($scope.allBookEntries, function (entry) {
                                 return (entry.document === order.uuid);
                             });
 
@@ -465,22 +464,46 @@
                 // #############################################################################################################
                 // Local functions and variables
                 // #############################################################################################################
+
                 $scope.dtFilter = initializeDates(angular.copy($scope.dtFilter));
                 $scope.maxDate = setTime(new Date(), 23, 59, 59, 999);
-                $scope.total = {};
-                $scope.orders = OrderService.list();
-                $scope.customers = EntityService.list();
-                $scope.avaliableCustomers = [];
-                $scope.customerId = '0';
 
-                $scope.filterOrders($scope.orders);
+                function init() {
 
-                $scope.filteredEntities = [];
-                $scope.checkedEntityUUID = null;
-                $scope.filteredProducts = [];
-                $scope.filteredProducts.totalStock = 0;
-                $scope.checkedProductSKU = null;
-                $scope.avaliableCustomers = [];
+                  $scope.total = {};
+                  $scope.orders = OrderService.list();
+                  $scope.customers = EntityService.list();
+                  $scope.avaliableCustomers = [];
+                  $scope.customerId = '0';
+
+                  $scope.filterOrders($scope.orders);
+
+                  $scope.filteredEntities = [];
+                  $scope.checkedEntityUUID = null;
+                  $scope.filteredProducts = [];
+                  $scope.filteredProducts.totalStock = 0;
+                  $scope.checkedProductSKU = null;
+                  $scope.avaliableCustomers = [];
+                  $scope.allBookEntries = BookService.listEntries();
+                }
+
+                init();
+
+                $scope.on('orderAdd', init);
+                $scope.on('orderCancel', init);
+                $scope.on('orderUpdate', init);
+                $scope.on('orderUpdateItemQty', init);
+                $scope.on('nukeOrders', init);
+
+                $scope.on('nukeEntities', init);
+                $scope.on('entityCreate', init);
+                $scope.on('entityUpdate', init);
+
+                $scope.on('addBook', init);
+                $scope.on('bookWrite', init);
+                $scope.on('snapBooks', init);
+                $scope.on('nukeBooks', init);
+                $scope.on('nukeEntries', init);
 
                 /**
                  * whenever dtFilter changes filter list.

@@ -20,14 +20,11 @@
                 function ($scope, $location, $filter, OrderService, ArrayUtils, ReceivableService,
                     ProductReturnService, VoucherService, OrderListService, BookService) {
 
-                    var allBookEntries = BookService.listEntries();
-                    var customers = $scope.customers;
-
                     $scope.updateAndEnableHideOption = function (entity) {
                         $scope.checkedEntityUUID = entity.entityId;
                         $scope.updateReceivablesTotalByEntities([
                             entity
-                        ], allBookEntries);
+                        ], $scope.allBookEntries);
                         if ($scope.hideOptions === true) {
                             $scope.invertHideOption();
                         }
@@ -35,14 +32,14 @@
 
                     $scope.callUpdateReceivableTotalByEntities = function (entities) {
                         $scope.checkedEntityUUID = null;
-                        $scope.updateReceivablesTotalByEntities(entities, allBookEntries);
+                        $scope.updateReceivablesTotalByEntities(entities, $scope.allBookEntries);
                     };
 
                     $scope.updateFilteredEntities =
                         function () {
                             $scope.filteredEntities.length = 0;
-                            for ( var ix in customers) {
-                                var entity = customers[ix];
+                            for ( var ix in $scope.customers) {
+                                var entity = $scope.customers[ix];
                                 var ordersByEntity = ArrayUtils.filter($scope.filteredOrders, {
                                     customerId : entity.uuid
                                 });
@@ -102,7 +99,7 @@
                                     var total= 0;
                                     var totalVoucherSold = 0;
                                     var bookEntries =
-                                        $filter('filter')(allBookEntries, function (entry) {
+                                        $filter('filter')($scope.allBookEntries, function (entry) {
                                             return (entry.document === order.uuid);
                                         });
                                     
@@ -226,12 +223,32 @@
                         $scope.generateVA($scope.filteredEntities);
                     };
 
-                    $scope.updateEntitiesAndTotals();
-                    $scope.updateReceivablesTotal($scope.filteredOrders, allBookEntries);
+                    function init(){
+                      $scope.updateEntitiesAndTotals();
+                      $scope.updateReceivablesTotal($scope.filteredOrders, $scope.allBookEntries);
+                    }
+
+                    init();
 
                     $scope.$on('dtFilterUpdated', function (e) {
                         $scope.updateEntitiesAndTotals();
                     });
+
+                    $scope.on('orderAdd', init);
+                    $scope.on('orderCancel', init);
+                    $scope.on('orderUpdate', init);
+                    $scope.on('orderUpdateItemQty', init);
+                    $scope.on('nukeOrders', init);
+
+                    $scope.on('nukeEntities', init);
+                    $scope.on('entityCreate', init);
+                    $scope.on('entityUpdate', init);
+
+                    $scope.on('addBook', init);
+                    $scope.on('bookWrite', init);
+                    $scope.on('snapBooks', init);
+                    $scope.on('nukeBooks', init);
+                    $scope.on('nukeEntries', init);
 
                 }
             ]);
