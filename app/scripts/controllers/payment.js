@@ -529,7 +529,7 @@
                  * screen and alert the user.s
                  */
                 function paymentDone() {
-                    $location.path('/');
+                    $location.path('/products-delivery');
                 }
 
                 /**
