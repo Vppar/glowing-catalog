@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.header', ['tnt.catalog.manifest', 'tnt.catalog.service.intent', 'tnt.catalog.config']).controller(
+    angular.module('tnt.catalog.header', ['tnt.catalog.manifest', 'tnt.catalog.service.intent', 'tnt.catalog.config', 'tnt.catalog.consultant.service']).controller(
             'HeaderCtrl',
             ['$scope', '$element', '$filter', '$location', '$interval', 'OrderService', 'DialogService', 'UserService', 'CacheController', 'IntentService', 'CatalogConfig', 'ConsultantService',
             function($scope, $element, $filter, $location, $interval, OrderService, DialogService, UserService, CacheController, IntentService, CatalogConfig, ConsultantService) {
