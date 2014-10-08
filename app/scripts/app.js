@@ -5,6 +5,7 @@
         angular.module('glowingCatalogApp', [
             'once',
             'ngRoute',
+            'ngSanitize',
             'ngImgCrop',
             'ui.bootstrap',
             'ui.select2',
