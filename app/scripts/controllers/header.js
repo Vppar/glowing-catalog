@@ -1,10 +1,10 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.header', ['tnt.catalog.manifest', 'tnt.catalog.service.intent']).controller(
+    angular.module('tnt.catalog.header', ['tnt.catalog.manifest', 'tnt.catalog.service.intent', 'tnt.catalog.config']).controller(
             'HeaderCtrl',
-            ['$scope', '$element', '$filter', '$location', '$interval', 'OrderService', 'DialogService', 'UserService', 'CacheController', 'IntentService',
-            function($scope, $element, $filter, $location, $interval, OrderService, DialogService, UserService, CacheController, IntentService) {
+            ['$scope', '$element', '$filter', '$location', '$interval', 'OrderService', 'DialogService', 'UserService', 'CacheController', 'IntentService', 'CatalogConfig', 'ConsultantService',
+            function($scope, $element, $filter, $location, $interval, OrderService, DialogService, UserService, CacheController, IntentService, CatalogConfig, ConsultantService) {
 
                 // #############################################################################################################
                 // Scope variables from services
@@ -81,13 +81,13 @@
                         $location.path('/login');
                     });
                 };
-                
+
                 $scope.preventClose = function(event) { event.stopPropagation(); };
-                
+
                 // #############################################################################################################
                 // Manifest related stuff
                 // #############################################################################################################
-                
+
                 function addCacheUpdateListeners(){
                     CacheController.getPromise().then(function(status){
                         $element.find('img.loading-icon').css('visibility', 'hidden');
@@ -115,6 +115,28 @@
                         $scope.update=true;
                         addCacheUpdateListeners();
                     });
+                };
+
+                $scope.openAboutDialog = function () {
+
+                    var message = [];
+
+                    try {
+                        var consultant = ConsultantService.get();
+                        console.log(consultant);
+                        var splitName = consultant.name.split(' ');
+                        consultant.firstAndLastName = splitName[0] + ' ' + splitName[splitName.length - 1];
+                        message.push('<b>Licenciado para ' + consultant.firstAndLastName + '</b>');
+                        message.push('Licença pessoal válida até ' + $filter('date')(consultant.subscriptionExpirationDate, 'dd/MM/yyyy'));
+                    } catch(e){
+                        console.log('No Consultant!');
+                    }
+                    var dialog = {
+                        title: 'VPink versão ' + CatalogConfig.version,
+                        message: message.join('<BR/>'),
+                        btnYes: 'Ok'
+                    };
+                    DialogService.messageDialog(dialog);
                 };
             }]);
 })(angular);
