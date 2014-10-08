@@ -76,7 +76,7 @@
         </script>
 
     </head>
-    <body ng-app="glowingCatalogApp">
+    <body>
         <!--[if lt IE 9]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -448,5 +448,8 @@
     <script src="scripts/controllers/appointments.js"></script>
     <script src="scripts/services/AppointmentService.js"></script>
     <script src="scripts/keepers/AppointmentKeeper.js"></script>
+    <script type="application/javascript">
+        angular.bootstrap(document, ['glowingCatalogApp']);
+    </script>
     <!-- endappointments -->
 </html>
