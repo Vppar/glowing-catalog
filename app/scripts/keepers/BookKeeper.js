@@ -117,12 +117,12 @@
 
             event = new Book(event);
             books.push(event);
-            $rootScope.$emit('addBook');
+            $rootScope.$broadcast('addBook');
             return event.uuid;
         });
 
         /**
-         * 
+         *
          * @param {Object} event
          * @return {Promise}
          */
@@ -136,7 +136,7 @@
 
             var entry = new BookEntry(event);
             bookEntries.push(entry);
-            $rootScope.$emit('bookWrite');
+            $rootScope.$broadcast('bookWrite');
             return entry;
         });
 
@@ -148,7 +148,7 @@
             books.length = 0;
             books = eventData;
             currentCounter = books.length;
-            $rootScope.$emit('snapBooks');
+            $rootScope.$broadcast('snapBooks');
         });
         /**
          * nukeBooks
@@ -156,17 +156,17 @@
         // Nuke event for clearing the books list
         ObjectUtils.ro(this.handlers, 'nukeBooksV1', function() {
             books.length = 0;
-            $rootScope.$emit('nukeBooks');
+            $rootScope.$broadcast('nukeBooks');
             return true;
         });
-        
+
         /**
          * nukeBooks
          */
         // Nuke event for clearing the books list
         ObjectUtils.ro(this.handlers, 'nukeEntriesV1', function() {
             bookEntries.length = 0;
-            $rootScope.$emit('nukeEntries');
+            $rootScope.$broadcast('nukeEntries');
             return true;
         });
 
@@ -193,7 +193,7 @@
             if (!(book instanceof Book)) {
                 return $q.reject('Wrong instance to BookKeeper');
             }
-            
+
             // FIXME - If there isn't a book we can't insert an entry
             //var debitBook = ArrayUtils.find(books, 'access', event.debitAccount);
             //var creditBook = ArrayUtils.find(books, 'access', event.creditAccount);
@@ -233,18 +233,18 @@
         this.list = function() {
             return angular.copy(books);
         };
-        
+
         this.listEntries = function() {
             return angular.copy(bookEntries);
         };
-        
+
         this.listByOrder = function(uuid){
             var result = $filter('filter')(bookEntries, function(entry){
                 return (entry.document === uuid);
             });
             return angular.copy(result);
         };
-        
+
         this.getNature = function(access) {
             var book = ArrayUtils.find(books, 'access', access);
             return angular.copy(book.nature);
