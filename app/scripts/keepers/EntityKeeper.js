@@ -84,8 +84,9 @@
             'ArrayUtils',
             'Entity',
             'IdentityService',
+            '$rootScope',
             function EntityKeeper ($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Entity,
-                IdentityService) {
+                IdentityService, $rootScope) {
 
                 var type = 3;
                 var currentEventVersion = 1;
@@ -100,6 +101,7 @@
                 // Nuke event for clearing the entities list
                 ObjectUtils.ro(this.handlers, 'nukeEntitiesV1', function () {
                     entities.length = 0;
+                    $rootScope.$broadcast('nukeEntities');
                     return true;
                 });
 
@@ -114,7 +116,7 @@
 
                     event = new Entity(event);
                     entities.push(event);
-
+                    $rootScope.$broadcast('entityCreate');
                     return event.uuid;
                 });
 
@@ -130,7 +132,7 @@
                     } else {
                         throw 'User not found.';
                     }
-
+                    $rootScope.$broadcast('entityUpdate');
                     return entry.uuid;
                 });
 

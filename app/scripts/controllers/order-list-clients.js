@@ -20,14 +20,11 @@
                 function ($scope, $location, $filter, OrderService, ArrayUtils, ReceivableService,
                     ProductReturnService, VoucherService, OrderListService, BookService) {
 
-                    var allBookEntries = BookService.listEntries();
-                    var customers = $scope.customers;
-
                     $scope.updateAndEnableHideOption = function (entity) {
                         $scope.checkedEntityUUID = entity.entityId;
                         $scope.updateReceivablesTotalByEntities([
                             entity
-                        ], allBookEntries);
+                        ], $scope.allBookEntries);
                         if ($scope.hideOptions === true) {
                             $scope.invertHideOption();
                         }
@@ -35,14 +32,14 @@
 
                     $scope.callUpdateReceivableTotalByEntities = function (entities) {
                         $scope.checkedEntityUUID = null;
-                        $scope.updateReceivablesTotalByEntities(entities, allBookEntries);
+                        $scope.updateReceivablesTotalByEntities(entities, $scope.allBookEntries);
                     };
 
                     $scope.updateFilteredEntities =
                         function () {
                             $scope.filteredEntities.length = 0;
-                            for ( var ix in customers) {
-                                var entity = customers[ix];
+                            for ( var ix in $scope.customers) {
+                                var entity = $scope.customers[ix];
                                 var ordersByEntity = ArrayUtils.filter($scope.filteredOrders, {
                                     customerId : entity.uuid
                                 });
@@ -79,15 +76,15 @@
                             }
                         };
 
-                        
-                        
+
+
                         /**
                          * Interate all orders searching for payments from bookEntries.
                          * Discount on amount of payments vouchers sold.
                          *    (distribute the value in all payments types with amount > 0.)
-                         * Compute all discounts on orders.   
+                         * Compute all discounts on orders.
                          * Compute totals of payments by type
-                         * 
+                         *
                          */
                         $scope.updateReceivablesTotalByEntities = function (entities) {
                             $scope.resetPaymentsTotal();
@@ -102,18 +99,18 @@
                                     var total= 0;
                                     var totalVoucherSold = 0;
                                     var bookEntries =
-                                        $filter('filter')(allBookEntries, function (entry) {
+                                        $filter('filter')($scope.allBookEntries, function (entry) {
                                             return (entry.document === order.uuid);
                                         });
-                                    
+
                                     //CASH && CHANGE
                                     var change = OrderListService.getTotalByType(order.uuid, 'change', bookEntries);
                                     var cash = OrderListService.getTotalByType(order.uuid, 'cash', bookEntries);
                                     cash.amount -= change.amount;
                                     total += cash.amount;
                                     receivablesByType.push(cash);
-                                    
-                                    
+
+
                                     //Check
                                     var check = OrderListService.getTotalByType(order.uuid, 'check', bookEntries);
                                     total += check.amount;
@@ -123,25 +120,25 @@
                                     var card = OrderListService.getTotalByType(order.uuid, 'creditCard', bookEntries);
                                     total += card.amount;
                                     receivablesByType.push(card);
-                                    
+
                                     //Cuff
                                     var cuff = OrderListService.getTotalByType(order.uuid, 'onCuff', bookEntries);
                                     total += cuff.amount;
                                     receivablesByType.push(cuff);
-                                    
+
                                     //Voucher
                                     var voucher =OrderListService.getTotalByType(order.uuid, 'voucher', bookEntries);
                                     total += voucher.amount;
                                     receivablesByType.push(voucher);
-                                    
+
                                     //Exchange Products
                                     var exchange = OrderListService.getTotalByType(order.uuid, 'exchange', bookEntries);
                                     total += exchange.amount;
                                     receivablesByType.push(exchange);
-                                    
+
                                     var voucherSold = OrderListService.getTotalByType(order.uuid, 'soldVoucher', bookEntries);
                                     totalVoucherSold += voucherSold.amount;
-                                    
+
                                     //FIXME - someday this will be usefull... someday.
                                     //Setting all qty before call Distribution of discounts
                                     /*$scope.total.cash.qty += cash.qty;
@@ -150,12 +147,12 @@
                                     $scope.total.onCuff.qty += cuff.qty;
                                     $scope.total.voucher.qty += voucher.qty;
                                     $scope.total.exchange.qty += exchange.qty;*/
-                                    
+
                                     //remove sold voucher from total of order and distribute the amount between payments.
                                     if(totalVoucherSold > 0 ){
                                         $scope.removeVoucherValuesFromPaymentsTotals(receivablesByType, total ,totalVoucherSold);
                                     }
-                                    
+
 
                                     // CASH
                                     var cashAmount =
@@ -210,29 +207,48 @@
                                                 receivablesByType[5].specificDiscount
                                             : receivablesByType[5].amount;
                                     $scope.total.amount += exchangeAmount;
-                                    $scope.total.exchange.amount += exchangeAmount; 
-                                    
+                                    $scope.total.exchange.amount += exchangeAmount;
+
                                     var discount = OrderListService.getTotalDiscountByOrder(order.uuid, bookEntries);
                                     $scope.total.discount += discount;
-                                    
+
                                 }
                             }
-                        };    
-                        
-                        
+                        };
+
+
                     $scope.updateEntitiesAndTotals = function () {
                         $scope.updateFilteredEntities();
                         $scope.updateOrdersTotal($scope.filteredOrders);
                         $scope.generateVA($scope.filteredEntities);
                     };
 
-                    $scope.updateEntitiesAndTotals();
-                    $scope.updateReceivablesTotal($scope.filteredOrders, allBookEntries);
+                    function init(){
+                      $scope.updateEntitiesAndTotals();
+                      $scope.updateReceivablesTotal($scope.filteredOrders, $scope.allBookEntries);
+                    }
+
+                    init();
 
                     $scope.$on('dtFilterUpdated', function (e) {
                         $scope.updateEntitiesAndTotals();
                     });
 
+                    $scope.$on('orderAdd', init);
+                    $scope.$on('orderCancel', init);
+                    $scope.$on('orderUpdate', init);
+                    $scope.$on('orderUpdateItemQty', init);
+                    $scope.$on('nukeOrders', init);
+
+                    $scope.$on('nukeEntities', init);
+                    $scope.$on('entityCreate', init);
+                    $scope.$on('entityUpdate', init);
+
+                    $scope.$on('addBook', init);
+                    $scope.$on('bookWrite', init);
+                    $scope.$on('snapBooks', init);
+                    $scope.$on('nukeBooks', init);
+                    $scope.$on('nukeEntries', init);
                 }
             ]);
 }(angular));

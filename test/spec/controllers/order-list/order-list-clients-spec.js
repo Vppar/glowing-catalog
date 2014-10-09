@@ -95,7 +95,7 @@ describe('Controller: order-list-clients', function () {
                         discount : 0
                     }
                 ],
-                paymentId : 1,
+                paymentId : 1
             }, {
                 canceled : false,
                 code : "mary-0001-14",
@@ -103,7 +103,7 @@ describe('Controller: order-list-clients', function () {
                 customerId : 14,
                 created : new Date().getTime() - daysToMilliseconds(0),
                 amountTotal : 45,
-                amountTotalWithDiscount: 45, 
+                amountTotalWithDiscount: 45,
                 itemsQty : 2,
                 items : [
                     {
@@ -116,7 +116,7 @@ describe('Controller: order-list-clients', function () {
                         discount : 0
                     }
                 ],
-                paymentId : 1,
+                paymentId : 1
             }, {
                 canceled : false,
                 code : "mary-0001-15",
@@ -137,7 +137,7 @@ describe('Controller: order-list-clients', function () {
                         discount : 0
                     }
                 ],
-                paymentId : 1,
+                paymentId : 1
             }, {
                 canceled : false,
                 code : "mary-0001-16",
@@ -154,7 +154,7 @@ describe('Controller: order-list-clients', function () {
                         discount : 0
                     }
                 ],
-                paymentId : 1,
+                paymentId : 1
             }, {
                 canceled : false,
                 code : "mary-0001-17",
@@ -176,7 +176,7 @@ describe('Controller: order-list-clients', function () {
                     }
 
                 ],
-                paymentId : 1,
+                paymentId : 1
             }, {
                 canceled : false,
                 code : "mary-0001-18",
@@ -206,7 +206,7 @@ describe('Controller: order-list-clients', function () {
                     }
 
                 ],
-                paymentId : 1,
+                paymentId : 1
             }, {
                 canceled : false,
                 code : "mary-0001-19",
@@ -236,7 +236,7 @@ describe('Controller: order-list-clients', function () {
                     }
 
                 ],
-                paymentId : 1,
+                paymentId : 1
             }
         ];
         customers = [
@@ -328,11 +328,11 @@ describe('Controller: order-list-clients', function () {
             }else if(type === 'exchange'){
                 return {amount:50 , qty:6};
             }
-            
+
         });
-        
+
         OrderListService.getTotalDiscountByOrder = jasmine.createSpy('OrderListService.getTotalDiscountByOrder').andReturn(0);
-        
+
         scope.getTotalDiscountByOrder =
             jasmine.createSpy('scope.getTotalDiscountByOrder').andReturn(0);
         scope.filterOrders = jasmine.createSpy('scope.filterOrders');
