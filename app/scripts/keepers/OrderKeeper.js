@@ -74,26 +74,25 @@
         [
             '$q',
             'ArrayUtils',
-            'JournalKeeper',
-            'JournalEntry',
             'Replayer',
             'IdentityService',
             'Order',
             '$filter',
+            '$rootScope',
             OrderKeeper
         ]).run(['MasterKeeper', function (MasterKeeper) {
             ObjectUtils.inherit(OrderKeeper, MasterKeeper);
         }]);
 
-    function OrderKeeper ($q, ArrayUtils, JournalKeeper, JournalEntry, Replayer, IdentityService,
-        Order, $filter) {
+    function OrderKeeper ($q, ArrayUtils, Replayer, IdentityService,
+        Order, $filter, $rootScope) {
 
         var type = 4;
         var currentEventVersion = 1;
         var currentCounter = 0;
         var orders = [];
         this.handlers = {};
-        
+
         ObjectUtils.superInvoke(this, 'Order', Order, currentEventVersion);
 
         function getNextId () {
@@ -112,7 +111,7 @@
 
             event = new Order(event);
             orders.push(event);
-
+            $rootScope.$broadcast('orderAdd');
             return event.uuid;
         });
 
@@ -120,6 +119,7 @@
             var orderEntry = ArrayUtils.find(orders, 'uuid', event.id);
             if (orderEntry) {
                 orderEntry.canceled = event.canceled;
+                $rootScope.$broadcast('orderCancel');
             } else {
                 throw 'Unable to find an order with uuid=\'' + event.uuid + '\'';
             }
@@ -130,6 +130,7 @@
             if (orderEntry) {
                 orderEntry.items = event.items;
                 orderEntry.updated = event.updated;
+                $rootScope.$broadcast('orderUpdate');
             } else {
                 throw 'Unable to find an order with uuid=\'' + event.uuid + '\'';
             }
@@ -158,6 +159,7 @@
                     }
                     item.dQty += event.items[ix].dQty;
                 }
+                $rootScope.$broadcast('orderUpdateItemQty');
             } else {
                 throw 'Unable to find an order with uuid=\'' + event.uuid + '\'';
             }
@@ -166,6 +168,7 @@
         // Nuke event for clearing the orders list
         ObjectUtils.ro(this.handlers, 'nukeOrdersV1', function () {
             orders.length = 0;
+            $rootScope.$broadcast('nukeOrders');
             return true;
         });
 
@@ -228,7 +231,7 @@
                     updated : new Date().getTime(),
                     items : items
                 };
-                
+
                 return this.journalize('Update', updateEv);
             };
 
@@ -246,7 +249,7 @@
                     updated : new Date().getTime(),
                     items : items
                 };
-                
+
                 return this.journalize('UpdateItemQty', updateEv);
             };
 
@@ -263,7 +266,7 @@
                     uuid : order.uuid,
                     canceled : new Date().getTime()
                 };
-                
+
                 return this.journalize('Cancel', cancelEv);
             };
 
