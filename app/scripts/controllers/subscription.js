@@ -31,6 +31,7 @@
                     }
                 };
 	        }
+            
 
             $scope.paymentPlans = DataProvider.paymentPlans;
 
