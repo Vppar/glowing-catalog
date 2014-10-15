@@ -17,7 +17,7 @@ describe('Service: SubscriptionServiceSpec', function() {
 		SubscriptionKeeper.add = jasmine.createSpy('SubscriptionKeeper.add');
 		SubscriptionService.isValid = jasmine.createSpy('SubscriptionService.isValid').andReturn([]);
 		
-        var subscription = new Subscription(null, 'GLOSS', new Date().getTime(), {}, 'PAYMENT_TYPE_CC'); 
+        var subscription = new Subscription(null, 'GLOSS', new Date().getTime(), {}, 'PAYMENT_TYPE_CC', true); 
         
         var result = SubscriptionService.add(subscription);
 
@@ -31,7 +31,7 @@ describe('Service: SubscriptionServiceSpec', function() {
 		});
 		SubscriptionService.isValid = jasmine.createSpy('SubscriptionService.isValid').andReturn([]);
 		
-        var subscription = new Subscription(null, 'GLOSS', new Date().getTime(), {}, 'PAYMENT_TYPE_CC'); 
+        var subscription = new Subscription(null, 'GLOSS', new Date().getTime(), {}, 'PAYMENT_TYPE_CC', true); 
         
         var createCall = function() {
         	SubscriptionService.add(subscription);
@@ -42,8 +42,8 @@ describe('Service: SubscriptionServiceSpec', function() {
 	
 	it('should list all subscriptions', function() {
 		SubscriptionKeeper.list = jasmine.createSpy('SubscriptionKeeper.list').andReturn([
-				new Subscription(null, 'GLOSS', new Date().getTime(), {}, 'PAYMENT_TYPE_CC'),
-				new Subscription(null, 'BLUSH', new Date().getTime(), {}, 'PAYMENT_TYPE_CC')
+				new Subscription(null, 'GLOSS', new Date().getTime(), {}, 'PAYMENT_TYPE_CC', true),
+				new Subscription(null, 'BLUSH', new Date().getTime(), {}, 'PAYMENT_TYPE_CC', true)
 		]);
         
         var result = SubscriptionService.list();;
@@ -52,9 +52,9 @@ describe('Service: SubscriptionServiceSpec', function() {
 
 	it('should get last subscription', function() {
 		SubscriptionKeeper.list = jasmine.createSpy('SubscriptionKeeper.list').andReturn([
-				new Subscription('1', 'GLOSS', 1404738500791, {}, 'PAYMENT_TYPE_BILLET'),
-				new Subscription('3', 'BLUSH', 1404738500793, {}, 'PAYMENT_TYPE_BILLET'),
-				new Subscription('2', 'BLUSH', 1404738500792, {}, 'PAYMENT_TYPE_BILLET'),
+				new Subscription('1', 'GLOSS', 1404738500791, {}, 'PAYMENT_TYPE_BILLET', true),
+				new Subscription('3', 'BLUSH', 1404738500793, {}, 'PAYMENT_TYPE_BILLET', true),
+				new Subscription('2', 'BLUSH', 1404738500792, {}, 'PAYMENT_TYPE_BILLET', true),
 				
 		]);
         

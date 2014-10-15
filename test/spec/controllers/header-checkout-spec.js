@@ -9,6 +9,9 @@ describe('Controller: HeaderCtrl', function() {
     var location = {};
     var UserService = {};
     var element = {};
+    var CatalogConfigMock = null;
+    var SubscriptionServiceMock = {};
+
     element.find = jasmine.createSpy('element.find').andCallFake(function () {
         return {
             css : function () {
@@ -41,7 +44,9 @@ describe('Controller: HeaderCtrl', function() {
             OrderService : os,
             DialogService : ds,
             UserService : UserService,
-            $element: element
+            $element: element,
+            SubscriptionService : SubscriptionServiceMock,
+            CatalogConfig : CatalogConfigMock
         });
     }));
 

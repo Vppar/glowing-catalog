@@ -2,10 +2,13 @@ describe('Controller:HeaderCtrl', function () {
     var scope = null;
     var DialogService = {};
     var OrderService = {};
+    var SubscriptionServiceMock = {};
     var location = {};
     var UserService = {};
     var controller = null;
     var element = {};
+    var CatalogConfigMock = null;
+
     element.find = jasmine.createSpy('element.find').andCallFake(function () {
         return {
             css : function () {
@@ -32,7 +35,9 @@ describe('Controller:HeaderCtrl', function () {
             OrderService : OrderService,
             DialogService : DialogService,
             UserService : UserService,
-            $element : element
+            $element : element,
+            SubscriptionService : SubscriptionServiceMock,
+            CatalogConfig : CatalogConfigMock
         });
     }));
 

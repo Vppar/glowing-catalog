@@ -158,6 +158,10 @@
             return openSubscriptionDialog('views/parts/subscription/subscription-lastPlanNull-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-last-plan-dialog');
         };
 
+        this.openDialogSubscriptionLastPlanNullByMenu = function (data) {
+            return openSubscriptionDialog('views/parts/subscription/subscription-lastPlanNullByMenu-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-last-plan-dialog');
+        };
+
         this.openDialogSubscriptionLastPlanGloss = function (data) {
             return openSubscriptionDialog('views/parts/subscription/subscription-lastPlanGloss-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-last-plan-dialog');
         };
