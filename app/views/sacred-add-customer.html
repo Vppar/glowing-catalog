@@ -40,28 +40,28 @@
 									<div class="row">
 										<div class="col-4">
 											<label for="">Data de Anivers&aacute;rio</label>
-											
+
 											<div class="row">
 												<div class="col-12">
-													
+
 													<select name="birthday" ng-model="customer.birthDate.day"  tabindex="3">
-														<option value="{{day}}" ng-repeat="day in birthdate.days">{{day}}</option>
+														<option value="{{day}}" ng-selected="{{month.id == consultant.birthDate.month && true || false }}" ng-repeat="day in birthdate.days">{{day}}</option>
 													</select>
 												</div>
 												<div class="col-12">
-													
+
 													<select name="birthmonth" ng-model="customer.birthDate.month" tabindex="4">
-														<option value="{{month.id}}" ng-repeat="month in birthdate.months">{{month.id}}</option>
+														<option value="{{month.id}}" ng-selected="{{month.id == consultant.birthDate.month && true || false }}" ng-repeat="month in birthdate.months">{{month.id}}</option>
 													</select>
 												</div>
 											</div>
 										</div>
 
-										
+
 										<div class="col-8">
 											<label>Telefones</label>
 											<div class="input-with-buttom-right">
-												<input tabindex="5" type="text" ng-model="customer.phones[0].number" ng-click="openDialogAddCustomerTels(customer.phones)" required phone> 
+												<input tabindex="5" type="text" ng-model="customer.phones[0].number" ng-click="openDialogAddCustomerTels(customer.phones)" required phone>
 												<div ng-click="openDialogAddCustomerTels(customer.phones)" class="add-on">+</div>
 											</div>
 										</div>
@@ -109,12 +109,12 @@
 											name="neighborhood" type="text"
 											ng-model="customer.addresses.neighborhood" ng-required="customer.cep">
 										</div>
-										
+
 										<div class="col-4">
 											<label>UF</label>
-											
+
 											<select name="state"  tabindex="12" ng-model="customer.addresses.state" ng-required="customer.cep">
-												<option value="{{state}}" ng-repeat="state in states">{{state}}</option>
+												<option  ng-selected="{{state == consultant.address.state  && true || false }}" value="{{state}}" ng-repeat="state in states">{{state}}</option>
 											</select>
 										</div>
 										<div class="col-8">
@@ -131,17 +131,17 @@
 										<div class="col-24">
 											<label>Observa&ccedil;&otilde;es</label>
 											<input  tabindex="14" name="remarks" ng-model="customer.remarks" type="textarea" rows="4" cols="50" >
-										</div>	
+										</div>
 									</div>
 								</div>
 							</div>
 
 							<div class="buttons-holder" fast-click>
 								<input type="button" class="button-black pull-left" ng-click="cancel()" value="Cancelar">
-								
+
 								<spinner-button class="button-green pull-right" tabindex="16" spinner-promise = "confirm()">
 								Confirmar
-							</spinner-button>		
+							</spinner-button>
 						</div>
 					</form>
 				</div>

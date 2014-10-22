@@ -74,13 +74,16 @@
                     // ############################################################################################################
                     // Scope functions
                     // ############################################################################################################
-
-                    $scope.$watch('cepValid',function(){
-                        if($scope.cepValid === true){
-                            $scope.getCep();
+                    var isLoadingCount = true;
+                    $scope.$watch('cepValid',function(newVal, oldVal){
+                        if(newVal !== oldVal){
+                            if($scope.cepValid === true && !isLoadingCount){
+                                $scope.getCep();
+                            } else {
+                                isLoadingCount = false;
+                            }
                         }
                     });
-
                     $scope.openDialogAddCustomerTels = function openDialogAddCustomerTels(phones) {
                         DialogService.openDialogAddCustomerTels({
                             phones : phones
