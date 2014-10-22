@@ -105,6 +105,7 @@
                     }
                 }
             };
+            
                         
             $scope.confirmPaymentWithBillet = function () {
                 
