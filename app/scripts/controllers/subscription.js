@@ -70,11 +70,6 @@
                 }
             };
 
-            $scope.openDialogSubscriptionFinalMessageBillet = function () {
-                dialog.close(true);
-                DialogService.openDialogSubscriptionFinalMessageBillet();
-            };
-
             $scope.verifyIfMustRedirectLoginPage = function () {
                 dialog.close(true);
                 var deviceDate = DateUtils.getDeviceDate();
@@ -112,15 +107,17 @@
             };
                         
             $scope.confirmPaymentWithBillet = function () {
-
+                
                 $scope.failed = true;
                 var FIVE_DAYS = 432000000;
                 var deviceDate = DateUtils.getDeviceDate();
+                var isRenewal = $scope.isRenewal();
+                console.log('>>>> Method confirmPaymentWithBillet executed. IsRenewal: '+isRenewal);
 
                 if(!deviceDate) {
                     $location.path('/login');
                 } else {
-                    if(!$scope.isRenewal()) {
+                    if(!isRenewal) {
                         $scope.consultant.subscriptionExpirationDate = deviceDate + FIVE_DAYS;
                         UserService.defineSubscribed(1);
                         if (ConsultantService.get()) {
@@ -155,7 +152,8 @@
                 SubscriptionService.add(subscription).then(function() {
                     log.info('Subscription Updated.');
                     if(isBillet) {
-                        $scope.openDialogSubscriptionFinalMessageBillet();
+                        dialog.close(true);
+                        DialogService.openDialogSubscriptionFinalMessageBillet();
                     }
                 }, function(err) {
                     log.error('Failed to updated Subscription.');
