@@ -17,10 +17,10 @@ describe('Service: CepService', function() {
 
     it('should find the address', function() {
         var result = undefined;
-        var expected = {address : 'endereço'}; 
-        
-        $httpBackend.when('GET', 'https://vopp.com.br/api/cep/80060140.json').respond(expected);
-        
+        var expected = {address : 'endereço'};
+
+        $httpBackend.when('GET', 'https://vpink.vc/api/cep/80060140.json').respond(expected);
+
         runs(function() {
             CepService.search('80060140').then(function(address) {
                 result = address;
@@ -39,13 +39,13 @@ describe('Service: CepService', function() {
             expect(result).toEqual(expected);
         });
     });
-    
+
     it('should get status 500', function() {
-        var expected = 500; 
+        var expected = 500;
         var result = undefined;
-        
-        $httpBackend.when('GET', 'https://vopp.com.br/api/cep/8006.json').respond(expected);
-        
+
+        $httpBackend.when('GET', 'https://vpink.vc/api/cep/8006.json').respond(expected);
+
         runs(function() {
             CepService.search('8006').then(function(address) {
                 result = address;

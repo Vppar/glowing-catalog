@@ -6,7 +6,7 @@
         this.search = function(CEP) {
             var deferred = $q.defer();
 
-            $http.get('https://vopp.com.br/api/cep/' + CEP + '.json').then(function(result) {
+            $http.get('https://vpink.vc/api/cep/' + CEP + '.json').then(function(result) {
                 if (angular.isObject(result.data)) {
                     deferred.resolve(result.data);
                 } else {
