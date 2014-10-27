@@ -268,7 +268,7 @@
                         if(numberOfDaysToExpiration<0) {
                             subscribed = 3;
                         } else if(numberOfDaysToExpiration <=5 && numberOfDaysToExpiration >= 0) {
-                            if(numberOfDaysLastSubscripton && numberOfDaysLastSubscripton<=-5) {
+                            if(numberOfDaysLastSubscripton && numberOfDaysLastSubscripton<=-1) {
                                 if(numberOfDaysSubscribeLaterDate === null || numberOfDaysSubscribeLaterDate !== 0) {
                                     subscribed = 2;
                                 }

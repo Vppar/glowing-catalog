@@ -104,9 +104,8 @@
                         $window.location.href = CatalogConfig.annualPlanCheckoutURL;
                     }
                 }
-            };
-            
-                        
+            };            
+
             $scope.confirmPaymentWithBillet = function () {
                 
                 $scope.failed = true;
