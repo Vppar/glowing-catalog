@@ -264,6 +264,7 @@ scripts/controllers/goal-poster/goal-poster.js
 scripts/controllers/goal-poster/goal-poster-edit-dialog.js
 scripts/controllers/image-upload-dialog.js
 scripts/controllers/loading-dialog.js
+scripts/controllers/card-config.js
 
 scripts/keepers/CheckKeeper.js
 scripts/keepers/CoinKeeper.js
@@ -283,6 +284,7 @@ scripts/keepers/SchedulingKeeper.js
 scripts/keepers/MasterKeeper.js
 scripts/keepers/TargetKeeper.js
 scripts/keepers/SubscriptionKeeper.js
+scripts/keepers/CardConfig.js
 
 scripts/services/ArrayUtils.js
 scripts/services/BookService/BookService.js
@@ -339,6 +341,7 @@ scripts/services/SubscriptionService.js
 scripts/services/FileReaderFactory.js
 scripts/services/goal-poster/GoalPosterService.js
 scripts/services/DateUtils.js
+scripts/services/CardConfigService.js
 
 components/product-display/product-display.html
 components/highlight-display/highlight-display.html
@@ -473,6 +476,7 @@ views/parts/goal-poster/sacred-goal-poster.html
 views/parts/goal-poster/sacred-goal-poster-edit-dialog.html
 views/catalog/sacred-best-sellers.html
 views/sacred-bi.html
+views/parts/card-config/sacred-card-config.html
 
 images/keyboard/n0.png
 images/keyboard/n1.png
