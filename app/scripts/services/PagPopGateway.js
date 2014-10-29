@@ -11,7 +11,7 @@
                 var token = localStorage.ppToken;
                 $http({
                     method: 'POST',
-                    url: 'https://vopp.com.br/pagpop/card/?token=' + token,
+                    url: 'https://vpink.vc/pagpop/card/?token=' + token,
                     data: data
                 }).success(function (data) {
                     if (data && data.transacao &&

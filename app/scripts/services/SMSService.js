@@ -28,7 +28,7 @@
                     // ############################################################################################
                     // SMS related functions
                     // ############################################################################################
-                    var baseUrl = 'https://vopp.com.br/api/sms/';
+                    var baseUrl = 'https://vpink.vc/api/sms/';
                     var token = '8f934ur83rhq34r879hncfq9f4yq987nf4dh4fyn98hdmi44dz21x3gdju893d2';
                     var method = 'GET';
 

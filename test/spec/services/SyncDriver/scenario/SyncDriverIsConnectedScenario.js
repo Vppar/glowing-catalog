@@ -78,7 +78,7 @@ describe('Service: SyncDriverIsConnectedScenario', function() {
 
     });
     
-    describe('when triggered SyncDriver.login with valid user and valid password', function() {
+    xdescribe('when triggered SyncDriver.login with valid user and valid password', function() {
 
         beforeEach(inject(function(_$rootScope_, _$q_, _SyncDriver_) {
             $rootScope = _$rootScope_;

@@ -20,11 +20,11 @@
                                 UserService, logger) {
 
                             var log = logger.getLogger('tnt.catalog.registration.ctrl.RegistrationCtrl');
-                            
+
                             $scope.select2Options = {
                                     minimumResultsForSearch : -1
                                 };
-                            
+
                             UserService.redirectIfInvalidUser();
 
                             /**
@@ -45,8 +45,9 @@
                             }
                             $scope.birthdate.years = years;
 
-                            if (ConsultantService.get()) {
-                                $scope.consultant = ConsultantService.get();
+                            var consultant = ConsultantService.get();
+                            if (consultant) {
+                                $scope.consultant = consultant;
                             } else {
                                 $scope.consultant = {
                                     address : {
@@ -131,7 +132,7 @@
                                 $scope.consultant.address.state = address.uf;
                                 $scope.consultant.address.city = address.localidade;
                             };
-                            
+
                             function warmup(){
                               //try to get information from firebase
                                 var promise = ConsultantService.getDataAccount();
@@ -142,9 +143,9 @@
                                         }
                                     });
                                 }
-                                
+
                             }
-                            
+
                             function populateFields(userDataAccount){
                                 $scope.consultant.name = userDataAccount.name;
                                 $scope.consultant.cep  = userDataAccount.cep;
@@ -158,34 +159,39 @@
                                 $scope.consultant.primerCode = userDataAccount.primerCode;
                                 $scope.consultant.unityNumber = userDataAccount.unityNumber;
                                 $scope.consultant.emissary = userDataAccount.rg;
-                                
+
                                 //banking
-                                $scope.consultant.bank = userDataAccount.banking.bank;
-                                $scope.consultant.agency = userDataAccount.banking.agency;
-                                $scope.consultant.account = userDataAccount.banking.account;
-                                $scope.consultant.accountHolder = userDataAccount.banking.holderName;
-                                $scope.consultant.holderDocument = userDataAccount.banking.holderDocument;
-                                $scope.consultant.accountType = userDataAccount.banking.accountType;
-                                
-                                //adress fields
-                                $scope.consultant.address.street = userDataAccount.address.street;
-                                $scope.consultant.address.neighborhood = userDataAccount.address.neighborhood;
-                                $scope.consultant.address.state = userDataAccount.address.state;
-                                $scope.consultant.address.city = userDataAccount.address.city;
-                                $scope.consultant.address.number = userDataAccount.address.number;
-                                $scope.consultant.complement = userDataAccount.address.complement;
+                                if(userDataAccount.banking){
+                                    $scope.consultant.bank = userDataAccount.banking.bank;
+                                    $scope.consultant.agency = userDataAccount.banking.agency;
+                                    $scope.consultant.account = userDataAccount.banking.account;
+                                    $scope.consultant.accountHolder = userDataAccount.banking.holderName;
+                                    $scope.consultant.holderDocument = userDataAccount.banking.holderDocument;
+                                    $scope.consultant.accountType = userDataAccount.banking.accountType;
+                                }
+
+                                //address fields
+                                if(userDataAccount.address){
+                                    $scope.consultant.address.street = userDataAccount.address.street;
+                                    $scope.consultant.address.neighborhood = userDataAccount.address.neighborhood;
+                                    $scope.consultant.address.state = userDataAccount.address.state;
+                                    $scope.consultant.address.city = userDataAccount.address.city;
+                                    $scope.consultant.address.number = userDataAccount.address.number;
+                                    $scope.consultant.complement = userDataAccount.address.complement;
+                                }
 
                                 //empty fields on firebase
                                 $scope.consultant.mkCode = userDataAccount.mkCode;
                                 $scope.consultant.marital = userDataAccount.marital;
                                 $scope.consultant.countryOrigin = userDataAccount.countryOrigin || 'Brasil' ;
-                                
-                                
-                                $scope.consultant.birthDate.day = getBirthDayByPiece(userDataAccount.birthday, 'day');
-                                $scope.consultant.birthDate.month = getBirthDayByPiece(userDataAccount.birthday, 'month');
-                                $scope.consultant.birthDate.year = getBirthDayByPiece(userDataAccount.birthday, 'year');
+
+                                if(userDataAccount.birthday){
+                                    $scope.consultant.birthDate.day = getBirthDayByPiece(userDataAccount.birthday, 'day');
+                                    $scope.consultant.birthDate.month = getBirthDayByPiece(userDataAccount.birthday, 'month');
+                                    $scope.consultant.birthDate.year = getBirthDayByPiece(userDataAccount.birthday, 'year');
+                                }
                             }
-                            
+
                             function getBirthDayByPiece(date, piece){
                                 var pieces = date.split('-');
                                 var result = undefined;
@@ -198,7 +204,7 @@
                                 }
                                 return result;
                             }
-                            
+
                             function getGender(code){
                                 var result = undefined;
                                 if(code === '1'){
@@ -208,16 +214,20 @@
                                 }
                                 return result;
                             }
-                            
+
                             warmup();
 
                             // #########################################################################################################
                             // Watchers
                             // #########################################################################################################
-
-                            $scope.$watch('cepValid',function(){
-                                if($scope.cepValid === true){
-                                    $scope.getCep();
+                            var isLoadingCount = true;
+                            $scope.$watch('cepValid',function(newVal, oldVal){
+                                if(newVal !== oldVal){
+                                    if($scope.cepValid === true && !isLoadingCount){
+                                        $scope.getCep();
+                                    } else {
+                                        isLoadingCount = false;
+                                    }
                                 }
                             });
                         }
