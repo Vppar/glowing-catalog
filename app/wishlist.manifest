@@ -338,6 +338,7 @@ scripts/services/target/TargetService.js
 scripts/services/SubscriptionService.js
 scripts/services/FileReaderFactory.js
 scripts/services/goal-poster/GoalPosterService.js
+scripts/services/DateUtils.js
 
 components/product-display/product-display.html
 components/highlight-display/highlight-display.html

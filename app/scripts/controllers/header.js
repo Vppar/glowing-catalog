@@ -3,8 +3,8 @@
 
     angular.module('tnt.catalog.header', ['tnt.catalog.manifest', 'tnt.catalog.service.intent', 'tnt.catalog.config', 'tnt.catalog.consultant.service']).controller(
             'HeaderCtrl',
-            ['$scope', '$element', '$filter', '$location', '$interval', 'OrderService', 'DialogService', 'UserService', 'CacheController', 'IntentService', 'CatalogConfig', 'ConsultantService',
-            function($scope, $element, $filter, $location, $interval, OrderService, DialogService, UserService, CacheController, IntentService, CatalogConfig, ConsultantService) {
+            ['$scope', '$element', '$filter', '$location', '$interval', 'OrderService', 'DialogService', 'UserService', 'CacheController', 'IntentService', 'SubscriptionService', 'CatalogConfig', 'ConsultantService',
+            function($scope, $element, $filter, $location, $interval, OrderService, DialogService, UserService, CacheController, IntentService, SubscriptionService, CatalogConfig, ConsultantService) {
 
                 // #############################################################################################################
                 // Scope variables from services
@@ -38,6 +38,28 @@
                  * Opens the dialog to input a product.
                  */
                 $scope.openDialogInputProducts = DialogService.openDialogInputProducts;
+                /**
+                 * Opens the dialog to subscribe.
+                 */
+                $scope.openDialogSubscribeNow = function openDialogSubscribeNow() {
+                    var lastSubscription = SubscriptionService.getLastSubscription();
+                    if( lastSubscription && lastSubscription.planType ){
+                        if( lastSubscription.planType === CatalogConfig.GLOSS ){
+                            DialogService.openDialogSubscriptionLastPlanGloss();
+                        }
+                        else if( lastSubscription.planType === CatalogConfig.BLUSH ){
+                            DialogService.openDialogSubscriptionLastPlanBlush();
+                        }
+                        else if( lastSubscription.planType === CatalogConfig.RIMEL ){
+                            DialogService.openDialogSubscriptionLastPlanRimel();
+                        }
+                        else {
+                            DialogService.openDialogSubscriptionLastPlanNullByMenu();
+                        }
+                    } else {
+                        DialogService.openDialogSubscriptionLastPlanNullByMenu();
+                    }
+                };
 
                 $scope.now = {};
 
