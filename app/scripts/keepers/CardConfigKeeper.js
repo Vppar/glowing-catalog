@@ -144,6 +144,28 @@
                         return JournalKeeper.compose(entry);
                     };
 
+                    var add =
+            function add (order) {
+                if (!(order instanceof Order)) {
+                    return $q.reject('Wrong instance to OrderKeeper');
+                }
+                var orderObj = angular.copy(order);
+
+                var now = new Date();
+
+                orderObj.created = now.getTime();
+                orderObj.uuid = IdentityService.getUUID(type, getNextId());
+                var uuidData = IdentityService.getUUIDData(orderObj.uuid);
+
+                // build order code base in its uuid
+                var strDeviceId = IdentityService.leftPad(uuidData.deviceId, 2);
+                var strId = IdentityService.leftPad(uuidData.id, 4);
+                orderObj.code =
+                    strDeviceId + '-' + strId + '-' + String(now.getFullYear()).substring(2);
+
+                return this.journalize('Add', orderObj);
+            };
+
                 this.update =
                     function (cardConfig) {
 
