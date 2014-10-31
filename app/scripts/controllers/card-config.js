@@ -2,13 +2,13 @@
     'use strict';
     angular
         .module('tnt.catalog.card.config.ctrl', [
-            'tnt.catalog.card.config.service'
+            'tnt.catalog.card.config.service','tnt.catalog.card.config'
         ])
         .controller(
             'CardConfigCtrl',
             [
-                '$scope', 'CardConfigService', 'UserService', 'DialogService', 'DataProvider',
-                function ($scope, CardConfigService, UserService, DialogService, DataProvider) {
+                '$scope', 'CardConfigService', 'CardConfig', 'UserService', 'DialogService', 'DataProvider',
+                function ($scope, CardConfigService, CardConfig, UserService, DialogService, DataProvider) {
 
                     // #############################################################################################################
                     // Security for this Controller
@@ -19,23 +19,32 @@
                     // Initialize variables
                     // #############################################################################################################
                     $scope.cardConfig = {};
+                    $scope.cardConfig.uuid = null;
+                    $scope.cardConfig.ccDaysToExpire = null;
+                    $scope.cardConfig.ccOpRate1Installment = null;
+                    $scope.cardConfig.ccOpRate26Installment = null;
+                    $scope.cardConfig.ccOpRate712Installment = null;
+                    $scope.cardConfig.ccClosingDate = null;
+                    $scope.cardConfig.ccExpirationDate = null;
+                    $scope.cardConfig.dcDaysToExpire = null;
+                    $scope.cardConfig.dcOpRate = null;
                     $scope.ccClosingDate = {};
                     $scope.ccExpirationDate = {};
                     $scope.dataProviderDate = DataProvider.date;
 
                     var alertTitle = 'Configura' + unescape('%e7') + unescape('%e3') + 'o de Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito';
-                    var cardConfigs = CardConfigService.list();
+                    var cardConfigs = CardConfigService.list();                                                              
 
-                    if(cardConfigs && cardConfigs.lenght > 0) {
+                    if(cardConfigs && cardConfigs.length > 0) {
                        $scope.cardConfig = cardConfigs[0];
                        if($scope.cardConfig.ccClosingDate.day && $scope.cardConfig.ccClosingDate.month && $scope.cardConfig.ccClosingDate.year) {
                           $scope.ccClosingDate.day = $scope.cardConfig.ccClosingDate.day;
-                          $scope.ccClosingDate.month = $scope.cardConfig.ccClosingDate.month;
+                          $scope.ccClosingDate.month = $scope.cardConfig.ccClosingDate.month+1;
                           $scope.ccClosingDate.year = $scope.cardConfig.ccClosingDate.year;
                        }
                        if($scope.cardConfig.ccExpirationDate.day && $scope.cardConfig.ccExpirationDate.month && $scope.cardConfig.ccExpirationDate.year) {
                           $scope.ccExpirationDate.day = $scope.cardConfig.ccExpirationDate.day;
-                          $scope.ccExpirationDate.month = $scope.cardConfig.ccExpirationDate.month;
+                          $scope.ccExpirationDate.month = $scope.cardConfig.ccExpirationDate.month+1;
                           $scope.ccExpirationDate.year = $scope.cardConfig.ccExpirationDate.year;
                        }
                     }
@@ -52,8 +61,8 @@
                     };
 
                     $scope.save = function () {
-                        if ($scope.validateFields()) { 
-                            CardConfigService.create($scope.cardConfig).then(function () {
+                        if ($scope.validateFields()) {
+                            CardConfigService.add(getCardConfig($scope.cardConfig)).then(function () {
                                 DialogService.messageDialog({
                                     title : alertTitle,
                                     message : alertTitle + ' cadastrada com sucesso.',
@@ -71,7 +80,7 @@
 
                     $scope.update = function () {                        
                         if ($scope.validateFields()) { 
-                            CardConfigService.update($scope.cardConfig).then(function () {
+                            CardConfigService.update(getCardConfig($scope.cardConfig)).then(function () {
                                 DialogService.messageDialog({
                                     title : alertTitle,
                                     message : alertTitle + ' atualizada com sucesso.',
@@ -120,7 +129,7 @@
                             if(!$scope.ccClosingDate.day || !$scope.ccClosingDate.month || !$scope.ccClosingDate.year) {
                                 return alertMessage('O Dia de Fechamento do Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito '+ unescape('%e9') +' inv'+unescape('%e1')+'lido.');
                             } else {
-                                $scope.cardConfig.ccClosingDate = new Date($scope.ccClosingDate.year, $scope.ccClosingDate.month, $scope.ccClosingDate.day);
+                                $scope.cardConfig.ccClosingDate = new Date($scope.ccClosingDate.year, $scope.ccClosingDate.month-1, $scope.ccClosingDate.day, 0, 0, 0, 0);
                             }
                         }
 
@@ -128,10 +137,26 @@
                             if(!$scope.ccExpirationDate.day || !$scope.ccExpirationDate.month || !$scope.ccExpirationDate.year) {
                                return alertMessage('O Dia de Vencimento do Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito '+ unescape('%e9') +' inv'+unescape('%e1')+'lido.');
                             } else {
-                               $scope.cardConfig.ccExpirationDate = new Date($scope.ccExpirationDate.year, $scope.ccExpirationDate.month, $scope.ccExpirationDate.day);
+                               $scope.cardConfig.ccExpirationDate = new Date($scope.ccExpirationDate.year, $scope.ccExpirationDate.month-1, $scope.ccExpirationDate.day, 0, 0, 0, 0);
                             }
                         }
                         return true;
+                    }
+
+                    function getCardConfig(obj) {
+                        if(obj) {
+                            return new CardConfig(
+                                obj.uuid,
+                                obj.ccDaysToExpire, 
+                                obj.ccOpRate1Installment, 
+                                obj.ccOpRate26Installment, 
+                                obj.ccOpRate712Installment, 
+                                obj.ccClosingDate, 
+                                obj.ccExpirationDate,
+                                obj.dcDaysToExpire, 
+                                obj.dcOpRate);
+                        }
+                        return null;
                     }
 
                     function alertMessage(message) {
