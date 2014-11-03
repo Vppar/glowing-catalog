@@ -30,22 +30,26 @@
                     $scope.cardConfig.dcOpRate = null;
                     $scope.ccClosingDate = {};
                     $scope.ccExpirationDate = {};
-                    $scope.dataProviderDate = DataProvider.date;
+                    $scope.ccClosingDateProvider = DataProvider.date;
+                    $scope.ccExpirationDateProvider = DataProvider.date;
 
                     var alertTitle = 'Configura' + unescape('%e7') + unescape('%e3') + 'o de Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito';
                     var cardConfigs = CardConfigService.list();                                                              
 
                     if(cardConfigs && cardConfigs.length > 0) {
                        $scope.cardConfig = cardConfigs[0];
-                       if($scope.cardConfig.ccClosingDate.day && $scope.cardConfig.ccClosingDate.month && $scope.cardConfig.ccClosingDate.year) {
-                          $scope.ccClosingDate.day = $scope.cardConfig.ccClosingDate.day;
-                          $scope.ccClosingDate.month = $scope.cardConfig.ccClosingDate.month+1;
-                          $scope.ccClosingDate.year = $scope.cardConfig.ccClosingDate.year;
+
+                       if($scope.cardConfig.ccClosingDate) {
+                          var ccClosingDate = new Date($scope.cardConfig.ccClosingDate);
+                          $scope.ccClosingDate.day = ccClosingDate.getDate();
+                          $scope.ccClosingDate.month = ccClosingDate.getMonth()+1;
+                          $scope.ccClosingDate.year = ccClosingDate.getFullYear();
                        }
-                       if($scope.cardConfig.ccExpirationDate.day && $scope.cardConfig.ccExpirationDate.month && $scope.cardConfig.ccExpirationDate.year) {
-                          $scope.ccExpirationDate.day = $scope.cardConfig.ccExpirationDate.day;
-                          $scope.ccExpirationDate.month = $scope.cardConfig.ccExpirationDate.month+1;
-                          $scope.ccExpirationDate.year = $scope.cardConfig.ccExpirationDate.year;
+                       if($scope.cardConfig.ccExpirationDate) {
+                          var ccExpirationDate = new Date($scope.cardConfig.ccExpirationDate);
+                          $scope.ccExpirationDate.day = ccExpirationDate.getDate();
+                          $scope.ccExpirationDate.month = ccExpirationDate.getMonth()+1;
+                          $scope.ccExpirationDate.year = ccExpirationDate.getFullYear();
                        }
                     }
 
@@ -181,8 +185,8 @@
 
                     function removeInvalidValues(obj) {
                         if(obj) {
-                            for(var key in obj) {                                
-                                if(obj[key] && typeof obj[key] !== 'object') {
+                            for(var key in obj) {       
+                                if(obj[key] && typeof obj[key] === 'string') {
                                    obj[key] = obj[key].replace(/ /g,"").replace(/,/g,".");
                                 }
                             }    
