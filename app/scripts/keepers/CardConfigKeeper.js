@@ -15,7 +15,8 @@
                                 'ccClosingDate', 
                                 'ccExpirationDate', 
                                 'dcDaysToExpire',
-                                'dcOpRate'
+                                'dcOpRate',
+                                'created'
                             ];
 
             ObjectUtils.method(svc, 'isValid', function() {
@@ -45,6 +46,7 @@
                 this.ccClosingDate = ccClosingDate;
                 this.ccExpirationDate = ccExpirationDate;
                 this.dcDaysToExpire = dcDaysToExpire;
+                this.dcOpRate = dcOpRate;
                 this.dcOpRate = dcOpRate;
             }
         };
@@ -92,7 +94,7 @@
                 delete cardConfig.uuid;
                 angular.extend(cardConfigEntry, cardConfig);
             } else {
-                throw 'Unable to find an card config with uuid=\'' + cardConfig.uuid + '\'';
+                throw 'Unable to find a card config with uuid=\'' + cardConfig.uuid + '\'';
             }
             return cardConfigEntry.uuid;
         });
@@ -112,11 +114,39 @@
             if (!(cardConfig instanceof this.eventType)) {
                 return $q.reject('Wrong instance of CardConfig');
             }
+
+            var entityObj = angular.copy(cardConfig);
+            entityObj.created = (new Date()).getTime();
+            entityObj.uuid = IdentityService.getUUID(type, getNextId());
+
             
-            cardConfig.uuid = IdentityService.getUUID(type, getNextId());
-            
-            return this.journalize('Add', cardConfig);
+            return this.journalize('Add', entityObj);
         };
+
+        /* this.create =
+                    function (entity) {
+
+                        if (!(entity instanceof Appointment)) {
+                            return $q.reject('Wrong instance to AppointmentKeeper');
+                        }
+
+                        var entityObj = angular.copy(entity);
+
+                        entityObj.created = (new Date()).getTime();
+                        entityObj.uuid = IdentityService.getUUID(type, getNextId());
+
+                        var appointment = new Appointment(entityObj);
+
+                        var entry =
+                            new JournalEntry(
+                                null,
+                                appointment.created,
+                                'appointmentCreate',
+                                currentEventVersion,
+                                appointment);
+
+                        return JournalKeeper.compose(entry);
+                    };*/
 
         this.update = function (cardConfig) {
             if (!(cardConfig instanceof this.eventType)) {
