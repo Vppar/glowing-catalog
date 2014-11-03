@@ -182,13 +182,13 @@
                           </div>
                           <div class="col-12">
                       <select name="ccClosingDateDay" class="date-day" ng-model="ccClosingDate.day">
-                        <option value="{{day}}" ng-repeat="day in dataProviderDate.days">{{day}}</option>
+                        <option value="{{day}}" ng-selected="{{day == ccClosingDate.day && true || false }}" ng-repeat="day in ccClosingDateProvider.days">{{day}}</option>
                       </select>
                       <select name="ccClosingDateMonth" class="date-month" ng-model="ccClosingDate.month" tabindex="4">
-                        <option value="{{month.id}}" ng-repeat="month in dataProviderDate.months">{{month.id}}</option>
+                        <option value="{{month.id}}" ng-selected="{{month.id == ccClosingDate.month && true || false }}" ng-repeat="month in ccClosingDateProvider.months">{{month.id}}</option>
                       </select>
                       <select name="ccClosingDateYear" class="date-year" ng-model="ccClosingDate.year" tabindex="4">
-                        <option value="{{year}}" ng-repeat="year in dataProviderDate.years">{{year}}</option>
+                        <option value="{{year}}" ng-selected="{{year == ccClosingDate.year && true || false }}" ng-repeat="year in ccClosingDateProvider.years">{{year}}</option>
                       </select>
                           </div>
                           <div class="col-3">
@@ -204,14 +204,13 @@
                           </div>
                           <div class="col-12">
                       <select name="ccExpirationDateDay" class="date-day" ng-model="ccExpirationDate.day">
-                        <option value="{{day}}" ng-repeat="day in dataProviderDate.days">{{day}}</option>
+                        <option value="{{day}}" ng-selected="{{day == ccExpirationDate.day && true || false }}" ng-repeat="day in ccExpirationDateProvider.days">{{day}}</option>
                       </select>
                       <select name="ccExpirationDateMonth" class="date-month" ng-model="ccExpirationDate.month" tabindex="4">
-                        <option value="{{month.id}}" ng-repeat="month in dataProviderDate.months">{{month.id}}</option>
+                        <option value="{{month.id}}" ng-selected="{{month.id == ccExpirationDate.month && true || false }}" ng-repeat="month in ccExpirationDateProvider.months">{{month.id}}</option>
                       </select>
-
                       <select name="ccExpirationDateYear" class="date-year" ng-model="ccExpirationDate.year" tabindex="4">
-                        <option value="{{year}}" ng-repeat="year in dataProviderDate.years">{{year}}</option>
+                        <option value="{{year}}" ng-selected="{{year == ccExpirationDate.year && true || false }}" ng-repeat="year in ccExpirationDateProvider.years">{{year}}</option>
                       </select>
                           </div>
                           <div class="col-3">
