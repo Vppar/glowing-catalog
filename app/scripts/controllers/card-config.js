@@ -33,25 +33,10 @@
                     $scope.ccClosingDateProvider = DataProvider.date;
                     $scope.ccExpirationDateProvider = DataProvider.date;
 
+                    var cardConfigs = null;
                     var alertTitle = 'Configura' + unescape('%e7') + unescape('%e3') + 'o de Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito';
-                    var cardConfigs = CardConfigService.list();
-
-                    if(cardConfigs && cardConfigs.length > 0) {
-                        $scope.cardConfig = cardConfigs[0];
-
-                        if($scope.cardConfig.ccClosingDate) {
-                            var ccClosingDate = new Date($scope.cardConfig.ccClosingDate);
-                            $scope.ccClosingDate.day = ccClosingDate.getDate();
-                            $scope.ccClosingDate.month = ccClosingDate.getMonth()+1;
-                            $scope.ccClosingDate.year = ccClosingDate.getFullYear();
-                        }
-                        if($scope.cardConfig.ccExpirationDate) {
-                            var ccExpirationDate = new Date($scope.cardConfig.ccExpirationDate);
-                            $scope.ccExpirationDate.day = ccExpirationDate.getDate();
-                            $scope.ccExpirationDate.month = ccExpirationDate.getMonth()+1;
-                            $scope.ccExpirationDate.year = ccExpirationDate.getFullYear();
-                        }
-                    }
+                    
+                    loadCardConfigValues();
 
                     // #############################################################################################################
                     // Controller methods (sacred-card-config.html)
@@ -67,6 +52,7 @@
                     $scope.save = function () {
                         if ($scope.validateFields()) {
                             CardConfigService.add(getCardConfig($scope.cardConfig)).then(function () {
+                                loadCardConfigValues();
                                 DialogService.messageDialog({
                                     title : alertTitle,
                                     message : alertTitle + ' cadastrada com sucesso.',
@@ -86,6 +72,7 @@
                     $scope.update = function () {
                         if ($scope.validateFields()) {
                             CardConfigService.update(getCardConfig($scope.cardConfig)).then(function () {
+                                loadCardConfigValues();
                                 DialogService.messageDialog({
                                     title : alertTitle,
                                     message : alertTitle + ' atualizada com sucesso.',
@@ -190,6 +177,27 @@
                                 if(obj[key] && typeof obj[key] === 'string') {
                                     obj[key] = obj[key].replace(/ /g,'').replace(/,/g,'.');
                                 }
+                            }
+                        }
+                    }
+
+                    function loadCardConfigValues() {
+                        var cardConfigs = CardConfigService.list();
+
+                        if(cardConfigs && cardConfigs.length > 0) {
+                            $scope.cardConfig = cardConfigs[0];
+
+                            if($scope.cardConfig.ccClosingDate) {
+                                var ccClosingDate = new Date($scope.cardConfig.ccClosingDate);
+                                $scope.ccClosingDate.day = ccClosingDate.getDate();
+                                $scope.ccClosingDate.month = ccClosingDate.getMonth()+1;
+                                $scope.ccClosingDate.year = ccClosingDate.getFullYear();
+                            }
+                            if($scope.cardConfig.ccExpirationDate) {
+                                var ccExpirationDate = new Date($scope.cardConfig.ccExpirationDate);
+                                $scope.ccExpirationDate.day = ccExpirationDate.getDate();
+                                $scope.ccExpirationDate.month = ccExpirationDate.getMonth()+1;
+                                $scope.ccExpirationDate.year = ccExpirationDate.getFullYear();
                             }
                         }
                     }
