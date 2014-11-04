@@ -27,7 +27,7 @@
                     return result;
                 };
 
-                this.add = function add(cardConfig) {
+                this.add = function (cardConfig) {
                     var result = this.isValid(cardConfig);
                 
                     if (result.length === 0) {
@@ -39,17 +39,16 @@
                 };
 
                 this.update = function (cardConfig) {
-                        var result = this.isValid(cardConfig);
-                        if (result.length === 0) {
-                            try {
-                                return CardConfigKeeper.update(cardConfig);
-                            } catch (err) {
-                                throw 'CardConfigService.update: Unable to update a cardConfig=' +
-                                    JSON.stringify(cardConfig) + '. Err=' + err;
-                            }
+                    var result = this.isValid(cardConfig);
+                    if (result.length === 0) {
+                        try {
+                            return CardConfigKeeper.update(cardConfig);
+                        } catch (err) {
+                            return $q.reject(result);
                         }
-                        return result;
-                    };
+                    }
+                    return result;
+                };
 
                 this.list = function() {
                     var result = null;

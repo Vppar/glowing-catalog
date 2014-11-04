@@ -118,7 +118,6 @@
             var entityObj = angular.copy(cardConfig);
             entityObj.created = (new Date()).getTime();
             entityObj.uuid = IdentityService.getUUID(type, getNextId());
-
             
             return this.journalize('Add', entityObj);
         };
@@ -127,6 +126,9 @@
             if (!(cardConfig instanceof this.eventType)) {
                 return $q.reject('Wrong instance of CardConfig');
             }
+
+            cardConfig.created = (new Date()).getTime();
+            
             return this.journalize('Update', cardConfig);
         };
         
