@@ -165,7 +165,7 @@
             'tnt.catalog.goalposter.ctrl',
             'tnt.catalog.goalposter.service',
             'tnt.catalog.goalposter.editDialog',
-	    'tnt.catalog.card.config.ctrl',
+	        'tnt.catalog.card.config.ctrl',
             'tnt.catalog.card.config.entity',
             'tnt.catalog.card.config.keeper',
             'tnt.catalog.card.config.service'

@@ -1,4 +1,4 @@
-(function (angular) {
+(function (angular, unescape) {
     'use strict';
     angular
         .module('tnt.catalog.card.config.ctrl', [
@@ -7,13 +7,13 @@
         .controller(
             'CardConfigCtrl',
             [
-                '$scope', 'CardConfigService', 'CardConfig', 'UserService', 'DialogService', 'DataProvider',
-                function ($scope, CardConfigService, CardConfig, UserService, DialogService, DataProvider) {
+                '$scope', '$log', 'CardConfigService', 'CardConfig', 'UserService', 'DialogService', 'DataProvider',
+                function ($scope, $log, CardConfigService, CardConfig, UserService, DialogService, DataProvider) {
 
                     // #############################################################################################################
                     // Security for this Controller
                     // #############################################################################################################
-                    //UserService.redirectIfIsNotLoggedIn();
+                    UserService.redirectIfInvalidUser();
 
                     // #############################################################################################################
                     // Initialize variables
@@ -34,30 +34,30 @@
                     $scope.ccExpirationDateProvider = DataProvider.date;
 
                     var alertTitle = 'Configura' + unescape('%e7') + unescape('%e3') + 'o de Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito';
-                    var cardConfigs = CardConfigService.list();                                                              
+                    var cardConfigs = CardConfigService.list();
 
                     if(cardConfigs && cardConfigs.length > 0) {
-                       $scope.cardConfig = cardConfigs[0];
+                        $scope.cardConfig = cardConfigs[0];
 
-                       if($scope.cardConfig.ccClosingDate) {
-                          var ccClosingDate = new Date($scope.cardConfig.ccClosingDate);
-                          $scope.ccClosingDate.day = ccClosingDate.getDate();
-                          $scope.ccClosingDate.month = ccClosingDate.getMonth()+1;
-                          $scope.ccClosingDate.year = ccClosingDate.getFullYear();
-                       }
-                       if($scope.cardConfig.ccExpirationDate) {
-                          var ccExpirationDate = new Date($scope.cardConfig.ccExpirationDate);
-                          $scope.ccExpirationDate.day = ccExpirationDate.getDate();
-                          $scope.ccExpirationDate.month = ccExpirationDate.getMonth()+1;
-                          $scope.ccExpirationDate.year = ccExpirationDate.getFullYear();
-                       }
+                        if($scope.cardConfig.ccClosingDate) {
+                            var ccClosingDate = new Date($scope.cardConfig.ccClosingDate);
+                            $scope.ccClosingDate.day = ccClosingDate.getDate();
+                            $scope.ccClosingDate.month = ccClosingDate.getMonth()+1;
+                            $scope.ccClosingDate.year = ccClosingDate.getFullYear();
+                        }
+                        if($scope.cardConfig.ccExpirationDate) {
+                            var ccExpirationDate = new Date($scope.cardConfig.ccExpirationDate);
+                            $scope.ccExpirationDate.day = ccExpirationDate.getDate();
+                            $scope.ccExpirationDate.month = ccExpirationDate.getMonth()+1;
+                            $scope.ccExpirationDate.year = ccExpirationDate.getFullYear();
+                        }
                     }
 
                     // #############################################################################################################
                     // Controller methods (sacred-card-config.html)
                     // #############################################################################################################
-                    $scope.confirm = function () { 
-                        if ($scope.cardConfig && $scope.cardConfig.uuid) {
+                    $scope.confirm = function () {
+                        if ($scope.cardConfig && $scope.cardConfig.uuid && $scope.cardConfig.uuid !== null) {
                             $scope.update();
                         } else {
                             $scope.save();
@@ -73,6 +73,7 @@
                                     btnYes : 'OK'
                                 });
                             }, function (err) {
+                                $log.error('Failed to add card config: ', err);
                                 DialogService.messageDialog({
                                     title : alertTitle,
                                     message : 'Falha no cadastro da '+alertTitle,
@@ -82,8 +83,8 @@
                         }
                     };
 
-                    $scope.update = function () {                        
-                        if ($scope.validateFields()) { 
+                    $scope.update = function () {
+                        if ($scope.validateFields()) {
                             CardConfigService.update(getCardConfig($scope.cardConfig)).then(function () {
                                 DialogService.messageDialog({
                                     title : alertTitle,
@@ -91,6 +92,7 @@
                                     btnYes : 'OK'
                                 });
                             }, function (err) {
+                                $log.error('Failed to update card config: ', err);
                                 DialogService.messageDialog({
                                     title : alertTitle,
                                     message : 'Falha na atualiza'+ unescape('%e7') + unescape('%e3') + 'o da '+alertTitle,
@@ -100,11 +102,10 @@
                         }
                     };
 
-                    $scope.validateFields = function() {                        
-                                                  
-                        var messages = [];
+                    $scope.validateFields = function() {
+
                         removeInvalidValues($scope.cardConfig);
-                        
+
                         if($scope.cardConfig.ccDaysToExpire && !isInteger($scope.cardConfig.ccDaysToExpire)) {
                             return alertMessage('O Prazo de Vencimento do Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito '+ unescape('%e9') +' inv'+unescape('%e1')+'lido.');
                         }
@@ -139,25 +140,25 @@
 
                         if($scope.ccExpirationDate.day || $scope.ccExpirationDate.month || $scope.ccExpirationDate.year) {
                             if(!$scope.ccExpirationDate.day || !$scope.ccExpirationDate.month || !$scope.ccExpirationDate.year) {
-                               return alertMessage('O Dia de Vencimento do Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito '+ unescape('%e9') +' inv'+unescape('%e1')+'lido.');
+                                return alertMessage('O Dia de Vencimento do Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito '+ unescape('%e9') +' inv'+unescape('%e1')+'lido.');
                             } else {
-                               $scope.cardConfig.ccExpirationDate = new Date($scope.ccExpirationDate.year, $scope.ccExpirationDate.month-1, $scope.ccExpirationDate.day, 0, 0, 0, 0);
+                                $scope.cardConfig.ccExpirationDate = new Date($scope.ccExpirationDate.year, $scope.ccExpirationDate.month-1, $scope.ccExpirationDate.day, 0, 0, 0, 0);
                             }
                         }
                         return true;
-                    }
+                    };
 
                     function getCardConfig(obj) {
                         if(obj) {
                             return new CardConfig(
                                 obj.uuid,
-                                obj.ccDaysToExpire, 
-                                obj.ccOpRate1Installment, 
-                                obj.ccOpRate26Installment, 
-                                obj.ccOpRate712Installment, 
-                                obj.ccClosingDate, 
+                                obj.ccDaysToExpire,
+                                obj.ccOpRate1Installment,
+                                obj.ccOpRate26Installment,
+                                obj.ccOpRate712Installment,
+                                obj.ccClosingDate,
                                 obj.ccExpirationDate,
-                                obj.dcDaysToExpire, 
+                                obj.dcDaysToExpire,
                                 obj.dcOpRate);
                         }
                         return null;
@@ -176,23 +177,23 @@
                         return !isNaN(value);
                     }
 
-                    function isInteger(value){ 
-                        if((parseFloat(value) == parseInt(value)) && !isNaN(value)){
-                           return true;
+                    function isInteger(value){
+                        if((parseFloat(value) === parseInt(value)) && !isNaN(value)){
+                            return true;
                         }
                         return false;
                     }
 
                     function removeInvalidValues(obj) {
                         if(obj) {
-                            for(var key in obj) {       
+                            for(var key in obj) {
                                 if(obj[key] && typeof obj[key] === 'string') {
-                                   obj[key] = obj[key].replace(/ /g,"").replace(/,/g,".");
+                                    obj[key] = obj[key].replace(/ /g,'').replace(/,/g,'.');
                                 }
-                            }    
+                            }
                         }
                     }
  
                 }
             ]);
-}(angular));
+}(angular, window.unescape));
