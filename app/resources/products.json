@@ -2041,8 +2041,8 @@
     },
     {
         "id": 234,
-        "session": "Lançamentos",
-        "line": "Maquiagem - Linha Jovem",
+        "session": "Maquiagem",
+        "line": "Linha Jovem",
         "image": "10-062144.jpg",
         "points": 15,
         "title": "Trio de Sombras Efeito Brilho - 2g",
@@ -4706,8 +4706,8 @@
     },
     {
         "id": 537,
-        "session": "Lançamentos",
-        "line": "Maquiagem - Linha Jovem",
+        "session": "Maquiagem",
+        "line": "Linha Jovem",
         "image": "10-073805.jpg",
         "points": 11,
         "title": "Lápis Sombra - 2,5g",
@@ -4761,7 +4761,7 @@
         "session": "Edição Limitada",
         "line": "Fairytales & Fantasy",
         "image": "10-065259.jpg",
-        "points": 19,
+        "points": 23,
         "title": "Brilho Labial de Longa Duração - 4,2ml",
         "price": 38,
         "description": "Deixa os lábios suaves e hidratados."
@@ -4787,7 +4787,7 @@
         "session": "Edição Limitada",
         "line": "Fairytales & Fantasy",
         "image": "10-065252.jpg",
-        "points": 17,
+        "points": 23,
         "title": "Lápis Retrátil Delineador para Olhos Kohl - 0,312g",
         "price": 35,
         "description": "Desliza suavemente para um acabamento perfeito."
@@ -4821,7 +4821,7 @@
         "session": "Edição Limitada",
         "line": "Fairytales & Fantasy",
         "image": "10-066931.jpg",
-        "points": 17,
+        "points": 23,
         "title": "Sombra em Bastão Efeito Brilho e Esfumado - 1,38g",
         "price": 35,
         "description": "Fácil aplicação e cores que realçam os olhos."
@@ -4866,7 +4866,7 @@
         "points": 12,
         "title": "Esmalte para Unhas - 7,5ml",
         "price": 22,
-        "description": "Cores terrosas, brilhantes e metálicas."
+        "description": "Fórmula 3-Free (não contém tolueno, dibutilftalato e formaldeído)."
     },
     {
         "id": 556,
@@ -4874,7 +4874,7 @@
         "SKU": "10-065497",
         "image": "10-065497.jpg",
         "option": "Blue Knight",
-        "active": true
+        "active": false
     },
     {
         "id": 557,
@@ -5022,7 +5022,7 @@
     },
     {
         "id": 574,
-        "session": "Lançamentos",
+        "session": "SPA e Fragrâncias",
         "line": "Fragrâncias Femininas",
         "image": "10-067230.jpg",
         "points": 54,
@@ -5087,8 +5087,8 @@
     },
     {
         "id": 582,
-        "session": "Lançamentos",
-        "line": "Maquiagem - Linha Jovem",
+        "session": "Maquiagem",
+        "line": "Linha Jovem",
         "image": "10-062090.jpg",
         "points": 9,
         "title": "Gloss Labial Jelly - 9,5ml",
@@ -5133,8 +5133,8 @@
     },
     {
         "id": 587,
-        "session": "Lançamentos",
-        "line": "Maquiagem - Linha Jovem",
+        "session": "Maquiagem",
+        "line": "Linha Jovem",
         "image": "10-073798.jpg",
         "points": 11,
         "title": "Lápis Batom - 2,5g",
@@ -5179,8 +5179,8 @@
     },
     {
         "id": 592,
-        "session": "Lançamentos",
-        "line": "Maquiagem - Linha Jovem",
+        "session": "Maquiagem",
+        "line": "Linha Jovem",
         "image": "10-078275.jpg",
         "points": 11,
         "title": "Delineador Líquido Intenso para os Olhos",
@@ -5234,6 +5234,405 @@
         "parent": 597,
         "SKU": "10-073072",
         "image": "10-073072.jpg",
+        "active": false
+    },
+    {
+        "id": 599,
+        "session": "Lançamentos",
+        "line": "Fragrâncias Femininas",
+        "image": "10-072773.jpg",
+        "points": 49,
+        "title": "True Passion Noir Desodorante Colônia - 60 ml",
+        "price": 82,
+        "description": "Uma fragrância floral musk amadeirada. Sensual e marcante."
+    },
+    {
+        "id": 600,
+        "parent": 599,
+        "SKU": "10-072773",
+        "image": "10-072773.jpg",
+        "active": true
+    },
+    {
+        "id": 601,
+        "session": "Lançamentos",
+        "line": "Fragrâncias Masculinas",
+        "image": "10-072774.jpg",
+        "points": 47,
+        "title": "Free Spirit Desodorante Colônia - 100 ml",
+        "price": 79,
+        "description": "Essência refrescante com elementos aquosos. Ideal para o dia a dia."
+    },
+    {
+        "id": 602,
+        "parent": 601,
+        "SKU": "10-072774",
+        "image": "10-072774.jpg",
+        "active": true
+    },
+    {
+        "id": 603,
+        "session": "Lançamentos",
+        "line": "Maquiagem - Rosto",
+        "image": "10-072818.jpg",
+        "points": 29,
+        "title": "CC Cream Multibenefícios FPS 15 - 29 ml",
+        "price": 57,
+        "description": "Garanta uma pele bem cuidada com os multibenefícios e a praticidade do CC Cream."
+    },
+    {
+        "id": 604,
+        "parent": 603,
+        "SKU": "10-072818",
+        "image": "10-072818.jpg",
+        "option": "Very Light",
+        "active": true
+    },
+    {
+        "id": 605,
+        "parent": 603,
+        "SKU": "10-072819",
+        "image": "10-072819.jpg",
+        "option": "Light to Medium",
+        "active": true
+    },
+    {
+        "id": 606,
+        "parent": 603,
+        "SKU": "10-072820",
+        "image": "10-072820.jpg",
+        "option": "Medium to Deep",
+        "active": true
+    },
+    {
+        "id": 607,
+        "parent": 603,
+        "SKU": "10-072821",
+        "image": "10-072821.jpg",
+        "option": "Deep",
+        "active": true
+    },
+    {
+        "id": 608,
+        "session": "Lançamentos",
+        "line": "Solar",
+        "image": "10-063274.jpg",
+        "points": 31,
+        "title": "Protetor Solar FPS 50 - 118 ml",
+        "price": 62,
+        "description": "Ótima proteção para sol intenso, para o rosto e para o corpo. Resistente à água e suor por até 80 minutos."
+    },
+    {
+        "id": 609,
+        "parent": 608,
+        "SKU": "10-063274",
+        "image": "10-063274.jpg",
+        "active": true
+    },
+    {
+        "id": 610,
+        "session": "Edição Limitada",
+        "line": "Hello Sunshine",
+        "image": "10-071377.jpg",
+        "points": 25,
+        "title": "Delineador em Gel - Hello Sunshine - 4,5 g",
+        "price": 49,
+        "description": "É a vez do delineador branco! Ele vai ser o queridinho da estação."
+    },
+    {
+        "id": 611,
+        "parent": 610,
+        "SKU": "10-071377",
+        "image": "10-071377.jpg",
+        "option": "White Daisy",
+        "active": true
+    },
+    {
+        "id": 612,
+        "session": "Edição Limitada",
+        "line": "Hello Sunshine",
+        "image": "10-072012.jpg",
+        "points": 23,
+        "title": "Duo de Sombras - Hello Sunshine",
+        "price": 45,
+        "description": "Dupla dinâmica."
+    },
+    {
+        "id": 613,
+        "parent": 612,
+        "SKU": "10-072012",
+        "image": "10-072012.jpg",
+        "option": "Stonewashed",
+        "active": true
+    },
+    {
+        "id": 614,
+        "parent": 612,
+        "SKU": "10-072013",
+        "image": "10-072013.jpg",
+        "option": "Summer Sunset",
+        "active": true
+    },
+    {
+        "id": 615,
+        "session": "Edição Limitada",
+        "line": "Hello Sunshine",
+        "image": "10-071375.jpg",
+        "points": 19,
+        "title": "Brilho Labial Ultra Glossy - Hello Sunshine - 3,2 g",
+        "price": 39,
+        "description": "Deu brilho na boca."
+    },
+    {
+        "id": 616,
+        "parent": 615,
+        "SKU": "10-071375",
+        "image": "10-071375.jpg",
+        "option": "Cherry Twist",
+        "active": true
+    },
+    {
+        "id": 617,
+        "session": "Edição Limitada",
+        "line": "Little Gifts",
+        "image": "10-073915.jpg",
+        "points": 23,
+        "title": "Kit Bálsamo para os Labios - Little Gifts - 8 g cada",
+        "price": 60,
+        "description": "Hidratação para os lábios por até 6 horas."
+    },
+    {
+        "id": 618,
+        "parent": 617,
+        "SKU": "10-073915",
+        "image": "10-073915.jpg",
+        "active": true
+    },
+    {
+        "id": 619,
+        "session": "Edição Limitada",
+        "line": "Hello Sunshine",
+        "image": "10-071999.jpg",
+        "points": 22,
+        "title": "Batom Cremoso Soft Matte - Hello Sunshine - 2 g",
+        "price": 44,
+        "description": "Um toque semi-matte que é a cara da riqueza."
+    },
+    {
+        "id": 620,
+        "parent": 619,
+        "SKU": "10-071999",
+        "image": "10-071999.jpg",
+        "option": "Retro Rose",
+        "active": true
+    },
+    {
+        "id": 621,
+        "parent": 619,
+        "SKU": "10-071998",
+        "image": "10-071998.jpg",
+        "option": "Carefree Coral",
+        "active": true
+    },
+    {
+        "id": 622,
+        "session": "Edição Limitada",
+        "line": "Kits Especiais",
+        "image": "10-072706.jpg",
+        "points": 45,
+        "title": "Kit SPA para os Pés - Lemon Parfait",
+        "price": 99,
+        "description": "Deixe seus pés prontos para o verão e para as sandálias."
+    },
+    {
+        "id": 623,
+        "parent": 622,
+        "SKU": "10-072706",
+        "image": "10-072706.jpg",
+        "active": true
+    },
+    {
+        "id": 624,
+        "session": "Edição Limitada",
+        "line": "Little Gifts",
+        "image": "10-074892.jpg",
+        "points": 19,
+        "title": "Creme para as Mãos - Little Gifts - 88 ml",
+        "price": 33,
+        "description": "Hidratação instantânea com duração de até 24 horas. Sua pele macia e perfumada."
+    },
+    {
+        "id": 625,
+        "parent": 624,
+        "SKU": "10-074892",
+        "option": "Vanilla Berry",
+        "active": true
+    },
+    {
+        "id": 626,
+        "parent": 624,
+        "SKU": "10-074894",
+        "option": "Vanilla Mint",
+        "active": true
+    },
+    {
+        "id": 627,
+        "session": "Edição Limitada",
+        "line": "Hello Sunshine",
+        "image": "10-071981.jpg",
+        "points": 12,
+        "title": "Esmalte para Unhas - Hello Sunshine - 7,5 ml",
+        "price": 24,
+        "description": "Unhas coloridas para o verão."
+    },
+    {
+        "id": 628,
+        "parent": 627,
+        "SKU": "10-071981",
+        "image": "10-071981.jpg",
+        "option": "Lemon Parfait",
+        "active": true
+    },
+    {
+        "id": 629,
+        "parent": 627,
+        "SKU": "10-071982",
+        "image": "10-071982.jpg",
+        "option": "Carefree Coral",
+        "active": true
+    },
+    {
+        "id": 630,
+        "parent": 627,
+        "SKU": "10-071983",
+        "image": "10-071983.jpg",
+        "option": "Retro Rose",
+        "active": true
+    },
+    {
+        "id": 631,
+        "session": "Edição Limitada",
+        "line": "Kits Especiais",
+        "image": "10-085399.jpg",
+        "points": 44,
+        "title": "Brilho? Oh, Yes!",
+        "price": 89,
+        "description": "Máscara para Cílios Lash Love à Prova D´Água - Preta + Brilho para os Lábios Nourishine Plus - Pink Luster."
+    },
+    {
+        "id": 632,
+        "parent": 631,
+        "SKU": "10-085399",
+        "image": "10-085399.jpg",
+        "active": true
+    },
+    {
+        "id": 633,
+        "session": "Edição Limitada",
+        "line": "Kits Especiais",
+        "image": "10-085404.jpg",
+        "points": 51,
+        "title": "Like a Diva",
+        "price": 106,
+        "description": "Máscara para Cílios Lash Love - Preta + Lápis Batom - Coral Me Crazy + Trio de Sombras Efeito Brilho - Electric Spring + Nécessaire."
+    },
+    {
+        "id": 634,
+        "parent": 633,
+        "SKU": "10-085404",
+        "image": "10-085404.jpg",
+        "active": true
+    },
+    {
+        "id": 635,
+        "session": "Edição Limitada",
+        "line": "Kits Especiais",
+        "image": "10-085402.jpg",
+        "points": 65,
+        "title": "Aventura Mode: On",
+        "price": 113,
+        "description": "Free Spirit Sport + Gel Refrescante Pós Barba MK Men + Nécessaire."
+    },
+    {
+        "id": 636,
+        "parent": 635,
+        "SKU": "10-085402",
+        "image": "10-085402.jpg",
+        "active": true
+    },
+    {
+        "id": 637,
+        "session": "Edição Limitada",
+        "line": "Kits Especiais",
+        "image": "10-085405.jpg",
+        "points": 170,
+        "title": "Vá de Clássico",
+        "price": 276,
+        "description": "Creme de Limpeza 3 em 1 + Hidratante Redutor de Linhas de Expressão + Solução Diurna FPS 30 + Solução Noturna + Nécessaire."
+    },
+    {
+        "id": 638,
+        "parent": 637,
+        "SKU": "10-085405",
+        "option": "Normal/Seca",
+        "active": true
+    },
+    {
+        "id": 639,
+        "parent": 637,
+        "SKU": "10-085406",
+        "option": "Mista/Oleosa",
+        "active": true
+    },
+    {
+        "id": 640,
+        "session": "Edição Limitada",
+        "line": "Kits Especiais",
+        "image": "10-085403.jpg",
+        "points": 299,
+        "title": "Truque de Beleza",
+        "price": 499,
+        "description": "Creme para os Olhos + Sérum Lifting + Creme Diurno FPS 30 + Creme Noturno + Espuma de Limpeza + Caixa."
+    },
+    {
+        "id": 641,
+        "parent": 640,
+        "SKU": "10-085403",
+        "image": "10-085403.jpg",
+        "active": true
+    },
+    {
+        "id": 642,
+        "session": "Edição Limitada",
+        "line": "Kits Especiais",
+        "image": "10-086449.jpg",
+        "points": 94,
+        "title": "Heartfelt",
+        "price": 148,
+        "description": "Heartfelt for Him + Heartfelt for Her + Caixa."
+    },
+    {
+        "id": 643,
+        "parent": 642,
+        "SKU": "10-086449",
+        "image": "10-086449.jpg",
+        "active": true
+    },
+    {
+        "id": 644,
+        "session": "Edição Limitada",
+        "line": "Maquiagem - Linha Jovem",
+        "image": "10-066491.jpg",
+        "points": 18,
+        "title": "Trio de Sombras - Just For Eyes",
+        "price": 35,
+        "description": "Estojo leve e prático de carregar com cores complementares que podem ser utilizadas sozinhas ou em conjunto."
+    },
+    {
+        "id": 645,
+        "parent": 644,
+        "SKU": "10-066491",
+        "image": "10-066491.jpg",
         "active": true
     }
 ]

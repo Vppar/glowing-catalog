@@ -45,12 +45,12 @@ input[type="color"],
 
 /*mod at li special to header*/
 .loading-icon-holder{
-	width: 40px;
+	width: 35px;
 }
 
 .loading-icon{
 	margin-top:6px;
-	margin-left:60px;
+	margin-left:30px;
 }
 
 .navbar-inner{
@@ -59,10 +59,10 @@ input[type="color"],
 }
 
 
-.navbar .nav > li > .dropdown-menu:before{ 
+.navbar .nav > li > .dropdown-menu:before{
 	right:30px !important;
 	border-bottom: 7px solid transparent;
-	border-bottom-color: rgba(0,0,0,0.0); 
+	border-bottom-color: rgba(0,0,0,0.0);
 }
 
 /*input focus*/
@@ -522,7 +522,7 @@ body {
 	content: " ";
 	float: left;
 	width: 15px;
-	background-position:left; 
+	background-position:left;
 	height: 0;
 	border-color: transparent;
 	border-left-color: #333333;
@@ -535,7 +535,7 @@ body {
 	color:#333;
 	float: left;
 	width: 15px;
-	background-position:left; 
+	background-position:left;
 	height: 0;
 	border-color: transparent;
 	border-left-color: #333333;
@@ -657,7 +657,7 @@ div.header-date {
 }
 .navbar .nav > li > a {
 	float: none;
-	padding: 10px 8px 10px 0; 
+	padding: 10px 8px 10px 0;
 	color: #333;
 	text-decoration: none;
 	/*text-shadow: 0 1px 0 #ffffff;*/
@@ -887,7 +887,7 @@ div.sidebar-menu ul li a {
 		width: 1024px;
 		position: fixed;
 		top: 70px;
-		bottom: 0px; 
+		bottom: 0px;
 
 	/*
 	 overflow-y: scroll;
@@ -898,8 +898,8 @@ div.sidebar-menu ul li a {
 	height:600px;
 	*/
 }
-/*.home-scroll-content::-webkit-scrollbar{ 
-    display: none !important; 
+/*.home-scroll-content::-webkit-scrollbar{
+    display: none !important;
     }*/
     .btn-clear-form {
     	padding: 28px 6px 1px 2px;
@@ -1068,22 +1068,22 @@ input.ng-invalid.ng-dirty, .failed input.ng-invalid, .failed textarea.ng-invalid
 /* SCROLL */
 ::-webkit-scrollbar {
 	width: 2px;
-} 
+}
 /* Track */
 ::-webkit-scrollbar-track {
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
-} 
+}
 /* Handle */
 ::-webkit-scrollbar-thumb {
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
-	background: rgba(85,85,85,0.8); 
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+	background: rgba(85,85,85,0.8);
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 }
 ::-webkit-scrollbar-thumb:window-inactive {
-	background: rgba(85,85,85,0.4); 
+	background: rgba(85,85,85,0.4);
 }
 
 .left-payment{
@@ -1124,13 +1124,13 @@ input.ng-invalid.ng-dirty, .failed input.ng-invalid, .failed textarea.ng-invalid
 }
 /*menu do breadcrumbs*/
 
-.menu-level{	
+.menu-level{
 	margin: 0 !important;
 	padding: 0 !important;
 	/*margin-left: 50px !important;*/
 }
 
-.menu-level .btn{	
+.menu-level .btn{
 	font-weight: normal !important;
 	margin-top:-9px;
 }
@@ -1165,11 +1165,11 @@ input.ng-invalid.ng-dirty, .failed input.ng-invalid, .failed textarea.ng-invalid
 	/*margin-bottom:-10px;*/
 }
 
-.edit-item{	
+.edit-item{
 	background-color: #D7F0BF;
 }
 
-input:focus, .focus{	
+input:focus, .focus{
 	outline: 1px solid #bf1e62;
 	outline-offset:0;
 }
