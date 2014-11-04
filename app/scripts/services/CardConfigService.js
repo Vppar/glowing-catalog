@@ -8,11 +8,11 @@
     ]).service(
          'CardConfigService',
         [
-        '$q', 'logger', 'CardConfigKeeper',
-        function CardConfigService($q, logger, CardConfigKeeper) {
+        '$q', '$log', 'logger', 'CardConfigKeeper',
+        function CardConfigService($q, $log, logger, CardConfigKeeper) {
 
                 this.isValid = function(subscription) {
-                    var invalidProperty = {};                    
+                    var invalidProperty = {};
 
                     var result = [];
                  
@@ -38,25 +38,6 @@
                     }
                 };
 
-                this.update = function(cardConfig) {
-                    var result = this.isValid(cardConfig);
-                    if (result.length === 0) {
-                        //cardConfig = new CardConfig(cardConfig);
-                        var promise = CardConfigKeeper.update(cardConfig);
-
-                        return promise.then(function(resp) {
-                            return resp;
-                        }, function(error) {
-                            log.error('CardConfigService.update: Unable to update a card config');
-                            log.debug(error);
-                            return $q.reject();
-                        });
-                    } else {
-                        return $q.reject(result);
-                    }
-                };
-
-
                 this.update = function (cardConfig) {
                         var result = this.isValid(cardConfig);
                         if (result.length === 0) {
@@ -67,35 +48,18 @@
                                     JSON.stringify(cardConfig) + '. Err=' + err;
                             }
                         }
-                    return result;
-                };
+                        return result;
+                    };
 
                 this.list = function() {
                     var result = null;
                     try {
                         result = CardConfigKeeper.list();
                     } catch (err) {
-                        log.debug('CardConfigService.list: Unable to recover the list of card config. Err=' + err);
+                        $log.debug('CardConfigService.list: Unable to recover the list of card config. Err=' + err);
                     }
                     return result;
-                };  
-
-                /*this.getPPRatioByInstallments = function(installments) {
-                    if(installments && installments > 0) {
-                        var cardConfigs = this.list();
-                        if(cardConfigs && cardConfigs.length > 0) {
-                           var cardConfig = cardConfigs[0];
-                           if(installments === 1 && cardConfig.ccOpRate1Installment) {
-                               return cardConfig.ccOpRate1Installment;
-                           } else if(installments >== 2 && installments <== 6 && cardConfig.ccOpRate26Installment) {
-                               return cardConfig.ccOpRate26Installment;
-                           } else if(installments >== 7 && installments <== 12 && cardConfig.ccOpRate712Installment) {
-                               return cardConfig.ccOpRate712Installment;
-                           }
-                        }   
-                    }               
-                    return;
-                };*/
+                };
                 
             }
     ]);

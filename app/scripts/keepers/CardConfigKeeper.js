@@ -5,19 +5,19 @@
 
         var service = function svc(uuid, ccDaysToExpire, ccOpRate1Installment, ccOpRate26Installment, ccOpRate712Installment, ccClosingDate, ccExpirationDate, dcDaysToExpire, dcOpRate) {
 
-            var validProperties = 
+            var validProperties =
                             [
-                                'uuid',
-                                'ccDaysToExpire', 
-                                'ccOpRate1Installment', 
-                                'ccOpRate26Installment', 
-                                'ccOpRate712Installment', 
-                                'ccClosingDate', 
-                                'ccExpirationDate', 
-                                'dcDaysToExpire',
-                                'dcOpRate',
-                                'created'
-                            ];
+                'uuid',
+                'ccDaysToExpire',
+                'ccOpRate1Installment',
+                'ccOpRate26Installment',
+                'ccOpRate712Installment',
+                'ccClosingDate',
+                'ccExpirationDate',
+                'dcDaysToExpire',
+                'dcOpRate',
+                'created'
+            ];
 
             ObjectUtils.method(svc, 'isValid', function() {
                 for ( var ix in this) {
@@ -90,7 +90,7 @@
         ObjectUtils.ro(this.handlers, 'cardConfigUpdateV1', function (cardConfig) {
             var cardConfigEntry = ArrayUtils.find(cardConfigs, 'uuid', cardConfig.uuid);
             if (cardConfigEntry) {
-                cardConfig = angular.copy(cardConfig); 
+                cardConfig = angular.copy(cardConfig);
                 delete cardConfig.uuid;
                 angular.extend(cardConfigEntry, cardConfig);
             } else {
@@ -122,31 +122,6 @@
             
             return this.journalize('Add', entityObj);
         };
-
-        /* this.create =
-                    function (entity) {
-
-                        if (!(entity instanceof Appointment)) {
-                            return $q.reject('Wrong instance to AppointmentKeeper');
-                        }
-
-                        var entityObj = angular.copy(entity);
-
-                        entityObj.created = (new Date()).getTime();
-                        entityObj.uuid = IdentityService.getUUID(type, getNextId());
-
-                        var appointment = new Appointment(entityObj);
-
-                        var entry =
-                            new JournalEntry(
-                                null,
-                                appointment.created,
-                                'appointmentCreate',
-                                currentEventVersion,
-                                appointment);
-
-                        return JournalKeeper.compose(entry);
-                    };*/
 
         this.update = function (cardConfig) {
             if (!(cardConfig instanceof this.eventType)) {

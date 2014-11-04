@@ -32,7 +32,6 @@ describe('Controller: AddCustomerCtrl', function() {
         us.redirectIfInvalidUser = jasmine.createSpy('redirectIfInvalidUser');
     });
 
-    // Initialize the controller and a mock scope
     beforeEach(inject(function($controller, _$filter_, _$q_, _$rootScope_, _CpfService_) {
         CpfService = _CpfService_;
         $q = _$q_;
