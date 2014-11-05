@@ -1,6 +1,6 @@
 {
   "name": "glowing-catalog",
-  "version": "1.3.3-87",
+  "version": "1.3.3-89",
   "dependencies": {},
   "devDependencies": {
     "gifsicle": "0.1.3",
