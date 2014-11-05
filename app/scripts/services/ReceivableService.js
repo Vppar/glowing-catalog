@@ -373,7 +373,6 @@
                     function filterReceivablesByLiquidated (receivables) {
                         return $filter('filter')(receivables, receivableLiquidateFilter);
                     }
-                    ;
 
                     function receivableLiquidateFilter (receivable) {
                         return (receivable.liquidated === undefined);

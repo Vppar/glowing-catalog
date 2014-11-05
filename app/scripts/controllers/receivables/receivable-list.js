@@ -1,10 +1,10 @@
 (function(angular) {
     'use strict';
-    angular.module('tnt.catalog.financial.receivable.list.ctrl', ['tnt.catalog.financial.math.service']).controller(
+    angular.module('tnt.catalog.financial.receivable.list.ctrl', ['tnt.catalog.financial.math.service', 'tnt.catalog.card.config.service']).controller(
             'ReceivableListCtrl',
             [
-                '$log', '$scope', '$filter', 'ReceivableService', 'EntityService', 'OrderService', 'IdentityService', 'BookService', 'Book', 'FinancialMathService',
-                function($log, $scope, $filter, ReceivableService, EntityService, OrderService, IdentityService, BookService, Book, FinancialMathService) {
+                '$log', '$scope', '$filter', 'ReceivableService', 'EntityService', 'OrderService', 'IdentityService', 'BookService', 'Book', 'FinancialMathService', 'CardConfigService',
+                function($log, $scope, $filter, ReceivableService, EntityService, OrderService, IdentityService, BookService, Book, FinancialMathService, CardConfigService) {
                     
                     var PP_FIXED_RATIO = 3.48;
                     var PP_MONTHLY_RATIO = 1.98;
@@ -117,11 +117,15 @@
                             if (newVal === 'listOpen') {
                                 $scope.allOpenReceivables = 'true';
                             }
-                            $scope.disable.discount = false;
-                            $scope.disable.extra = false;
+                            if($scope.disable) {
+                                $scope.disable.discount = false;
+                                $scope.disable.extra = false;
+                            }
                         } else {
-                            $scope.disable.discount = true;
-                            $scope.disable.extra = true;
+                            if($scope.disable) {
+                                $scope.disable.discount = true;
+                                $scope.disable.extra = true;
+                            }
 
                             $scope.allOpenReceivables = 'false';
                             receivables = filterReceivablesByClosed(receivables);
@@ -188,9 +192,11 @@
                             
                             if(receivable.type === 'creditCard' && !angular.isUndefined(receivable.payment.gatewayInfo)){
                                 //overwrite the amount with the net amount.
-                                receivable.amount = getNetAmountForCredicard(receivable); 
+                                receivable.amount = getNetAmountForCreditCardWithGateway(receivable); 
+                            } else {
+                                receivable.amount = getNetAmountForCreditCardWithoutGateway(receivable); 
                             }
-                            
+                                                       
                             $scope.sumAmount += receivable.amount;
                             
                             // This section prevents that warmup inputed checks
@@ -240,11 +246,21 @@
                         return receivables;
                     }
                     
-                    function getNetAmountForCredicard(receivable){
+                    function getNetAmountForCreditCardWithGateway(receivable){
                         var installments = receivable.payment.installments;
                         
                         return FinancialMathService.presentValue(PP_FIXED_RATIO, PP_MONTHLY_RATIO, installments, receivable.amount);
 
+                    }
+
+                    function getNetAmountForCreditCardWithoutGateway(receivable){
+                        if(receivable.payment && receivable.payment.installments) {
+                            var fee = CardConfigService.getCreditCardFeeByInstallments(receivable.payment.installments);
+                            if(fee) {
+                                return FinancialMathService.currencyPercentageSubtract(receivable.amount, fee);                                
+                            }
+                        }
+                        return;
                     }
                     
                     //FIXME we can't read the account name from 
