@@ -27,7 +27,7 @@
                 dataProviderUpdate();
 
                 var highlight = $location.search().highlight;
-                $scope.selectedSection = highlight ? highlight : 'Mais Vendidos';
+                $scope.selectedSection = highlight ? highlight : 'Lançamentos';
 
                 $scope.$watch('selectedSection', function() {
                     if ($scope.sections.indexOf($scope.selectedSection) === -1) {
