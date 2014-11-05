@@ -47,31 +47,4 @@ describe('Service: CardConfigServiceUpdateSpec', function() {
 		expect(result).toBe(undefined);
 	});
 
-	it('shouldn\'t update a card config instance', function() {
-		// given
-		CardConfigService.isValid = jasmine.createSpy('CardConfigKeeper.isValid').andReturn([]);
-		CardConfigKeeper.update = jasmine.createSpy('CardConfigKeeper.update').andCallFake(function() {
-					throw 'my exception';
-				});
-
-		var validEntity = {
-			uuid : 'cc33b122-5d0b-22e3-44c3-020001000001',
-			ccDaysToExpire : '10',
-			ccOpRate1Installment : '1',
-			ccOpRate26Installment : '2.3',
-			ccOpRate712Installment : '3.98',
-			ccClosingDate : '12/01/2014 00:00',
-			ccExpirationDate : '12/01/2014 00:00',
-			dcDaysToExpire : '33',
-			dcOpRate : '1.1'			
-		};
-		// when
-		var createCall = function() {
-			CardConfigService.update(validEntity);
-		};
-
-		// then
-		expect(createCall).toThrow();
-	});
-
 });
