@@ -3,12 +3,12 @@
 }
 #sacred .login{
 	width: 330px;
-	box-shadow: 0 10px 50px 10px #999;
+	box-shadow: 0 10px 50px 10px #381750;
 	background: #fff;
 	top: 200px;
 	position: absolute;
-	left: 50%;
-	margin-left: 140px;
+	right: 50%;
+	margin-right: 140px;
 	height: initial;
 	border-radius: 4px;
 	padding-bottom: 5px;
@@ -25,13 +25,17 @@
 	width: 100%;
 }
 #sacred .login h1 img{
-	margin: 9px 0 0 8px;
-
+	display: block;
+  margin: 5px auto;
 }
 
 #sacred .login input{
 	height: 34px;
 	font-size: 16px;
+}
+
+#sacred .login input:focus{
+  border: solid 1px #502171;
 }
 
 #sacred .login .login-body{
@@ -49,6 +53,7 @@
 	margin-right: 0px;
 	font-size: 16px;
 	height: 36px;
+  background: #502171;
 }
 
 #sacred .login .login-footer .button-black{

@@ -27,6 +27,7 @@
                 dataProviderUpdate();
 
                 var highlight = $location.search().highlight;
+
                 $scope.selectedSection = highlight ? highlight : 'Bebidas';
 
                 $scope.$watch('selectedSection', function() {
