@@ -2,19 +2,19 @@
     'use strict';
     angular.module('glowingCatalogApp').controller(
             'MainCtrl', ['$scope', '$location', 'DataProvider', 'ArrayUtils', 'OrderService', 'DialogService', 'InventoryKeeper', 'UserService', function($scope, $location, DataProvider, ArrayUtils, OrderService, DialogService, InventoryKeeper, UserService) {
-               
+
                 UserService.redirectIfInvalidUser();
-                
+
                 function dataProviderUpdate() {
 
                     var sections = [];
                     // var sections = ArrayUtils.distinct(DataProvider.products,
                     // 'session');
                     //
-                    sections.push('Mais Vendidos');
-                    sections.push('Cuidados com a Pele');
-                    sections.push('Maquiagem');
-                    sections.push('SPA e Fragrâncias');
+                    sections.push('Bebidas');
+                    sections.push('Chocolates');
+                    sections.push('Balas e Gomas');
+                    sections.push('Queijo e Sobremesas');
 
                     // Ed. Limitada
                     // Lançamentos
@@ -27,7 +27,8 @@
                 dataProviderUpdate();
 
                 var highlight = $location.search().highlight;
-                $scope.selectedSection = highlight ? highlight : 'Lançamentos';
+
+                $scope.selectedSection = highlight ? highlight : 'Bebidas';
 
                 $scope.$watch('selectedSection', function() {
                     if ($scope.sections.indexOf($scope.selectedSection) === -1) {
