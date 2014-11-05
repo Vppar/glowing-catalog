@@ -18,7 +18,7 @@
                     // #############################################################################################################
                     // Initialize variables
                     // #############################################################################################################
-                    $scope.cardConfig = undefined;
+                    $scope.cardConfig = {};
                     $scope.ccClosingDate = {};
                     $scope.ccExpirationDate = {};
                     $scope.dataProviderDate = DataProvider.date;
@@ -43,7 +43,7 @@
                     // #############################################################################################################
                     // Controller methods (sacred-card-config.html)
                     // #############################################################################################################
-                    $scope.confirm = function () {
+                    $scope.confirm = function () { 
                         if ($scope.cardConfig && $scope.cardConfig.uuid) {
                             $scope.update();
                         } else {
@@ -69,7 +69,7 @@
                         }
                     };
 
-                    $scope.update = function () {
+                    $scope.update = function () {                        
                         if ($scope.validateFields()) { 
                             CardConfigService.update($scope.cardConfig).then(function () {
                                 DialogService.messageDialog({
@@ -87,47 +87,49 @@
                         }
                     };
 
-                    $scope.validateFields = function() {
-                        if($scope.cardConfig) {
-                            var messages = [];
-                            if($scope.cardConfig.ccDaysToExpire && !isInteger($scope.cardConfig.ccDaysToExpire)) {
-                                alertMessage('O Prazo de Vencimento do Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito '+ unescape('%e9') +' inv'+unescape('%e1')+'lido.');
-                            }
+                    $scope.validateFields = function() {                        
+                                                  
+                        var messages = [];
+                        removeInvalidValues($scope.cardConfig);
+                        
+                        if($scope.cardConfig.ccDaysToExpire && !isInteger($scope.cardConfig.ccDaysToExpire)) {
+                            return alertMessage('O Prazo de Vencimento do Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito '+ unescape('%e9') +' inv'+unescape('%e1')+'lido.');
+                        }
 
-                            if($scope.cardConfig.ccOpRate1Installment && !isNumeric($scope.cardConfig.ccOpRate1Installment)) {
-                                alertMessage('A Taxa da Operadora para pagamento a vista no Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito '+ unescape('%e9') +' inv'+unescape('%e1')+'lida.');
-                            }
+                        if($scope.cardConfig.ccOpRate1Installment && !isNumeric($scope.cardConfig.ccOpRate1Installment)) {
+                            return alertMessage('A Taxa da Operadora para pagamento a vista no Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito '+ unescape('%e9') +' inv'+unescape('%e1')+'lida.');
+                        }
 
-                            if($scope.cardConfig.ccOpRate26Installment && !isNumeric($scope.cardConfig.ccOpRate26Installment)) {
-                                alertMessage('A Taxa da Operadora para pagamento de 2 a 6 vezes no Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito '+ unescape('%e9') +' inv'+unescape('%e1')+'lida.');
-                            }
+                        if($scope.cardConfig.ccOpRate26Installment && !isNumeric($scope.cardConfig.ccOpRate26Installment)) {
+                            return alertMessage('A Taxa da Operadora para pagamento de 2 a 6 vezes no Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito '+ unescape('%e9') +' inv'+unescape('%e1')+'lida.');
+                        }
 
-                            if($scope.cardConfig.ccOpRate712Installment && !isNumeric($scope.cardConfig.ccOpRate712Installment)) {
-                                alertMessage('A Taxa da Operadora para pagamento de 7 a 12 vezes no Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito '+ unescape('%e9') +' inv'+unescape('%e1')+'lida.');
-                            }
+                        if($scope.cardConfig.ccOpRate712Installment && !isNumeric($scope.cardConfig.ccOpRate712Installment)) {
+                            return alertMessage('A Taxa da Operadora para pagamento de 7 a 12 vezes no Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito '+ unescape('%e9') +' inv'+unescape('%e1')+'lida.');
+                        }
 
-                            if($scope.cardConfig.dcDaysToExpire && !isInteger($scope.cardConfig.dcDaysToExpire)) {
-                                alertMessage('O Prazo de Vencimento do Cart'+ unescape('%e3') + 'o de D'+ unescape('%e9') +'bito '+ unescape('%e9') +' inv'+unescape('%e1')+'lido.');
-                            }
+                        if($scope.cardConfig.dcDaysToExpire && !isInteger($scope.cardConfig.dcDaysToExpire)) {
+                            return alertMessage('O Prazo de Vencimento do Cart'+ unescape('%e3') + 'o de D'+ unescape('%e9') +'bito '+ unescape('%e9') +' inv'+unescape('%e1')+'lido.');
+                        }
 
-                            if($scope.cardConfig.dcOpRate && !isNumeric($scope.cardConfig.dcOpRate)) {
-                                alertMessage('A Taxa da Operadora para pagamento no Cart'+ unescape('%e3') + 'o de D'+ unescape('%e9') +'bito '+ unescape('%e9') +' inv'+unescape('%e1')+'lida.');
+                        if($scope.cardConfig.dcOpRate && !isNumeric($scope.cardConfig.dcOpRate)) {
+                            return alertMessage('A Taxa da Operadora para pagamento no Cart'+ unescape('%e3') + 'o de D'+ unescape('%e9') +'bito '+ unescape('%e9') +' inv'+unescape('%e1')+'lida.');
+                        }
+                        
+                        if($scope.ccClosingDate.day || $scope.ccClosingDate.month || $scope.ccClosingDate.year) {
+                            if(!$scope.ccClosingDate.day || !$scope.ccClosingDate.month || !$scope.ccClosingDate.year) {
+                                return alertMessage('O Dia de Fechamento do Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito '+ unescape('%e9') +' inv'+unescape('%e1')+'lido.');
+                            } else {
+                                $scope.cardConfig.ccClosingDate = new Date($scope.ccClosingDate.year, $scope.ccClosingDate.month, $scope.ccClosingDate.day);
                             }
+                        }
 
-                            if($scope.cardConfig.ccClosingDate.day || $scope.cardConfig.ccClosingDate.month || $scope.cardConfig.ccClosingDate.year) {
-                                if(!$scope.cardConfig.ccClosingDate.day || !$scope.cardConfig.ccClosingDate.month || !$scope.cardConfig.ccClosingDate.year) {
-                                   alertMessage('O Dia de Fechamento do Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito '+ unescape('%e9') +' inv'+unescape('%e1')+'lido.');
-                                } else {
-                                   $scope.cardConfig.ccClosingDate = new Date($scope.ccClosingDate.year, $scope.ccClosingDate.month, $scope.ccClosingDate.day);
-                                }
+                        if($scope.ccExpirationDate.day || $scope.ccExpirationDate.month || $scope.ccExpirationDate.year) {
+                            if(!$scope.ccExpirationDate.day || !$scope.ccExpirationDate.month || !$scope.ccExpirationDate.year) {
+                               return alertMessage('O Dia de Vencimento do Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito '+ unescape('%e9') +' inv'+unescape('%e1')+'lido.');
+                            } else {
+                               $scope.cardConfig.ccExpirationDate = new Date($scope.ccExpirationDate.year, $scope.ccExpirationDate.month, $scope.ccExpirationDate.day);
                             }
-                            if($scope.cardConfig.ccExpirationDate.day || $scope.cardConfig.ccExpirationDate.month || $scope.cardConfig.ccExpirationDate.year) {
-                                if(!$scope.cardConfig.ccExpirationDate.day || !$scope.cardConfig.ccExpirationDate.month || !$scope.cardConfig.ccExpirationDate.year) {
-                                   alertMessage('O Dia de Vencimento do Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito '+ unescape('%e9') +' inv'+unescape('%e1')+'lido.');
-                                } else {
-                                   $scope.cardConfig.ccExpirationDate = new Date($scope.ccExpirationDate.year, $scope.ccExpirationDate.month, $scope.ccExpirationDate.day);
-                                }
-                            }                            
                         }
                         return true;
                     }
@@ -135,21 +137,33 @@
                     function alertMessage(message) {
                         DialogService.messageDialog({
                             title : alertTitle,
-                            message : messages,
+                            message : message,
                             btnYes : 'OK'
                         });
                         return false;
                     }
 
-                    function isNumeric(number){
-                        var pattern = '/^\d*\.{0,1}\d+$/';
-                        return pattern.test(number);
+                    function isNumeric(value) {
+                        return !isNaN(value);
                     }
 
-                    function isInteger(number){
-                        var pattern = '/^\d*\.{0,1}\d+$/';
-                        return pattern.test(number);
+                    function isInteger(value){ 
+                        if((parseFloat(value) == parseInt(value)) && !isNaN(value)){
+                           return true;
+                        }
+                        return false;
                     }
+
+                    function removeInvalidValues(obj) {
+                        if(obj) {
+                            for(var key in obj) {                                
+                                if(obj[key] && typeof obj[key] !== 'object') {
+                                   obj[key] = obj[key].replace(/ /g,"").replace(/,/g,".");
+                                }
+                            }    
+                        }
+                    }
+ 
                 }
             ]);
 }(angular));
