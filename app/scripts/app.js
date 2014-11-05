@@ -169,8 +169,8 @@
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/', {
-            templateUrl: 'views/parts/goal-poster/sacred-goal-poster.html',
-            controller: 'GoalPosterCtrl'
+            templateUrl: 'views/main.html',
+            controller: 'MainCtrl'
         }).when('/main',{
             templateUrl: 'views/main.html',
             controller: 'MainCtrl'
