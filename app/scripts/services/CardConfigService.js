@@ -59,6 +59,23 @@
                     }
                     return result;
                 };
+
+                this.getCreditCardFeeByInstallments = function(installments) {
+                    if(installments && installments > 0) {
+                        var cardConfigs = this.list();
+                        if(cardConfigs && cardConfigs.length > 0) {
+                           var cardConfig = cardConfigs[0];
+                           if(installments === 1 && cardConfig.ccOpRate1Installment) {
+                               return cardConfig.ccOpRate1Installment;
+                           } else if(installments >= 2 && installments <= 6 && cardConfig.ccOpRate26Installment) {
+                               return cardConfig.ccOpRate26Installment;
+                           } else if(installments >= 7 && installments <= 12 && cardConfig.ccOpRate712Installment) {
+                               return cardConfig.ccOpRate712Installment;
+                           }
+                        }   
+                    }         
+                    return;
+                };
                 
             }
     ]);
