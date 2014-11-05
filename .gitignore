@@ -10,3 +10,4 @@ app/bower_components
 /target
 
 .idea/*
+.DS_Store
