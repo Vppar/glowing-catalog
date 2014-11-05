@@ -336,7 +336,7 @@
 
                     function writeBookEntries (bookEntries) {
                         var bookEntryPromises = [];
-                        for ( var ix in bookEntries ) {
+                        for ( var ix in bookEntries) {
                             var entry = bookEntries[ix];
                             var entryPromise = BookService.write(entry);
                             bookEntryPromises.push(entryPromise);
