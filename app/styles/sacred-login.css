@@ -3,12 +3,12 @@
 }
 #sacred .login{
 	width: 330px;
-	box-shadow: 0 10px 50px 10px #999;
+	box-shadow: 0 10px 50px 10px #381750;
 	background: #fff;
 	top: 200px;
 	position: absolute;
-	left: 50%;
-	margin-left: 140px;
+	right: 50%;
+	margin-right: 140px;
 	height: initial;
 	border-radius: 4px;
 	padding-bottom: 5px;
