@@ -35,7 +35,7 @@ describe('Service: CardConfigKeeper', function() {
 		IdentityService = _IdentityService_;
 	}));
 
-	it('should handle an add card config', function() {
+	it('should handle a card config', function() {
 		// given
 		var validEntity = {
 			uuid : 'cc33b122-5d0b-22e3-44c3-020001000001',
@@ -69,7 +69,7 @@ describe('Service: CardConfigKeeper', function() {
 	 * an the entry must be registered
 	 * </pre>
 	 */
-	it('should add an card config', function() {
+	it('should add a card config', function() {
 
 		var fakeNow = 1386179100000;
 		spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
