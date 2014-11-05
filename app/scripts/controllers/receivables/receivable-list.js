@@ -117,11 +117,15 @@
                             if (newVal === 'listOpen') {
                                 $scope.allOpenReceivables = 'true';
                             }
-                            $scope.disable.discount = false;
-                            $scope.disable.extra = false;
+                            if($scope.disable) {
+                                $scope.disable.discount = false;
+                                $scope.disable.extra = false;
+                            }
                         } else {
-                            $scope.disable.discount = true;
-                            $scope.disable.extra = true;
+                            if($scope.disable) {
+                                $scope.disable.discount = true;
+                                $scope.disable.extra = true;
+                            }
 
                             $scope.allOpenReceivables = 'false';
                             receivables = filterReceivablesByClosed(receivables);

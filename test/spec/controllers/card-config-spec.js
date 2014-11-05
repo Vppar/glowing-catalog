@@ -76,12 +76,12 @@ describe('Controller: CardConfigCtrl', function() {
         });
     }));
 
-    xit('should have days filled', function() {
+    it('should have days filled', function() {
         expect(scope.ccClosingDateProvider.days).toEqual(DataProvider.date.days);
         expect(scope.ccExpirationDateProvider.days).toEqual(DataProvider.date.days);
     });
 
-    xit('should validate ccDaysToExpire', function() {
+    it('should validate ccDaysToExpire', function() {
 
     	scope.cardConfig = {};
         scope.cardConfig.ccDaysToExpire = 'ss';
@@ -95,7 +95,7 @@ describe('Controller: CardConfigCtrl', function() {
         });
     });
 
-    xit('should validate ccOpRate1Installment', function() {
+    it('should validate ccOpRate1Installment', function() {
 
     	scope.cardConfig = {};
         scope.cardConfig.ccOpRate1Installment = 'ss';
@@ -109,7 +109,7 @@ describe('Controller: CardConfigCtrl', function() {
         });
     });
 
-    xit('should validate ccOpRate26Installment', function() {
+    it('should validate ccOpRate26Installment', function() {
 
     	scope.cardConfig = {};
         scope.cardConfig.ccOpRate26Installment = 'ss';
@@ -123,7 +123,7 @@ describe('Controller: CardConfigCtrl', function() {
         });
     });
 
-    xit('should validate ccOpRate712Installment', function() {
+    it('should validate ccOpRate712Installment', function() {
 
     	scope.cardConfig = {};
         scope.cardConfig.ccOpRate712Installment = 'ss';
@@ -137,7 +137,7 @@ describe('Controller: CardConfigCtrl', function() {
         });
     });
 
-    xit('should validate dcDaysToExpire', function() {
+    it('should validate dcDaysToExpire', function() {
 
     	scope.cardConfig = {};
         scope.cardConfig.dcDaysToExpire = 'ss';
@@ -151,7 +151,7 @@ describe('Controller: CardConfigCtrl', function() {
         });
     });
 
-    xit('should validate dcOpRate', function() {
+    it('should validate dcOpRate', function() {
 
     	scope.cardConfig = {};
         scope.cardConfig.dcOpRate = 'ss';
@@ -165,7 +165,7 @@ describe('Controller: CardConfigCtrl', function() {
         });
     });
 
-    xit('should validate ccClosingDate', function() {
+    it('should validate ccClosingDate', function() {
 
     	scope.ccClosingDate = {};
         scope.ccClosingDate.day = '2';
@@ -180,7 +180,7 @@ describe('Controller: CardConfigCtrl', function() {
         });
     });
 
-    xit('should validate ccExpirationDate', function() {
+    it('should validate ccExpirationDate', function() {
 
     	scope.ccExpirationDate = {};
         scope.ccExpirationDate.day = '2';
@@ -195,7 +195,7 @@ describe('Controller: CardConfigCtrl', function() {
         });
     });
 
-    xit('should validate cardConfig', function() {
+    it('should validate cardConfig', function() {
 
     	scope.cardConfig = {};
         scope.cardConfig.uuid = '11222-3333-444444-444444';
@@ -213,7 +213,7 @@ describe('Controller: CardConfigCtrl', function() {
         expect(result).toEqual(true);
     });
 
-    xit('should not add card config', function() {    
+    it('should not add card config', function() {    
 
         scope.cardConfig = {};
         scope.cardConfig.ccDaysToExpire = 'ss';
@@ -232,25 +232,23 @@ describe('Controller: CardConfigCtrl', function() {
     	PromiseHelper.config($q, angular.noop);
         CardConfigService.add = jasmine.createSpy('CardConfigService.add').andCallFake(PromiseHelper.resolved(true));
 
-        var uuid = undefined;
-		var ccDaysToExpire = '10';
-		var ccOpRate1Installment = '1';
-		var ccOpRate26Installment = '2.3';
-		var ccOpRate712Installment = '3.98';
-		var ccClosingDate = '12/01/2014 12:00';
-		var ccExpirationDate = '12/01/2014 12:00';
-		var dcDaysToExpire = '33';
-		var dcOpRate = '1.1';
-		
-		var ev = new CardConfig(uuid, ccDaysToExpire, ccOpRate1Installment, ccOpRate26Installment, ccOpRate712Installment, ccClosingDate,
-				ccExpirationDate, dcDaysToExpire, dcOpRate);
+        scope.cardConfig = {};
+        scope.cardConfig.uuid = null;
+        scope.cardConfig.ccDaysToExpire = '1';
+        scope.cardConfig.ccOpRate1Installment = '1';
+        scope.cardConfig.ccOpRate26Installment = '1';
+        scope.cardConfig.ccOpRate712Installment = '1';
+        scope.cardConfig.ccClosingDate = '12/01/2014 00:00';
+        scope.cardConfig.ccExpirationDate = '12/01/2014 00:00';
+        scope.cardConfig.dcDaysToExpire = '1';
+        scope.cardConfig.dcOpRate = '1';
 
         scope.confirm();
 
         expect(CardConfigService.add).toHaveBeenCalled();
     });  
 
-    xit('should not update card config', function() {    
+    it('should not update card config', function() {    
 
         scope.cardConfig = {};
         scope.cardConfig.uuid = '11222-3333-444444-444444';
@@ -270,18 +268,16 @@ describe('Controller: CardConfigCtrl', function() {
     	PromiseHelper.config($q, angular.noop);
         CardConfigService.update = jasmine.createSpy('CardConfigService.update').andCallFake(PromiseHelper.resolved(true));
 
-        var uuid = '11222-3333-444444-444444';
-		var ccDaysToExpire = '10';
-		var ccOpRate1Installment = '1';
-		var ccOpRate26Installment = '2.3';
-		var ccOpRate712Installment = '3.98';
-		var ccClosingDate = '12/01/2014 12:00';
-		var ccExpirationDate = '12/01/2014 12:00';
-		var dcDaysToExpire = '33';
-		var dcOpRate = '1.1';
-		
-		var ev = new CardConfig(uuid, ccDaysToExpire, ccOpRate1Installment, ccOpRate26Installment, ccOpRate712Installment, ccClosingDate,
-				ccExpirationDate, dcDaysToExpire, dcOpRate);
+        scope.cardConfig = {};
+        scope.cardConfig.uuid = '11222-3333-444444-444444';
+        scope.cardConfig.ccDaysToExpire = '1';
+        scope.cardConfig.ccOpRate1Installment = '1';
+        scope.cardConfig.ccOpRate26Installment = '1';
+        scope.cardConfig.ccOpRate712Installment = '1';
+        scope.cardConfig.ccClosingDate = '12/01/2014 00:00';
+        scope.cardConfig.ccExpirationDate = '12/01/2014 00:00';
+        scope.cardConfig.dcDaysToExpire = '1';
+        scope.cardConfig.dcOpRate = '1';
 
         scope.confirm();
 
