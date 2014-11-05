@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('tnt.catalog.pagpop', [
-        'tnt.catalog.user', 'tnt.catalog.receivable.service', 'tnt.utils.array'
+        'tnt.catalog.user', 'tnt.catalog.receivable.service', 'tnt.utils.array', 'tnt.catalog.card.config.service'
     ])
         .controller(
             'PagpopCtrl',
@@ -14,8 +14,9 @@
                 'ReceivableService',
                 'ArrayUtils',
                 'FinancialMathService',
+                'CardConfigService',
                 function ($scope, $filter, EntityService, UserService, ReceivableService,
-                    ArrayUtils, FinancialMathService) {
+                    ArrayUtils, FinancialMathService, CardConfigService) {
 
                     var PP_FIXED_RATIO = 3.48;
                     var PP_MONTHLY_RATIO = 1.98;
@@ -38,17 +39,34 @@
                         if (!angular.isUndefined(receivable.payment.gatewayInfo)) {
                             receivable.transacao = receivable.gatewayInfo.transacao.numero_autorizacao;
                             pagpopReceivables.push(augment(receivable));
-                        } else {
-                            receivable.netAmount = receivable.amount;
-                            receivable.discount = 0;
+                        } else {                            
                             if(receivable.payment.extInfo){
                                 receivable.transacao = receivable.payment.extInfo.transacao.numero_autorizacao;
                             }
-                            pagpopReceivables.push(receivable);
+                            pagpopReceivables.push(applyDiscountReceivableWithoutGatweayInfo(receivable));
                         }
                     }
 
                     creditCardReceivables = pagpopReceivables;
+
+                    function applyDiscountReceivableWithoutGatweayInfo (receivable) {
+
+                        if(receivable.payment && receivable.payment.installments) {
+                            var fee = CardConfigService.getCreditCardFeeByInstallments(receivable.payment.installments);
+                            if(fee) {
+                                var netAmount = FinancialMathService.currencyPercentageSubtract(receivable.amount, fee);
+                                var discount = FinancialMathService.currencySubtract(receivable.amount, netAmount);
+
+                                receivable.netAmount = netAmount;
+                                receivable.discount = discount;
+
+                                return receivable;
+                            }
+                        }
+                        receivable.netAmount = receivable.amount;
+                        receivable.discount = 0;
+                        return receivable;                                           
+                    }
 
                     function augment (receivable) {
                         var installments = receivable.payment.installments;
