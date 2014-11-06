@@ -7,15 +7,15 @@
         .controller(
             'PagpopCtrl',
             [
-                '$scope',
-                '$filter',
-                'EntityService',
-                'UserService',
-                'ReceivableService',
-                'ArrayUtils',
-                'FinancialMathService',
-                'CardConfigService',
-                function ($scope, $filter, EntityService, UserService, ReceivableService,
+        '$scope',
+        '$filter',
+        'EntityService',
+        'UserService',
+        'ReceivableService',
+        'ArrayUtils',
+        'FinancialMathService',
+        'CardConfigService',
+        function ($scope, $filter, EntityService, UserService, ReceivableService,
                     ArrayUtils, FinancialMathService, CardConfigService) {
 
                     var PP_FIXED_RATIO = 3.48;
@@ -39,7 +39,7 @@
                         if (!angular.isUndefined(receivable.payment.gatewayInfo)) {
                             receivable.transacao = receivable.gatewayInfo.transacao.numero_autorizacao;
                             pagpopReceivables.push(augment(receivable));
-                        } else {                            
+                        } else {
                             if(receivable.payment.extInfo){
                                 receivable.transacao = receivable.payment.extInfo.transacao.numero_autorizacao;
                             }
@@ -65,7 +65,7 @@
                         }
                         receivable.netAmount = receivable.amount;
                         receivable.discount = 0;
-                        return receivable;                                           
+                        return receivable;
                     }
 
                     function augment (receivable) {
@@ -250,5 +250,5 @@
                     // ###################################
                     $scope.dtFilter = initializeDates($scope.dtFilter);
                 }
-            ]);
+    ]);
 })(angular);

@@ -34,8 +34,7 @@
                     $scope.ccClosingDateProvider = DataProvider.date;
                     $scope.ccExpirationDateProvider = DataProvider.date;
 
-                    var cardConfigs = null;
-                    var alertTitle = 'Configura' + unescape('%e7') + unescape('%e3') + 'o de Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito';
+                    var alertTitle = 'Configura' + unescape('%e7') + unescape('%e3') + 'o de Cart'+ unescape('%e3') + 'o';
                     
                     loadCardConfigValues();
 
@@ -182,6 +181,17 @@
                         }
                     }
 
+                    function defineDatesWithTwoDigits(date) {
+                        if(date) {
+                            if(date < 10) {
+                                return '0'+date;
+                            } else {
+                                return date;
+                            }
+                        }
+                        return;
+                    }
+
                     function loadCardConfigValues() {
                         var cardConfigs = CardConfigService.list();
 
@@ -190,14 +200,14 @@
 
                             if($scope.cardConfig.ccClosingDate) {
                                 var ccClosingDate = new Date($scope.cardConfig.ccClosingDate);
-                                $scope.ccClosingDate.day = ccClosingDate.getDate();
-                                $scope.ccClosingDate.month = ccClosingDate.getMonth()+1;
+                                $scope.ccClosingDate.day = defineDatesWithTwoDigits(ccClosingDate.getDate());
+                                $scope.ccClosingDate.month = defineDatesWithTwoDigits(ccClosingDate.getMonth()+1);
                                 $scope.ccClosingDate.year = ccClosingDate.getFullYear();
                             }
                             if($scope.cardConfig.ccExpirationDate) {
                                 var ccExpirationDate = new Date($scope.cardConfig.ccExpirationDate);
-                                $scope.ccExpirationDate.day = ccExpirationDate.getDate();
-                                $scope.ccExpirationDate.month = ccExpirationDate.getMonth()+1;
+                                $scope.ccExpirationDate.day = defineDatesWithTwoDigits(ccExpirationDate.getDate());
+                                $scope.ccExpirationDate.month = defineDatesWithTwoDigits(ccExpirationDate.getMonth()+1);
                                 $scope.ccExpirationDate.year = ccExpirationDate.getFullYear();
                             }
                         }

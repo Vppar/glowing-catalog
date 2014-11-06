@@ -31,7 +31,7 @@ describe('Controller: CardConfigCtrl', function() {
     });
 
 	beforeEach(function () {
-		alertTitle = 'Configura' + unescape('%e7') + unescape('%e3') + 'o de Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito';
+		alertTitle = 'Configura' + unescape('%e7') + unescape('%e3') + 'o de Cart'+ unescape('%e3') + 'o';
 
 		cardConfigs = [{
 			uuid : 'cc33b122-5d0b-22e3-44c3-020001099999',

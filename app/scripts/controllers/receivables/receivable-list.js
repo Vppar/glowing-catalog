@@ -260,7 +260,7 @@
                                 return FinancialMathService.currencyPercentageSubtract(receivable.amount, fee);                                
                             }
                         }
-                        return;
+                        return receivable.amount;
                     }
                     
                     //FIXME we can't read the account name from 
