@@ -343,10 +343,10 @@
         "line": "Sinais Moderados",
         "image": "10-042747.jpg",
         "points": 39,
-        "title": "Hidratante Redutor de Linhas de Expressão - 88ml",
+        "title": "Hidratante Redutor de Linhas de Expressão FPS 30 - 88ml",
         "price": 65,
         "bestSeller": 3,
-        "description": "Hidrata por até dez horas e acelera o processo natural de renovação da pele. Escolha entre as opções mista a oleosa ou normal a seca."
+        "description": "Hidrata por até dez horas e acelera o processo natural de renovação da pele."
     },
     {
         "id": 40,
@@ -646,7 +646,7 @@
         "points": 39,
         "title": "Complexo Anti-idade para os Lábios - 1,6g",
         "price": 66,
-        "description": "Combate linhas finas e rugas e ainda funciona como um primer para os lábios, prolongando a duração do batom."
+        "description": "Combate linhas finas e rugas e ainda funciona como um primer para os lábios."
     },
     {
         "id": 75,
@@ -687,7 +687,7 @@
         "parent": 78,
         "SKU": "10-029728",
         "image": "10-029728.jpg",
-        "active": true
+        "active": false
     },
     {
         "id": 80,
@@ -704,7 +704,7 @@
         "parent": 80,
         "SKU": "10-029737",
         "image": "10-029737.jpg",
-        "active": true
+        "active": false
     },
     {
         "id": 82,
@@ -834,7 +834,7 @@
         "line": "Linha Jovem",
         "image": "10-049513.jpg",
         "points": 17,
-        "title": "Creme de Limpeza",
+        "title": "Creme de Limpeza - 113 g",
         "price": 29,
         "description": "Remove a maquiagem e impurezas, deixando a pele saudável e renovada."
     },
@@ -851,7 +851,7 @@
         "line": "Linha Jovem",
         "image": "10-049516.jpg",
         "points": 17,
-        "title": "Gel de Limpeza",
+        "title": "Gel de Limpeza - 13 g",
         "price": 29,
         "description": "Remove a maquiagem e impurezas, deixando a pele saudável e renovada."
     },
@@ -976,7 +976,7 @@
         "points": 31,
         "title": "Creme Secativo para Pele com Tendência à Acne - 29g",
         "price": 45,
-        "description": "Atua diretamente sobre a acne, ajudando a eliminá-la e prevenindo o surgimento de novos pontos de acne. Contém ingredientes botânicos e 2% de ácido salicílico."
+        "description": "Atua diretamente sobre a acne, ajudando a eliminá-la e prevenindo o surgimento de novos pontos de acne."
     },
     {
         "id": 114,
@@ -1027,7 +1027,7 @@
         "points": 28,
         "title": "Spray Corporal para Pele com Tendência à Acne - 118ml",
         "price": 55,
-        "description": "Especialmente desenvolvido com ingredientes botânicos e 2% de ácido salicílico. Para ajudar a combater a acne na pele do corpo. Pode ser aplicado nos ombros, costas e pernas."
+        "description": "Especialmente desenvolvido com ingredientes botânicos e 2% de ácido salicílico."
     },
     {
         "id": 120,
@@ -1082,7 +1082,7 @@
         "parent": 125,
         "SKU": "10-106800",
         "image": "10-106800.jpg",
-        "active": true
+        "active": false
     },
     {
         "id": 127,
@@ -1203,7 +1203,7 @@
         "parent": 139,
         "SKU": "10-029739",
         "image": "10-029739.jpg",
-        "active": true
+        "active": false
     },
     {
         "id": 141,
@@ -1323,7 +1323,7 @@
         "parent": 153,
         "SKU": "10-031551",
         "image": "10-031551.jpg",
-        "active": true
+        "active": false
     },
     {
         "id": 155,
@@ -1457,7 +1457,7 @@
         "points": 24,
         "title": "Loção Corporal Autobronzeadora - 118ml",
         "price": 45,
-        "description": "Hidrata a pele e proporciona um bronzeado sutil, que se desenvolve gradualmente para um visual totalmente natural. Não possui fator de proteção solar."
+        "description": "Hidrata a pele e proporciona um bronzeado sutil, que se desenvolve gradualmente para um visual totalmente natural."
     },
     {
         "id": 170,
@@ -2459,7 +2459,7 @@
         "SKU": "10-013056",
         "image": "10-013056.jpg",
         "option": "Denim Frost",
-        "active": true
+        "active": false
     },
     {
         "id": 282,
@@ -2540,7 +2540,7 @@
         "SKU": "10-013005",
         "image": "10-013005.jpg",
         "option": "Lemongrass",
-        "active": true
+        "active": false
     },
     {
         "id": 292,
@@ -2612,7 +2612,7 @@
         "line": "Olhos",
         "image": "10-017587.jpg",
         "points": 23,
-        "title": "Delineador Líquido para os Olhos - 3ml",
+        "title": "Delineador Líquido para os Olhos - Preto - 3ml",
         "price": 36,
         "description": "Cor intensa e duradoura. O aplicador especial torna a aplicação super fácil."
     },
@@ -2650,7 +2650,7 @@
         "SKU": "10-078028",
         "image": "10-078028.jpg",
         "option": "Violet Ink",
-        "active": true,
+        "active": false,
         "price": 34
     },
     {
@@ -2677,7 +2677,7 @@
         "SKU": "10-078026",
         "image": "10-078026.jpg",
         "option": "Steely",
-        "active": true,
+        "active": false,
         "price": 34
     },
     {
@@ -2758,7 +2758,7 @@
         "line": "Olhos",
         "image": "10-035651.jpg",
         "points": 25,
-        "title": "Ultimate Máscara para Cílios - 8g",
+        "title": "Ultimate Máscara para Cílios - Preta - 8g",
         "price": 55,
         "bestSeller": 6,
         "description": "Fórmula exclusiva, para cílios marcantes com até cinco vezes mais volume."
@@ -2797,7 +2797,7 @@
         "line": "Olhos",
         "image": "10-054563.jpg",
         "points": 25,
-        "title": "Máscara Alongadora para Cílios Lash Love - 8g",
+        "title": "Máscara Alongadora para Cílios Lash Love - Preta - 8g",
         "price": 55,
         "description": "Cílios longos, fortes e definidos."
     },
@@ -2816,7 +2816,7 @@
         "line": "Olhos",
         "image": "10-058264.jpg",
         "points": 25,
-        "title": "Máscara Alongadora para Cílios Lash Love à Prova D'Água - 8g",
+        "title": "Máscara Alongadora para Cílios Lash Love à Prova D'Água - Preta - 8g",
         "price": 55,
         "description": "Cuide dos cílios com uma rotina diária e tenha o olhar que você sempre sonhou. Em apenas 3 passos, fortaleça, prepare e finalize com a sua máscara para cílios favorita."
     },
@@ -2835,7 +2835,7 @@
         "line": "Olhos",
         "image": "10-049289.jpg",
         "points": 25,
-        "title": "Máscara para Cílios Lash Love à Prova D'água - 8g",
+        "title": "Máscara para Cílios Lash Love à Prova D'água - Preta - 8g",
         "price": 55,
         "description": "Define, protege e proporciona volume ideal aos cílios em fórmula resistente à água."
     },
@@ -4930,7 +4930,7 @@
     },
     {
         "id": 563,
-        "parent": 562,
+        "parent": 271,
         "SKU": "10-068245",
         "image": "10-068245.jpg",
         "option": "Brilliant Black",
@@ -4938,7 +4938,7 @@
     },
     {
         "id": 564,
-        "parent": 562,
+        "parent": 271,
         "SKU": "10-068247",
         "image": "10-068247.jpg",
         "option": "Glistening Gold",
@@ -4946,7 +4946,7 @@
     },
     {
         "id": 565,
-        "parent": 562,
+        "parent": 271,
         "SKU": "10-068227",
         "image": "10-068227.jpg",
         "option": "Shimmering Lilac",
@@ -4954,7 +4954,7 @@
     },
     {
         "id": 566,
-        "parent": 562,
+        "parent": 271,
         "SKU": "10-068246",
         "image": "10-068246.jpg",
         "option": "Sparkling White",
