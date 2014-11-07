@@ -16,12 +16,24 @@
                 $scope.order = order;
 
                 $scope.update = false;
+                $scope.hasToken = false;
 
                 // FIXME: is it really safe to remove this? (see
                 // $scope.checkout())
                 function inBasketFilter(item) {
                     return Boolean(item.qty);
                 }
+
+                function hasPPToken() {
+                    var token = localStorage.ppToken;
+                    if(token === 'null'){
+                        $scope.hasToken =  false;
+                    } else {
+                        $scope.hasToken =  true;
+                    }
+                }
+
+                hasPPToken();
 
                 // #############################################################################################################
                 // Dialogs control

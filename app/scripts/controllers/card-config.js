@@ -99,14 +99,26 @@
 
                         if($scope.cardConfig.ccOpRate1Installment && !isNumeric($scope.cardConfig.ccOpRate1Installment)) {
                             return alertMessage('A Taxa da Operadora para pagamento a vista no Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito '+ unescape('%e9') +' inv'+unescape('%e1')+'lida.');
+                        } else {
+                            if(Number($scope.cardConfig.ccOpRate1Installment) >= 100) {
+                                return alertMessage('A Taxa da Operadora para pagamento a vista no Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito deve ser inferior a 100.');
+                            }
                         }
 
                         if($scope.cardConfig.ccOpRate26Installment && !isNumeric($scope.cardConfig.ccOpRate26Installment)) {
                             return alertMessage('A Taxa da Operadora para pagamento de 2 a 6 vezes no Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito '+ unescape('%e9') +' inv'+unescape('%e1')+'lida.');
+                        } else {
+                            if(Number($scope.cardConfig.ccOpRate26Installment) >= 100) {
+                                return alertMessage('A Taxa da Operadora para pagamento de 2 a 6 vezes no Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito deve ser inferior a 100.');
+                            }
                         }
 
                         if($scope.cardConfig.ccOpRate712Installment && !isNumeric($scope.cardConfig.ccOpRate712Installment)) {
                             return alertMessage('A Taxa da Operadora para pagamento de 7 a 12 vezes no Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito '+ unescape('%e9') +' inv'+unescape('%e1')+'lida.');
+                        } else {
+                            if(Number($scope.cardConfig.ccOpRate712Installment) >= 100) {
+                                return alertMessage('A Taxa da Operadora para pagamento de 7 a 12 vezes no Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito deve ser inferior a 100.');
+                            }
                         }
 
                         if($scope.cardConfig.dcDaysToExpire && !isInteger($scope.cardConfig.dcDaysToExpire)) {
@@ -115,6 +127,10 @@
 
                         if($scope.cardConfig.dcOpRate && !isNumeric($scope.cardConfig.dcOpRate)) {
                             return alertMessage('A Taxa da Operadora para pagamento no Cart'+ unescape('%e3') + 'o de D'+ unescape('%e9') +'bito '+ unescape('%e9') +' inv'+unescape('%e1')+'lida.');
+                        } else {
+                            if(Number($scope.cardConfig.dcOpRate) >= 100) {
+                                return alertMessage('A Taxa da Operadora para pagamento no Cart'+ unescape('%e3') + 'o de D'+ unescape('%e9') +'bito deve ser inferior a 100.');
+                            }
                         }
                         
                         if($scope.ccClosingDate.day || $scope.ccClosingDate.month || $scope.ccClosingDate.year) {
