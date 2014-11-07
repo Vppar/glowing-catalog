@@ -13,7 +13,7 @@
         ObjectUtils.ro(this, 'semesterPlanCheckoutURL', 'https://vpink.vc/assinatura/plano/semestral');
         ObjectUtils.ro(this, 'annualPlanCheckoutURL', 'https://vpink.vc/assinatura/plano/anual');
         ObjectUtils.ro(this, 'firebaseURL', 'voppwishlist.firebaseio.com');
-        ObjectUtils.ro(this, 'version', '1.3.x');
+        ObjectUtils.ro(this, 'version', '1.4.x');
         ObjectUtils.ro(this, 'cdnURL', 'https://vpink.vc/wishlist/');
         ObjectUtils.ro(this, 'imageBaseURL', 'images/catalog/products/');
         ObjectUtils.ro(this, 'logglyKey', 'a9d09098-638a-4b39-b601-565043ada0cd/tag/development/');

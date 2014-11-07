@@ -3,7 +3,7 @@
 
     /**
      * TODO create the test specs
-     * 
+     *
      * The elementary journal entry. All journal entries must be created through
      * this factory.
      */
@@ -85,7 +85,7 @@
 
     /**
      * Journal Keeper
-     * 
+     *
      * The CRUD for journal keeping operations
      */
     angular
@@ -107,7 +107,7 @@
 
                 var storage = new PersistentStorage (WebSQLDriver);
                 var registered = storage.register (entityName, JournalEntry);
-                
+
                 var warmup = {};
                 warmup.listener = null;
                 warmup.midway = null;
@@ -116,7 +116,7 @@
                     self.resync();
                 });
 
-                
+
                 registered.then(function(){
                     $log.debug('Entity ' + entityName + ' registered');
                 }, function(){
@@ -125,7 +125,7 @@
 
                 /**
                  * Returns sequence number.
-                 * 
+                 *
                  * @return {Number}
                  */
                 this.getSequence = function( ) {
@@ -146,7 +146,7 @@
 
                 /**
                  * Returns the sequence of the last synced entry.
-                 * 
+                 *
                  * @return {Number}
                  */
                 // FIXME: From my understanding, it is NOT the JournalKeeper's
@@ -217,7 +217,7 @@
 
                 /**
                  * Gets all synced entries from the local database.
-                 * 
+                 *
                  * @returns {Promise}
                  */
                 // FIXME Implement tests
@@ -250,7 +250,7 @@
 
                 /**
                  * Returns all unsynced entries in the database
-                 * 
+                 *
                  * @returns {Promise}
                  */
                 this.readUnsynced = function( ) {
@@ -270,7 +270,7 @@
                 /**
                  * Searches and returns the entry with the given id in the
                  * journal.
-                 * 
+                 *
                  * @param {String} uuid Wanted entry's id.
                  * @return {Promise}
                  */
@@ -320,7 +320,7 @@
 
                 /**
                  * Marks a given entry as synced
-                 * 
+                 *
                  * @param {Object} entry The entry to be updated
                  * @return {Promise} The transaction promise
                  */
@@ -348,10 +348,10 @@
 
                 /**
                  * Remove the given entry
-                 * 
+                 *
                  * @param {Object} entry The entry to be updated
                  * @return {Promise} The transaction promise
-                 * 
+                 *
                  */
                 this.remove = function(entry) {
                     return registered.then (function( ) {
@@ -369,24 +369,24 @@
 
                 /**
                  * Nukes the local storage - Use with extreme caution
-                 * 
+                 *
                  * Use cases: - Unable to resync the database; - The database
                  * has been compromised.
-                 * 
+                 *
                  * @return {Promise} The transaction promise
                  */
                 this.nuke =
                     function( ) {
-                    
+
                         $log.debug('JournalService scheduling nuke');
-                    
+
                         return registered
                             .then (function( ) {
-                                
+
                                 $log.debug('JournalService carrying nuke');
 
                                 var promise = storage.nuke (entityName);
-                                
+
                                 promise
                                     .then (
                                         function( ) {
@@ -411,18 +411,18 @@
                 this.resync =
                     function( ) {
                         $log.info('Resync started ...');
-                        
+
                         if(warmup.listener){
                             warmup.listener();
                             warmup.listener = null;
                         }
-                        
+
                         warmup.midway = $rootScope.$on('LocalWarmupDataSet', function () {
                             $log.info('warmup.midway fired ...');
                             warmup.fired = true;
                         });
-                  
-                        return registered.then (function( ) {
+
+                        return registered.then (function() {
                             var deferred = $q.defer ();
                             var promises = [];
 
@@ -469,11 +469,11 @@
                                     $timeout(function(){
                                         deferred.resolve(self.resync());
                                     }, 1000);
-                                    
+
                                     $log.error ('Failed to resync: replay failed', err);
                                     $log.debug ('Failed to resync: replay failed -', err, entry);
                                 }
-                                
+
                                 $log.info ('waiting for ' + promises.length +
                                     ' promises to resolve');
                                 deferred.resolve ($q.all (promises));
@@ -482,10 +482,10 @@
                                 $log.debug ('Failed to resync: list failed', error);
                                 deferred.reject (error);
                             });
-                            
+
                             return deferred.promise.then(function(resolution){
                                 warmup.midway();
-                                
+
                                 if(warmup.fired){
                                     $log.info('Firing self.resync ...');
                                     warmup.fired = false;
@@ -496,7 +496,7 @@
                                         self.resync();
                                     });
                                 }
-                                
+
                                 $log.info('Resync done!');
                                 return resolution;
                             });

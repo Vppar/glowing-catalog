@@ -23,6 +23,10 @@
                 return this.financialRound(Number(value1) - Number(value2));
             };
 
+            this.currencyPercentageSubtract = function currencySubtract (value, percentage) {                
+                return this.financialRound(Number(value) - (Number(value) * Number(percentage / 100)));
+            };
+
             this.currencyMultiply = function currencyMultiply (value1, value2) {
                 return this.financialRound(Number(value1) * Number(value2));
             };
