@@ -1,0 +1,41 @@
+<div class="modal-head">Configura&ccedil;&atilde;o de Cart&otilde;es</div>
+
+<div class="modal-body">
+   
+   <div class="row-fluid">
+      <p class="modal-title">
+         Configura&ccedil;&otilde;es de recebimento com de cart&atilde;o de cr&eacute;dito
+      </p>
+      </br>        
+   </div>
+   
+   <div class="row-fluid">
+      <fieldset class="span6">
+         <div class="row-fluid">
+            <label>Pagamento à vista  (Taxa %)</label>
+            <input name="ccOpRate1Installment" maxlength="5" class="input-block-level" ng-model="cardConfig.ccOpRate1Installment" type="text" currency>
+         </div>
+         <div class="row-fluid">
+            <label>Pagamento 2 a 6 x  (Taxa %)</label>
+            <input name="ccOpRate26Installment" maxlength="5" class="input-block-level" ng-model="cardConfig.ccOpRate26Installment" type="text" currency>
+         </div>
+         <div class="row-fluid">
+            <label>Pagamento 7 a 12 x (Taxa %)</label>
+            <input name="ccOpRate712Installment" maxlength="5" class="input-block-level" ng-model="cardConfig.ccOpRate712Installment" type="text" currency>
+         </div>
+      </fieldset>
+      <fieldset class="span6">
+         <div class="row-fluid">
+            <label>Prazo de Vencimento (dias)</label>            
+            <input name="ccDaysToExpire" maxlength="2" class="input-block-level" ng-model="cardConfig.ccDaysToExpire" type="text" number>
+         </div>
+      </fieldset>
+   </div>
+
+</div>
+
+<div class="modal-foot">
+   <hr />
+   <button ng-click='cancel()' class="btn btn-cancel btn-large btn-login"  type="submit">Cancelar</button>
+   <button ng-click='confirm()' class="btn btn-ok btn-large btn-login pull-right" type="submit">Salvar</button>
+</div>

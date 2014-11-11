@@ -121,6 +121,10 @@
             return openDialog('views/parts/global/sacred-change-pass-dialog.html', 'ChangePassDialogCtrl', data, cssSmallClass);
         };
 
+        this.openDialogCardConfig = function (data) {
+            return openDialog('views/parts/card-config/sacred-card-config-dialog.html', 'CardConfigCtrl', data, 'modal-card-config-dialog');
+        };
+
         this.openDialogChooseCustomer = function (data) {
             return openDialog('views/parts/global/sacred-choose-customer-dialog.html', 'ChooseCustomerDialogCtrl', data, 'modal-choose-customer-dialog');
         };

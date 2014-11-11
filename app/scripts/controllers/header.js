@@ -39,6 +39,10 @@
                 // Dialogs control
                 // #############################################################################################################
                 /**
+                 * Opens the dialog to card configuration.
+                 */
+                $scope.openDialogCardConfig = DialogService.openDialogCardConfig;
+                /**
                  * Opens the dialog to change the password.
                  */
                 $scope.openDialogChangePass = DialogService.openDialogChangePass;

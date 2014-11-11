@@ -2,13 +2,13 @@
     'use strict';
     angular
         .module('tnt.catalog.card.config.ctrl', [
-            'tnt.catalog.card.config.service','tnt.catalog.card.config'
+            'tnt.catalog.card.config.service','tnt.catalog.card.config', 'tnt.catalog.service.dialog'
         ])
         .controller(
             'CardConfigCtrl',
             [
-                '$scope', '$log', 'CardConfigService', 'CardConfig', 'UserService', 'DialogService', 'DataProvider',
-                function ($scope, $log, CardConfigService, CardConfig, UserService, DialogService, DataProvider) {
+                '$scope', '$location', '$log', 'dialog', 'CardConfigService', 'CardConfig', 'UserService', 'DialogService', 'DataProvider',
+                function ($scope, $location, $log, dialog, CardConfigService, CardConfig, UserService, DialogService, DataProvider) {
 
                     // #############################################################################################################
                     // Security for this Controller
@@ -49,10 +49,15 @@
                         }
                     };
 
+                    $scope.cancel = function () {
+                        dialog.close(true);
+                    };
+
                     $scope.save = function () {
                         if ($scope.validateFields()) {
                             CardConfigService.add(getCardConfig($scope.cardConfig)).then(function () {
                                 loadCardConfigValues();
+                                dialog.close(true);
                                 DialogService.messageDialog({
                                     title : alertTitle,
                                     message : alertTitle + ' cadastrada com sucesso.',
@@ -73,6 +78,7 @@
                         if ($scope.validateFields()) {
                             CardConfigService.update(getCardConfig($scope.cardConfig)).then(function () {
                                 loadCardConfigValues();
+                                dialog.close(true);
                                 DialogService.messageDialog({
                                     title : alertTitle,
                                     message : alertTitle + ' atualizada com sucesso.',

@@ -285,9 +285,6 @@
             templateUrl: 'routes/scenarios/ipad-keyboard-focus-scenario/ipad-keyboard-focus-scenario.html'
         }).when('/spinner-button-promise', {
             templateUrl: 'views/spinner-button-promise.html'
-        }).when('/card-configuration', {
-            templateUrl : 'views/parts/card-config/sacred-card-config.html',
-            controller : 'CardConfigCtrl'
         }).otherwise({
             redirectTo: '/'
         });
