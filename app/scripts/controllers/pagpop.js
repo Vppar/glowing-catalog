@@ -59,6 +59,7 @@
 
                             return receivable;
                         }
+                        
                         receivable.netAmount = receivable.amount;
                         receivable.discount = 0;
                         return receivable;
