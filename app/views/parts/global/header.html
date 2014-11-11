@@ -223,11 +223,9 @@
                                     <li>
                                         <a ng-click="openDialogChangePass()">Trocar Senha</a>
                                     </li>
-                                    <div ng-show="!hasToken">
-    									<li>
-                                            <a href="#/card-configuration">Configuração de Cartões</a>
-                                        </li>                                    
-                                    </div>
+ 									<li ng-show="!hasToken">
+                                        <a href="#/card-configuration">Configuração de Cartões</a>
+                                    </li>
                                 </ul>
                             </li>
                         </div>

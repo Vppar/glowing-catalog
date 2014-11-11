@@ -50,18 +50,14 @@
                     creditCardReceivables = pagpopReceivables;
 
                     function applyDiscountReceivableWithoutGatweayInfo (receivable) {
+                        if(receivable.payment && receivable.payment.creditcardTax) {                            
+                            var netAmount = FinancialMathService.currencyPercentageSubtract(receivable.amount, receivable.payment.creditcardTax);
+                            var discount = FinancialMathService.currencySubtract(receivable.amount, netAmount);
 
-                        if(receivable.payment && receivable.payment.installments) {
-                            var fee = CardConfigService.getCreditCardFeeByInstallments(receivable.payment.installments);
-                            if(fee) {
-                                var netAmount = FinancialMathService.currencyPercentageSubtract(receivable.amount, fee);
-                                var discount = FinancialMathService.currencySubtract(receivable.amount, netAmount);
+                            receivable.netAmount = netAmount;
+                            receivable.discount = discount;
 
-                                receivable.netAmount = netAmount;
-                                receivable.discount = discount;
-
-                                return receivable;
-                            }
+                            return receivable;
                         }
                         receivable.netAmount = receivable.amount;
                         receivable.discount = 0;

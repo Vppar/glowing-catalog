@@ -93,8 +93,12 @@
 
                         removeInvalidValues($scope.cardConfig);
 
-                        if($scope.cardConfig.ccDaysToExpire && !isInteger($scope.cardConfig.ccDaysToExpire)) {
+                        if($scope.cardConfig.ccDaysToExpire && $scope.cardConfig.ccDaysToExpire.length > 0 && !isInteger($scope.cardConfig.ccDaysToExpire)) {
                             return alertMessage('O Prazo de Vencimento do Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito '+ unescape('%e9') +' inv'+unescape('%e1')+'lido.');
+                        } else {
+                            if(Number($scope.cardConfig.ccDaysToExpire) >= 100) {
+                                return alertMessage('O Prazo de Vencimento do Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito deve ser inferior a 100 dias.');
+                            }
                         }
 
                         if($scope.cardConfig.ccOpRate1Installment && !isNumeric($scope.cardConfig.ccOpRate1Installment)) {
@@ -123,6 +127,10 @@
 
                         if($scope.cardConfig.dcDaysToExpire && !isInteger($scope.cardConfig.dcDaysToExpire)) {
                             return alertMessage('O Prazo de Vencimento do Cart'+ unescape('%e3') + 'o de D'+ unescape('%e9') +'bito '+ unescape('%e9') +' inv'+unescape('%e1')+'lido.');
+                        } else {
+                            if(Number($scope.cardConfig.dcDaysToExpire) >= 100) {
+                                return alertMessage('O Prazo de Vencimento do Cart'+ unescape('%e3') + 'o de D'+ unescape('%e9') +'bito deve ser inferior a 100 dias.');
+                            }
                         }
 
                         if($scope.cardConfig.dcOpRate && !isNumeric($scope.cardConfig.dcOpRate)) {

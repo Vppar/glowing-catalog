@@ -254,11 +254,8 @@
                     }
 
                     function getNetAmountForCreditCardWithoutGateway(receivable){
-                        if(receivable.payment && receivable.payment.installments) {
-                            var fee = CardConfigService.getCreditCardFeeByInstallments(receivable.payment.installments);
-                            if(fee) {
-                                return FinancialMathService.currencyPercentageSubtract(receivable.amount, fee);                                
-                            }
+                        if(receivable.payment && receivable.payment.creditcardTax) {
+                            return FinancialMathService.currencyPercentageSubtract(receivable.amount, receivable.payment.creditcardTax);                                
                         }
                         return receivable.amount;
                     }
