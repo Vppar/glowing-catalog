@@ -16,6 +16,7 @@
                 $scope.order = order;
 
                 $scope.update = false;
+                $scope.hasToken = false;
 
                 // FIXME: is it really safe to remove this? (see
                 // $scope.checkout())
@@ -23,9 +24,24 @@
                     return Boolean(item.qty);
                 }
 
+                function hasPPToken() {
+                    var token = localStorage.ppToken;
+                    if(token === 'null'){
+                        $scope.hasToken =  false;
+                    } else {
+                        $scope.hasToken =  true;
+                    }
+                }
+
+                hasPPToken();
+
                 // #############################################################################################################
                 // Dialogs control
                 // #############################################################################################################
+                /**
+                 * Opens the dialog to card configuration.
+                 */
+                $scope.openDialogCardConfig = DialogService.openDialogCardConfig;
                 /**
                  * Opens the dialog to change the password.
                  */

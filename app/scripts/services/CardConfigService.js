@@ -76,7 +76,14 @@
                     }
                     return;
                 };
-                
+
+                this.getCreditCardCCDaysToExpire = function() {
+                    var cardConfigs = this.list();
+                    if(cardConfigs && cardConfigs.length > 0 && cardConfigs[0].ccDaysToExpire) {
+                        return cardConfigs[0].ccDaysToExpire;
+                    }
+                    return;
+                };                
             }
     ]);
 })(angular);
