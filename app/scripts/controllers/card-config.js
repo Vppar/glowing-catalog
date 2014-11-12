@@ -21,7 +21,7 @@
 
                     $scope.cardConfig = {};
                     $scope.cardConfig.uuid = null;
-                    $scope.cardConfig.ccDaysToExpire = null;
+                    $scope.cardConfig.ccDaysToExpire = 0;
                     $scope.cardConfig.ccOpRate1Installment = 0;
                     $scope.cardConfig.ccOpRate26Installment = 0;
                     $scope.cardConfig.ccOpRate712Installment = 0;
