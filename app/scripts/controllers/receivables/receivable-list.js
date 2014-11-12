@@ -254,7 +254,7 @@
                     }
 
                     function getNetAmountForCreditCardWithoutGateway(receivable){
-                        if(receivable.payment && receivable.payment.creditcardTax) {
+                        if(receivable.payment && receivable.payment.creditcardTax && receivable.payment.creditcardTax > 0) {
                             return FinancialMathService.currencyPercentageSubtract(receivable.amount, receivable.payment.creditcardTax);                                
                         }
                         return receivable.amount;

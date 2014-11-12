@@ -50,7 +50,7 @@
                     creditCardReceivables = pagpopReceivables;
 
                     function applyDiscountReceivableWithoutGatweayInfo (receivable) {
-                        if(receivable.payment && receivable.payment.creditcardTax) {                            
+                        if(receivable.payment && receivable.payment.creditcardTax && receivable.payment.creditcardTax > 0) {                            
                             var netAmount = FinancialMathService.currencyPercentageSubtract(receivable.amount, receivable.payment.creditcardTax);
                             var discount = FinancialMathService.currencySubtract(receivable.amount, netAmount);
 

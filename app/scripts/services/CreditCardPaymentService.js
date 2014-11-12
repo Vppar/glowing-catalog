@@ -105,10 +105,7 @@
                             } else {
                                 payment.extInfo = extInfo;
 
-                                var fee = CardConfigService.getCreditCardFeeByInstallments(creditCard.installment);
-                                if(fee && fee > 0) {
-                                    payment.creditcardTax = fee;
-                                }                      
+                                payment.creditcardTax = CardConfigService.getCreditCardFeeByInstallments(creditCard.installment);
                             }                             
                             
                             PaymentService.add(payment);
