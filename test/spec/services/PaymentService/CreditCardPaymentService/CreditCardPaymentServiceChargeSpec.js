@@ -2,7 +2,8 @@
 
 describe('Service: CreditCardPaymentServiceChargeSpec', function() {
 
-    var CreditCardPaymentService = null;
+    var CreditCardPaymentService = {};
+    var CardConfigService = {};
     var PaymentService = null;
     var Misplacedservice = null;
     var $rootScope = null;
@@ -22,6 +23,8 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
             info : function() {
             },
             fatal : function() {
+            },
+            debug : function() {
             }
         });
     });
@@ -35,12 +38,14 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
             $provide.value('PaymentService', PaymentService);
             $provide.value('$log', log);
             $provide.value('logger', logger);
+            $provide.value('CardConfigService', CardConfigService);
         });
     });
 
     // instantiate service
-    beforeEach(inject(function(_CreditCardPaymentService_, _$q_, _$rootScope_) {
+    beforeEach(inject(function(_CreditCardPaymentService_, _$q_, _$rootScope_, _CardConfigService_) {
         CreditCardPaymentService = _CreditCardPaymentService_;
+        CardConfigService = _CardConfigService_;
         $rootScope = _$rootScope_;
         $q = _$q_;
     }));
@@ -83,6 +88,9 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
                 CreditCardPaymentService.createCreditCardPayments =
                         jasmine.createSpy('CreditCardPaymentService.createCreditCardPayments').andReturn(true);
                 CreditCardPaymentService.sendCharges = jasmine.createSpy('CreditCardPaymentService.sendCharges').andCallFake(function() {
+                CardConfigService.getCreditCardFeeByInstallments = jasmine.createSpy('CardConfigService.getCreditCardFeeByInstallments').andReturn(1);
+                CardConfigService.getCreditCardCCDaysToExpire = jasmine.createSpy('CardConfigService.getCreditCardCCDaysToExpire').andReturn(10);
+
                     var deferred = $q.defer();
                     setTimeout(function() {
                         deferred.resolve(sendChargesReturn);
@@ -117,7 +125,8 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
             it('shouldn\'t charge a credit card with rejected promise', function() {
                 var result = null;
                 var errMsg = 'err text msg';
-
+                CardConfigService.getCreditCardCCDaysToExpire = jasmine.createSpy('CardConfigService.getCreditCardCCDaysToExpire').andReturn(10);
+                CardConfigService.getCreditCardFeeByInstallments = jasmine.createSpy('CardConfigService.getCreditCardFeeByInstallments').andReturn(1);
                 CreditCardPaymentService.sendCharges = jasmine.createSpy('CreditCardPaymentService.sendCharges').andCallFake(function() {
                     var deferred = $q.defer();
                     setTimeout(function() {
@@ -154,6 +163,8 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
             it('shouldn\'t charge a credit card with an exception in sendCharges', function() {
                 var result = null;
 
+                CardConfigService.getCreditCardFeeByInstallments = jasmine.createSpy('CardConfigService.getCreditCardFeeByInstallments').andReturn(1);
+                CardConfigService.getCreditCardCCDaysToExpire = jasmine.createSpy('CardConfigService.getCreditCardCCDaysToExpire').andReturn(10);
                 CreditCardPaymentService.sendCharges = jasmine.createSpy('CreditCardPaymentService.sendCharges').andCallFake(function() {
                     throw 'I\'m an unexpected exception';
                 });

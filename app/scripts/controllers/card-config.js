@@ -2,13 +2,13 @@
     'use strict';
     angular
         .module('tnt.catalog.card.config.ctrl', [
-            'tnt.catalog.card.config.service','tnt.catalog.card.config'
+            'tnt.catalog.card.config.service','tnt.catalog.card.config', 'tnt.catalog.service.dialog'
         ])
         .controller(
             'CardConfigCtrl',
             [
-                '$scope', '$log', 'CardConfigService', 'CardConfig', 'UserService', 'DialogService', 'DataProvider',
-                function ($scope, $log, CardConfigService, CardConfig, UserService, DialogService, DataProvider) {
+                '$scope', '$location', '$log', 'dialog', 'CardConfigService', 'CardConfig', 'UserService', 'DialogService', 'DataProvider',
+                function ($scope, $location, $log, dialog, CardConfigService, CardConfig, UserService, DialogService, DataProvider) {
 
                     // #############################################################################################################
                     // Security for this Controller
@@ -21,10 +21,10 @@
 
                     $scope.cardConfig = {};
                     $scope.cardConfig.uuid = null;
-                    $scope.cardConfig.ccDaysToExpire = null;
-                    $scope.cardConfig.ccOpRate1Installment = null;
-                    $scope.cardConfig.ccOpRate26Installment = null;
-                    $scope.cardConfig.ccOpRate712Installment = null;
+                    $scope.cardConfig.ccDaysToExpire = 0;
+                    $scope.cardConfig.ccOpRate1Installment = 0;
+                    $scope.cardConfig.ccOpRate26Installment = 0;
+                    $scope.cardConfig.ccOpRate712Installment = 0;
                     $scope.cardConfig.ccClosingDate = null;
                     $scope.cardConfig.ccExpirationDate = null;
                     $scope.cardConfig.dcDaysToExpire = null;
@@ -49,10 +49,15 @@
                         }
                     };
 
+                    $scope.cancel = function () {
+                        dialog.close(true);
+                    };
+
                     $scope.save = function () {
                         if ($scope.validateFields()) {
                             CardConfigService.add(getCardConfig($scope.cardConfig)).then(function () {
                                 loadCardConfigValues();
+                                dialog.close(true);
                                 DialogService.messageDialog({
                                     title : alertTitle,
                                     message : alertTitle + ' cadastrada com sucesso.',
@@ -73,6 +78,7 @@
                         if ($scope.validateFields()) {
                             CardConfigService.update(getCardConfig($scope.cardConfig)).then(function () {
                                 loadCardConfigValues();
+                                dialog.close(true);
                                 DialogService.messageDialog({
                                     title : alertTitle,
                                     message : alertTitle + ' atualizada com sucesso.',
@@ -93,28 +99,52 @@
 
                         removeInvalidValues($scope.cardConfig);
 
-                        if($scope.cardConfig.ccDaysToExpire && !isInteger($scope.cardConfig.ccDaysToExpire)) {
+                        if($scope.cardConfig.ccDaysToExpire && $scope.cardConfig.ccDaysToExpire.length > 0 && !isInteger($scope.cardConfig.ccDaysToExpire)) {
                             return alertMessage('O Prazo de Vencimento do Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito '+ unescape('%e9') +' inv'+unescape('%e1')+'lido.');
+                        } else {
+                            if(Number($scope.cardConfig.ccDaysToExpire) >= 100) {
+                                return alertMessage('O Prazo de Vencimento do Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito deve ser inferior a 100 dias.');
+                            }
                         }
 
                         if($scope.cardConfig.ccOpRate1Installment && !isNumeric($scope.cardConfig.ccOpRate1Installment)) {
                             return alertMessage('A Taxa da Operadora para pagamento a vista no Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito '+ unescape('%e9') +' inv'+unescape('%e1')+'lida.');
+                        } else {
+                            if(Number($scope.cardConfig.ccOpRate1Installment) >= 100) {
+                                return alertMessage('A Taxa da Operadora para pagamento a vista no Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito deve ser inferior a 100.');
+                            }
                         }
 
                         if($scope.cardConfig.ccOpRate26Installment && !isNumeric($scope.cardConfig.ccOpRate26Installment)) {
                             return alertMessage('A Taxa da Operadora para pagamento de 2 a 6 vezes no Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito '+ unescape('%e9') +' inv'+unescape('%e1')+'lida.');
+                        } else {
+                            if(Number($scope.cardConfig.ccOpRate26Installment) >= 100) {
+                                return alertMessage('A Taxa da Operadora para pagamento de 2 a 6 vezes no Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito deve ser inferior a 100.');
+                            }
                         }
 
                         if($scope.cardConfig.ccOpRate712Installment && !isNumeric($scope.cardConfig.ccOpRate712Installment)) {
                             return alertMessage('A Taxa da Operadora para pagamento de 7 a 12 vezes no Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito '+ unescape('%e9') +' inv'+unescape('%e1')+'lida.');
+                        } else {
+                            if(Number($scope.cardConfig.ccOpRate712Installment) >= 100) {
+                                return alertMessage('A Taxa da Operadora para pagamento de 7 a 12 vezes no Cart'+ unescape('%e3') + 'o de Cr'+ unescape('%e9') +'dito deve ser inferior a 100.');
+                            }
                         }
 
                         if($scope.cardConfig.dcDaysToExpire && !isInteger($scope.cardConfig.dcDaysToExpire)) {
                             return alertMessage('O Prazo de Vencimento do Cart'+ unescape('%e3') + 'o de D'+ unescape('%e9') +'bito '+ unescape('%e9') +' inv'+unescape('%e1')+'lido.');
+                        } else {
+                            if(Number($scope.cardConfig.dcDaysToExpire) >= 100) {
+                                return alertMessage('O Prazo de Vencimento do Cart'+ unescape('%e3') + 'o de D'+ unescape('%e9') +'bito deve ser inferior a 100 dias.');
+                            }
                         }
 
                         if($scope.cardConfig.dcOpRate && !isNumeric($scope.cardConfig.dcOpRate)) {
                             return alertMessage('A Taxa da Operadora para pagamento no Cart'+ unescape('%e3') + 'o de D'+ unescape('%e9') +'bito '+ unescape('%e9') +' inv'+unescape('%e1')+'lida.');
+                        } else {
+                            if(Number($scope.cardConfig.dcOpRate) >= 100) {
+                                return alertMessage('A Taxa da Operadora para pagamento no Cart'+ unescape('%e3') + 'o de D'+ unescape('%e9') +'bito deve ser inferior a 100.');
+                            }
                         }
                         
                         if($scope.ccClosingDate.day || $scope.ccClosingDate.month || $scope.ccClosingDate.year) {

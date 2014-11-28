@@ -1046,6 +1046,25 @@ input.sub-total-payment {
      box-shadow: -5px -5px 100px 10px #525151;
 }
 
+.modal-card-config-dialog{
+	 display: block;
+     position: absolute;
+     top: 80px;
+     left: 50%;
+     z-index: 1050;
+     width: 450px;
+     margin-left: -220px;
+     background-color: white;
+     border: none;
+     border-radius: 4px;
+     box-shadow: -5px -5px 100px 10px #525151;
+}
+
+.modal-title{
+	 text-align: justify;
+	 font-weight: bold;	 
+}
+
 .modal-goal-poster-edit {
     position: absolute;
     top: 80px;

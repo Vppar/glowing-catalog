@@ -17,6 +17,7 @@ describe('Controller: CardConfigCtrl', function() {
     var CardConfig = {};
     var cardConfigs = {};
     var alertTitle = '';
+    var dialog = {};
 
     beforeEach(function() {
         module(function($provide) {
@@ -66,8 +67,12 @@ describe('Controller: CardConfigCtrl', function() {
 
 		DataProvider.date = angular.copy(sampleData.date);
 
+        DialogService.messageDialog = jasmine.createSpy();
+        dialog.close = jasmine.createSpy();
+
         $controller('CardConfigCtrl', {
             $scope : scope,
+            dialog : dialog,
             CardConfigService : CardConfigService,
             CardConfig : CardConfig,
             UserService : UserService,

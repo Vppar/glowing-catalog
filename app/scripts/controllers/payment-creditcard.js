@@ -181,15 +181,17 @@
                             btnYes: 'OK'
                         });
                         
-                        promise.then(function(){
-                            // verify if the total amount of payment is
-                            // equal the total amount of order if yes
-                            // finalize all payments.
-                            if (creditCard.orginalRemaingAmount > 0 &&
-                                creditCard.amount === creditCard.orginalRemaingAmount) {
-                                $scope.confirm(true);
-                            }
-                        });
+                        if(promise) {
+                            promise.then(function(){
+                                // verify if the total amount of payment is
+                                // equal the total amount of order if yes
+                                // finalize all payments.
+                                if (creditCard.orginalRemaingAmount > 0 &&
+                                    creditCard.amount === creditCard.orginalRemaingAmount) {
+                                    $scope.confirm(true);
+                                }
+                            });
+                        }
                         
                         $scope.selectPaymentMethod('none');
                     }, function (errMsg) {

@@ -2,7 +2,7 @@
 
     'use strict';
     angular.module('tnt.catalog.payment.creditcard.service', [
-        'tnt.catalog.payment.service', 'tnt.catalog.payment.entity', 'tnt.catalog.misplaced.service', 'tnt.catalog.pagpop.gateway'
+        'tnt.catalog.payment.service', 'tnt.catalog.payment.entity', 'tnt.catalog.misplaced.service', 'tnt.catalog.pagpop.gateway', 'tnt.catalog.card.config.service'
     ])
         .service(
         'CreditCardPaymentService',
@@ -15,7 +15,8 @@
             'CreditCardPayment',
             'NoMerchantCreditCardPayment',
             'Misplacedservice',
-            function CreditcardPaymentService($q, $log, $filter, PagPopGateway, PaymentService, CreditCardPayment, NoMerchantCreditCardPayment, Misplacedservice) {
+            'CardConfigService',
+            function CreditcardPaymentService($q, $log, $filter, PagPopGateway, PaymentService, CreditCardPayment, NoMerchantCreditCardPayment, Misplacedservice, CardConfigService) {
 
                 var _this = this;
 
@@ -99,11 +100,14 @@
                                     creditCard.number, customer.name, creditCard.creditCardDueDate,
                                     creditCard.cardholderDocument, creditCard.installment, creditCard.dueDate.getTime());
                             
-                            if(gatewayInfo){
+                            if(gatewayInfo) {
                                 payment.gatewayInfo = gatewayInfo;
-                            }else{
+                            } else {
                                 payment.extInfo = extInfo;
-                            }
+
+                                payment.creditcardTax = CardConfigService.getCreditCardFeeByInstallments(creditCard.installment);
+                            }                             
+                            
                             PaymentService.add(payment);
                             result = true;
                         } catch (err) {
@@ -119,7 +123,12 @@
                   */
                  function getDueDate(actualDate, gatewayInfo){
                      
-                     if(!gatewayInfo){
+                     if(!gatewayInfo) {
+                         var ccDaysToExpire = CardConfigService.getCreditCardCCDaysToExpire();
+                         if(ccDaysToExpire && ccDaysToExpire > 0) {
+                            actualDate.setDate(actualDate.getDate()+ccDaysToExpire);
+                            return actualDate;
+                         }
                          return actualDate;
                      }
                      
