@@ -166,10 +166,16 @@
                                     $log.debug('This device has no ID! Get one from the server.');
                                     userRef.child('lastDeviceId').transaction(
                                         function (currentValue) {
-                                            if (!currentValue) {
+                                            if (currentValue) {
+                                                if (currentValue < 255) {
+                                                    currentValue++;
+                                                } else {
+                                                    currentValue = 255;
+                                                }
+                                            } else {
                                                 currentValue = 0;
                                             }
-                                            return currentValue + 1;
+                                            return currentValue;
                                         },
                                         function (err, committed, snapshot) {
                                             if (err) {
