@@ -175,7 +175,7 @@
                         result = [deferred.promise];
                     }
 
-                    return $q.all();
+                    return $q.all(result);
                 };
 
                 this.getConsultant = function () {
