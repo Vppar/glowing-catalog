@@ -954,13 +954,13 @@
 	}	
 	/* moeda comum */
 	.catalog-block .product-currency{
-		display: inline-block;
+		display: none;
 		float: left;
 		vertical-align: bottom;
 	}	
 	/* preco comum */
 	.catalog-block .product-price{
-		display: inline-block;
+		display: none;
 		float: left;
 		margin-left: 6px;
 		font-size: 18px;

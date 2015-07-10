@@ -3908,5 +3908,14 @@
             "cost": 0,
             "quantity": 0
         }
+    },
+    {
+        "type": "stockAdd",
+        "version": 1,
+        "event": {
+            "inventoryId": 647,
+            "cost": 0,
+            "quantity": 0
+        }
     }
 ]

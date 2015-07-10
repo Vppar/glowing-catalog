@@ -45,7 +45,7 @@
                         <span class="pedido-header-order text-center">{{summary.total.sessions[session.label].lines[line.label].orderQty}}</span>
                     </div>
                 </div>
-                <div class="row-fluid" ng-repeat="product in line.items" ng-if="!product.hide">
+                <div class="row-fluid" ng-repeat="product in line.items" ng-if="!product.hide && !product.active">
                     <div class="new-body-row details-item">
                         <span class="product-order" style="width:70%">
                             {{product.title}}

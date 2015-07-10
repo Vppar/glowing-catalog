@@ -288,7 +288,7 @@
 
                     NewPurchaseOrderService.clearCurrent();
 
-                    $scope.main.stockReport = StockService.stockReport('all');
+                    $scope.main.stockReport = StockService.stockReport('all', null, {active:true});
 
                     loadStockReportQty($scope.main.stockReport, NewPurchaseOrderService.listConfirmed(), NewPurchaseOrderService.listPartiallyReceived());
 

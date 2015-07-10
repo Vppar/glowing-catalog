@@ -68,7 +68,7 @@
 														<div class="col-4 text-center">{{summary.total.sessions[session.label].lines[line.label].orderQty}}</div>
 													</div>
 												</div>
-												<span ng-repeat="product in line.items" ng-if="!product.hide">
+												<span ng-repeat="product in line.items" ng-if="!product.hide && product.active">
 													<div class="fourth-line">
 														<div class="row">
 															<div class="col-16 product-name">

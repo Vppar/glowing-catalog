@@ -94,7 +94,7 @@
         "image": "10-039974.jpg",
         "points": 26,
         "title": "Tônico Suavizante Hidratante - 147ml",
-        "price": 52,
+        "price": 59,
         "description": "Suaviza, hidrata e prepara a pele para os próximos passos."
     },
     {
@@ -103,7 +103,7 @@
         "SKU": "10-039974",
         "image": "10-039974.jpg",
         "active": true,
-        "price": 52
+        "price": 59
     },
     {
         "id": 12,
@@ -112,7 +112,7 @@
         "image": "10-059171.jpg",
         "points": 47,
         "title": "Solução Diurna FPS 30 - 29ml",
-        "price": 85,
+        "price": 89,
         "description": "Protege a pele contra os raios UVA e UVB enquanto os peptídeos calmantes ajudam a relaxar as linhas de expressão."
     },
     {
@@ -301,9 +301,9 @@
         "image": "10-042751.jpg",
         "points": 37,
         "title": "Creme de Limpeza 3 em 1 - 127g",
-        "price": 58,
+        "price": 59.90,
         "bestSeller": 1,
-        "description": "Limpa, esfolia e tonifica em apenas um passo. Escolha entre as opções mista a oleosa ou normal a seca."
+        "description": "Limpa, esfolia e tonifica em apenas um passo."
     },
     {
         "id": 35,
@@ -326,8 +326,8 @@
         "image": "10-027914.jpg",
         "points": 37,
         "title": "Sabonete 3 em 1 de Limpeza Facial - 141g",
-        "price": 58,
-        "description": "Sabonete em barra que limpa, esfolia e tonifica. Para pele normal a oleosa."
+        "price": 59.90,
+        "description": "Sabonete em barra que limpa, esfolia e tonifica."
     },
     {
         "id": 38,
@@ -335,7 +335,7 @@
         "SKU": "10-027914",
         "image": "10-027914.jpg",
         "active": true,
-        "price": 58
+        "price": 59.90
     },
     {
         "id": 39,
@@ -343,8 +343,8 @@
         "line": "Sinais Moderados",
         "image": "10-042747.jpg",
         "points": 39,
-        "title": "Hidratante Redutor de Linhas de Expressão FPS 30 - 88ml",
-        "price": 65,
+        "title": "Hidratante Redutor de Linhas de Expressão - 88ml",
+        "price": 69.90,
         "bestSeller": 3,
         "description": "Hidrata por até dez horas e acelera o processo natural de renovação da pele."
     },
@@ -354,7 +354,7 @@
         "SKU": "10-042747",
         "option": "Pele Normal/Seca",
         "active": true,
-        "price": 65
+        "price": 69.90
     },
     {
         "id": 41,
@@ -362,7 +362,7 @@
         "SKU": "10-042743",
         "option": "Pele Mista/Oleosa",
         "active": true,
-        "price": 65
+        "price": 69.90
     },
     {
         "id": 42,
@@ -370,17 +370,17 @@
         "line": "Sinais Moderados",
         "image": "10-042814.jpg",
         "points": 39,
-        "title": "Hidratante Redutor de Linhas de Expressão FPS 15 - 88ml",
-        "price": 68,
-        "description": "Os benefícios do Hidratante Redutor de Linhas de Expressão aliados ao fator de proteção solar. Para todos os tipos de pele."
+        "title": "Hidratante Redutor de Linhas de Expressão FPS 30 - 88ml",
+        "price": 74,
+        "description": "Mantém a pele hidratada por até dez horas e protege contra os raios UVA e UVB."
     },
     {
         "id": 43,
         "parent": 42,
-        "SKU": "10-042814",
+        "SKU": "10-073604",
         "image": "10-042814.jpg",
         "active": true,
-        "price": 68
+        "price": 74
     },
     {
         "id": 44,
@@ -389,7 +389,8 @@
         "image": "10-078030.jpg",
         "points": 94,
         "title": "Kit Solução Diurna e Noturna",
-        "price": 153
+        "price": 160,
+        "description": "1 Solução Diurna FPS 30 + 1 Solução Noturna."
     },
     {
         "id": 45,
@@ -405,7 +406,7 @@
         "image": "10-042760.jpg",
         "points": 47,
         "title": "Solução Noturna - 29ml",
-        "price": 85,
+        "price": 89,
         "description": "Vitaminas, antioxidantes e peptídeos intensificadores de colágeno nutrem, suavizam e firmam a pele."
     },
     {
@@ -421,8 +422,9 @@
         "line": "Sinais Moderados",
         "image": "10-078004.jpg",
         "points": 170,
-        "title": "Sistema Anti-idade de Cuidados com a Pele",
-        "price": 276
+        "title": "Sistema Anti-Idade de Cuidados com a Pele",
+        "price": 289.80,
+        "description": "1 Creme de Limpeza 3 em 1 + 1 Hidratante Redutor de Linhas de Expressão + 1 Solução Diurna FPS 30 + 1 Solução Noturna."
     },
     {
         "id": 49,
@@ -430,7 +432,7 @@
         "SKU": "10-078004",
         "option": "Pele Normal/Seca",
         "active": true,
-        "price": 276
+        "price": 289.80
     },
     {
         "id": 50,
@@ -438,7 +440,7 @@
         "SKU": "10-078005",
         "option": "Pele Mista/Oleosa",
         "active": true,
-        "price": 276
+        "price": 289.80
     },
     {
         "id": 51,
@@ -447,7 +449,7 @@
         "image": "10-054641.jpg",
         "points": 64,
         "title": "Sérum Facial Renovador - 44ml",
-        "price": 110,
+        "price": 119,
         "description": "Atua na área específica da pele em que está presente o colágeno e a elastina, oferece ação lifting e deixa a pele do rosto com aparência mais firme."
     },
     {
@@ -472,14 +474,14 @@
         "parent": 53,
         "SKU": "10-046752",
         "option": "Pele Normal/Seca",
-        "active": true
+        "active": false
     },
     {
         "id": 55,
         "parent": 53,
         "SKU": "10-046753",
         "option": "Pele Mista/Oleosa",
-        "active": true
+        "active": false
     },
     {
         "id": 56,
@@ -488,7 +490,7 @@
         "image": "10-004300.jpg",
         "points": 98,
         "title": "Kit Microdermoabrasão",
-        "price": 168,
+        "price": 175,
         "bestSeller": 7,
         "description": "Em apenas dois passos, uma pele lisa e suave, além de reduzir a aparência de linhas finas e poros."
     },
@@ -498,7 +500,7 @@
         "SKU": "10-004300",
         "image": "10-004300.jpg",
         "active": true,
-        "price": 168
+        "price": 175
     },
     {
         "id": 58,
@@ -507,7 +509,7 @@
         "image": "10-061256.jpg",
         "points": 51,
         "title": "Microdermoabrasão - Passo 1: Refinar - 70g",
-        "price": 95
+        "price": 99
     },
     {
         "id": 59,
@@ -515,7 +517,7 @@
         "SKU": "10-061256",
         "image": "10-061256.jpg",
         "active": true,
-        "price": 95
+        "price": 99
     },
     {
         "id": 60,
@@ -524,7 +526,7 @@
         "image": "10-061257.jpg",
         "points": 47,
         "title": "Microdermoabrasão - Passo 2: Restaurar - 29ml",
-        "price": 91
+        "price": 95
     },
     {
         "id": 61,
@@ -532,7 +534,7 @@
         "SKU": "10-061257",
         "image": "10-061257.jpg",
         "active": true,
-        "price": 91
+        "price": 95
     },
     {
         "id": 62,
@@ -541,7 +543,7 @@
         "image": "10-039964.jpg",
         "points": 35,
         "title": "Máscara Hidratante Renovadora em Gel - 85g",
-        "price": 59,
+        "price": 65,
         "description": "Dez minutos para uma pele incrivelmente hidratada e fresca."
     },
     {
@@ -558,16 +560,16 @@
         "image": "10-031174.jpg",
         "points": 37,
         "title": "Máscara Even Complexion - 85g",
-        "price": 69,
-        "description": "Deixa a pele mais radiante, hidratada e com sensação de maciez."
+        "price": 76,
+        "description": "Deixa a pele mais radiante, hidratada, uniforme e com sensação de maciez."
     },
     {
         "id": 65,
         "parent": 64,
-        "SKU": "10-031174",
+        "SKU": "10-075264",
         "image": "10-031174.jpg",
         "active": true,
-        "price": 69
+        "price": 76
     },
     {
         "id": 66,
@@ -577,12 +579,12 @@
         "points": 55,
         "title": "Loção Even Complexion - 29ml",
         "price": 99,
-        "description": "Ajuda a pele a ficar com um tom mais uniforme."
+        "description": "Ajuda a deixar a pele com um tom mais uniforme."
     },
     {
         "id": 67,
         "parent": 66,
-        "SKU": "10-029730",
+        "SKU": "10-075186",
         "image": "10-029730.jpg",
         "active": true,
         "price": 99
@@ -602,7 +604,7 @@
         "parent": 68,
         "SKU": "10-031340",
         "image": "10-031340.jpg",
-        "active": true
+        "active": false
     },
     {
         "id": 70,
@@ -610,9 +612,9 @@
         "line": "Sinais Moderados",
         "image": "10-067661.jpg",
         "points": 65,
-        "title": "Loção Corporal Firmadora Targeted-Action - 236ml",
-        "price": 99,
-        "description": "Ajuda a deixar a pele firme, tonificada e hidratada por até 24 horas."
+        "title": "Loção Corporal Firmadora - 236ml",
+        "price": 109,
+        "description": "Ajuda a deixar a pele firme, tonificada e hidratada por até vinte e quatro horas."
     },
     {
         "id": 71,
@@ -653,7 +655,7 @@
         "parent": 74,
         "SKU": "10-029743",
         "image": "10-029743.jpg",
-        "active": true
+        "active": false
     },
     {
         "id": 76,
@@ -662,7 +664,7 @@
         "image": "10-042799.jpg",
         "points": 52,
         "title": "Creme Firmador para a Área dos Olhos - 14g",
-        "price": 72,
+        "price": 74,
         "description": "Firma, ilumina, promove hidratação intensa e minimiza as linhas finas e rugas."
     },
     {
@@ -713,7 +715,8 @@
         "image": "10-073276.jpg",
         "points": 299,
         "title": "Sistema Volu-Firm",
-        "price": 499
+        "price": 534,
+        "description": "1 Espuma de Limpeza + 1 Sérum Lifting + 1 Creme Diurno FPS 30 + 1 Creme Noturno + 1 Creme para a Área dos Olhos."
     },
     {
         "id": 83,
@@ -721,7 +724,7 @@
         "SKU": "10-073276",
         "image": "10-073276.jpg",
         "active": true,
-        "price": 499
+        "price": 534
     },
     {
         "id": 84,
@@ -730,7 +733,8 @@
         "image": "10-072912.jpg",
         "points": 114,
         "title": "Kit Creme Diurno e Noturno Volu-Firm",
-        "price": 198
+        "price": 207,
+        "description": "1 Creme Diurno FPS 30 + 1 Creme Noturno."
     },
     {
         "id": 85,
@@ -738,7 +742,7 @@
         "SKU": "10-072912",
         "image": "10-072912.jpg",
         "active": true,
-        "price": 198
+        "price": 207
     },
     {
         "id": 86,
@@ -747,7 +751,7 @@
         "image": "10-053074.jpg",
         "points": 42,
         "title": "Espuma de Limpeza Volu-Firm - 127g",
-        "price": 69,
+        "price": 72,
         "description": "Limpa e renova a textura da pele, minimizando a aparência dos poros."
     },
     {
@@ -764,8 +768,8 @@
         "image": "10-048848.jpg",
         "points": 74,
         "title": "Sérum Lifting Volu-Firm - 29ml",
-        "price": 133,
-        "description": "Restaura o volume e firmeza, deixando a sua pele com aparência mais jovem e firme."
+        "price": 145,
+        "description": "Restaura o volume e a firmeza, deixando a sua pele com aparência mais jovem e firme."
     },
     {
         "id": 89,
@@ -773,7 +777,7 @@
         "SKU": "10-048848",
         "image": "10-048848.jpg",
         "active": true,
-        "price": 133
+        "price": 145
     },
     {
         "id": 90,
@@ -782,7 +786,7 @@
         "image": "10-058796.jpg",
         "points": 57,
         "title": "Creme Diurno FPS 30 Volu-Firm - 48g",
-        "price": 110,
+        "price": 115,
         "description": "Protege a pele contra futuros danos, hidratando-a e reduzindo a aparência de rugas e linhas de expressão."
     },
     {
@@ -791,7 +795,7 @@
         "SKU": "10-058796",
         "image": "10-058796.jpg",
         "active": true,
-        "price": 110
+        "price": 115
     },
     {
         "id": 92,
@@ -800,7 +804,7 @@
         "image": "10-057096.jpg",
         "points": 57,
         "title": "Creme Noturno Volu-Firm - 48g",
-        "price": 110,
+        "price": 115,
         "description": "Ajuda a delinear o contorno do rosto, deixando-o mais definido e com menos linhas aparentes."
     },
     {
@@ -809,7 +813,7 @@
         "SKU": "10-057096",
         "image": "10-057096.jpg",
         "active": true,
-        "price": 110
+        "price": 115
     },
     {
         "id": 94,
@@ -818,8 +822,8 @@
         "image": "10-047376.jpg",
         "points": 69,
         "title": "Creme para a Área dos Olhos Volu-Firm - 14g",
-        "price": 99,
-        "description": "Combate linhas profundas, manchas escuras, flacidez, inchaço e pálpebras caídas. A embalagem conta com um exclusivo massageador."
+        "price": 110,
+        "description": "Combate linhas profundas, manchas escuras, flacidez, inchaço e pálpebras caídas."
     },
     {
         "id": 95,
@@ -834,8 +838,8 @@
         "line": "Linha Jovem",
         "image": "10-049513.jpg",
         "points": 17,
-        "title": "Creme de Limpeza - 113 g",
-        "price": 29,
+        "title": "Creme de Limpeza - 113g",
+        "price": 32,
         "description": "Remove a maquiagem e impurezas, deixando a pele saudável e renovada."
     },
     {
@@ -851,8 +855,8 @@
         "line": "Linha Jovem",
         "image": "10-049516.jpg",
         "points": 17,
-        "title": "Gel de Limpeza - 13 g",
-        "price": 29,
+        "title": "Gel de Limpeza - 113g",
+        "price": 32,
         "description": "Remove a maquiagem e impurezas, deixando a pele saudável e renovada."
     },
     {
@@ -869,8 +873,8 @@
         "image": "10-050141.jpg",
         "points": 28,
         "title": "Máscara Facial - 113g",
-        "price": 49,
-        "description": "Hidrata e limpa os poros, deixando a pele fresca e renovada. Use duas a três vezes por semana."
+        "price": 54,
+        "description": "Hidrata e limpa os poros, deixando a pele fresca e renovada."
     },
     {
         "id": 101,
@@ -893,8 +897,8 @@
         "image": "10-049807.jpg",
         "points": 17,
         "title": "Tônico Refrescante - 147ml",
-        "price": 29,
-        "description": "Remove suavemente os resíduos e proporciona sensação suave e refrescante."
+        "price": 32,
+        "description": "Remove suavemente os resíduos e proporciona uma sensação suave e refrescante."
     },
     {
         "id": 104,
@@ -917,7 +921,7 @@
         "image": "10-049591.jpg",
         "points": 17,
         "title": "Hidratante - 88ml",
-        "price": 29,
+        "price": 32,
         "description": "Tem absorção rápida e deixa a pele com aparência saudável e equilibrada."
     },
     {
@@ -941,8 +945,8 @@
         "image": "10-020374.jpg",
         "points": 34,
         "title": "Gel de Limpeza para Pele com Tendência à Acne - 127g",
-        "price": 50,
-        "description": "Ajuda a remover o excesso de oleosidade e as células mortas, não deixa resíduos na pele. Contém 2% de ácido salicílico."
+        "price": 52,
+        "description": "Ajuda a remover o excesso de oleosidade e as células mortas, sem deixar resíduos na pele."
     },
     {
         "id": 110,
@@ -958,8 +962,8 @@
         "image": "10-020377.jpg",
         "points": 46,
         "title": "Loção para Pele com Tendência à Acne - 50g",
-        "price": 68,
-        "description": "Formulada com ingredientes botânicos e 2% de ácido salicílico para ajudar a controlar a oleosidade."
+        "price": 69,
+        "description": "Minimiza a aparência de poros, controla a oleosidade e reduz o brilho excessivo."
     },
     {
         "id": 112,
@@ -975,7 +979,7 @@
         "image": "10-020379.jpg",
         "points": 31,
         "title": "Creme Secativo para Pele com Tendência à Acne - 29g",
-        "price": 45,
+        "price": 47,
         "description": "Atua diretamente sobre a acne, ajudando a eliminá-la e prevenindo o surgimento de novos pontos de acne."
     },
     {
@@ -992,8 +996,8 @@
         "image": "10-078009.jpg",
         "points": 111,
         "title": "Sistema de Cuidados da Pele com Tendência à Acne",
-        "price": 163,
-        "description": "Inclui o Gel de Limpeza, a Loção e o Creme Secativo."
+        "price": 168,
+        "description": "1 Gel de Limpeza + 1 Loção + 1 Creme Secativo."
     },
     {
         "id": 116,
@@ -1009,8 +1013,8 @@
         "image": "10-021628.jpg",
         "points": 65,
         "title": "Kit Introdutório ao Sistema de Cuidados da Pele com Tendência à Acne",
-        "price": 95,
-        "description": "Contém os três produtos da linha em tamanho ideal para ser utilizado por um mês."
+        "price": 99,
+        "description": "1 Gel de Limpeza + 1 Loção + 1 Creme Secativo. Duração: um mês."
     },
     {
         "id": 118,
@@ -1026,8 +1030,8 @@
         "image": "10-023376.jpg",
         "points": 28,
         "title": "Spray Corporal para Pele com Tendência à Acne - 118ml",
-        "price": 55,
-        "description": "Especialmente desenvolvido com ingredientes botânicos e 2% de ácido salicílico."
+        "price": 59,
+        "description": "Ajuda a combater a acne na pele do corpo."
     },
     {
         "id": 120,
@@ -1066,7 +1070,7 @@
         "parent": 123,
         "SKU": "10-106600",
         "image": "10-106600.jpg",
-        "active": true
+        "active": false
     },
     {
         "id": 125,
@@ -1098,7 +1102,7 @@
         "parent": 127,
         "SKU": "10-001600",
         "image": "10-001600.jpg",
-        "active": true
+        "active": false
     },
     {
         "id": 129,
@@ -1107,7 +1111,7 @@
         "image": "10-060198.jpg",
         "points": 25,
         "title": "Creme Intensivo para a Área dos Olhos - 18g",
-        "price": 49,
+        "price": 54,
         "description": "Ajuda a reduzir olheiras, bolsas e rugas na região dos olhos, uma área mais fina e delicada, que precisa de cuidados especiais."
     },
     {
@@ -1116,7 +1120,7 @@
         "SKU": "10-060198",
         "image": "10-060198.jpg",
         "active": true,
-        "price": 49
+        "price": 54
     },
     {
         "id": 131,
@@ -1125,8 +1129,8 @@
         "image": "10-055844.jpg",
         "points": 21,
         "title": "Sabonete Facial - 113g",
-        "price": 38,
-        "description": "Limpa a pele, iniciando o processo de redução dos sinais visíveis do envelhecimento."
+        "price": 39,
+        "description": "Limpa a pele, iniciando o processo de redução dos sinais visíveis de envelhecimento."
     },
     {
         "id": 132,
@@ -1141,9 +1145,9 @@
         "line": "Linha Masculina",
         "image": "10-010336.jpg",
         "points": 19,
-        "title": "Espuma para Barbear - 184g/195ml",
-        "price": 38,
-        "description": "Amacia a pele e ajuda a reduzir a irritação causada pela lâmina de barbear."
+        "title": "Espuma para Barbear - 184g",
+        "price": 39,
+        "description": "Amacia a pele, deixando o barbear mais rente e confortável."
     },
     {
         "id": 134,
@@ -1151,7 +1155,7 @@
         "SKU": "10-010336",
         "image": "10-010336.jpg",
         "active": true,
-        "price": 38
+        "price": 39
     },
     {
         "id": 135,
@@ -1160,7 +1164,7 @@
         "image": "10-010338.jpg",
         "points": 18,
         "title": "Gel Refrescante Pós Barba - 73ml",
-        "price": 34,
+        "price": 35,
         "description": "Acalma a pele e ameniza a irritação causada pela lâmina."
     },
     {
@@ -1169,7 +1173,7 @@
         "SKU": "10-010338",
         "image": "10-010338.jpg",
         "active": true,
-        "price": 34
+        "price": 35
     },
     {
         "id": 137,
@@ -1211,8 +1215,8 @@
         "line": "Cuidados Personalizados",
         "image": "10-078032.jpg",
         "points": 50,
-        "title": "Kit Lábios de Seda Satin Lips",
-        "price": 71,
+        "title": "Kit Lábios de Seda",
+        "price": 74,
         "description": "Esfolia e hidrata os lábios, deixando-os macios e suaves."
     },
     {
@@ -1221,7 +1225,7 @@
         "SKU": "10-078032",
         "image": "10-078032.jpg",
         "active": true,
-        "price": 71
+        "price": 74
     },
     {
         "id": 143,
@@ -1229,8 +1233,8 @@
         "line": "Cuidados Personalizados",
         "image": "10-042792.jpg",
         "points": 25,
-        "title": "Bálsamo para os Lábios Satin Lips - 8g",
-        "price": 39
+        "title": "Bálsamo para os Lábios - 8g",
+        "price": 41
     },
     {
         "id": 144,
@@ -1245,8 +1249,8 @@
         "line": "Cuidados Personalizados",
         "image": "10-042796.jpg",
         "points": 25,
-        "title": "Máscara para os Lábios Satin Lips - 8g",
-        "price": 39
+        "title": "Máscara para os Lábios - 8g",
+        "price": 41
     },
     {
         "id": 146,
@@ -1262,7 +1266,7 @@
         "image": "10-031573.jpg",
         "points": 29,
         "title": "Loção Antibrilho e Oleosidade - 17ml",
-        "price": 49,
+        "price": 54,
         "description": "Absorve a oleosidade e ajuda a controlar o brilho por até oito horas."
     },
     {
@@ -1271,7 +1275,7 @@
         "SKU": "10-031573",
         "image": "10-031573.jpg",
         "active": true,
-        "price": 49
+        "price": 54
     },
     {
         "id": 149,
@@ -1279,8 +1283,8 @@
         "line": "Cuidados Personalizados",
         "image": "10-041758.jpg",
         "points": 17,
-        "title": "Lenços de Papel Antibrilho da Pele - 75 unidades",
-        "price": 28,
+        "title": "Lenços de Papel Antibrilho da Pele - 75 lenços",
+        "price": 29,
         "description": "Remove o brilho e ajuda a manter a maquiagem impecável."
     },
     {
@@ -1297,7 +1301,7 @@
         "image": "10-045655.jpg",
         "points": 30,
         "title": "Hidratante Noturno Extra Emoliente - 60g",
-        "price": 49,
+        "price": 54,
         "description": "Ajuda a manter a hidratação natural da pele e repõe a umidade em áreas ressecadas como mãos, cotovelos, joelhos e pés."
     },
     {
@@ -1306,7 +1310,7 @@
         "SKU": "10-045655",
         "image": "10-045655.jpg",
         "active": true,
-        "price": 49
+        "price": 54
     },
     {
         "id": 153,
@@ -1331,8 +1335,8 @@
         "line": "Cuidados com o Corpo",
         "image": "10-039418.jpg",
         "points": 20,
-        "title": "Creme Esfoliante Satin Body - 185g",
-        "price": 39,
+        "title": "Creme Esfoliante - 185g",
+        "price": 43,
         "description": "Esfolia a pele do corpo e elimina a textura ressecada."
     },
     {
@@ -1341,7 +1345,7 @@
         "SKU": "10-039418",
         "image": "10-039418.jpg",
         "active": true,
-        "price": 39
+        "price": 43
     },
     {
         "id": 157,
@@ -1349,17 +1353,17 @@
         "line": "Cuidados com o Corpo",
         "image": "10-039409.jpg",
         "points": 20,
-        "title": "Gel para o Corpo 2 em 1 Satin Body - 201g/192ml",
-        "price": 37,
+        "title": "Gel para o Corpo 2 em 1 - 200g",
+        "price": 40,
         "description": "Limpa a pele e facilita a depilação."
     },
     {
         "id": 158,
         "parent": 157,
-        "SKU": "10-039409",
+        "SKU": "10-073784",
         "image": "10-039409.jpg",
         "active": true,
-        "price": 37
+        "price": 40
     },
     {
         "id": 159,
@@ -1367,17 +1371,17 @@
         "line": "Cuidados com o Corpo",
         "image": "10-039413.jpg",
         "points": 20,
-        "title": "Loção Hidratante Satin Body - 192ml",
-        "price": 39,
+        "title": "Loção Hidratante - 192ml",
+        "price": 43,
         "description": "Proporciona hidratação por até vinte e quatro horas."
     },
     {
         "id": 160,
         "parent": 159,
-        "SKU": "10-039413",
+        "SKU": "10-073794",
         "image": "10-039413.jpg",
         "active": true,
-        "price": 39
+        "price": 43
     },
     {
         "id": 161,
@@ -1385,17 +1389,17 @@
         "line": "Cuidados com o Corpo",
         "image": "10-031832.jpg",
         "points": 19,
-        "title": "Creme para as Mãos Satin Hands - 85g",
-        "price": 33,
+        "title": "Creme para as Mãos - 85g",
+        "price": 34,
         "description": "Fórmula que deixa a pele instantaneamente macia e hidratada por até vinte e quatro horas."
     },
     {
         "id": 162,
         "parent": 161,
-        "SKU": "10-031832",
+        "SKU": "10-072804",
         "option": "Livre de Fragrância",
         "active": true,
-        "price": 33
+        "price": 34
     },
     {
         "id": 163,
@@ -1403,7 +1407,7 @@
         "SKU": "10-042836",
         "option": "Pêssego",
         "active": true,
-        "price": 33
+        "price": 34
     },
     {
         "id": 164,
@@ -1412,16 +1416,16 @@
         "image": "10-032362.jpg",
         "points": 67,
         "title": "Kit Mãos de Seda",
-        "price": 136,
-        "description": "O Kit inclui o Esfoliante para as Mãos Satin Smoothie, o Creme Extra Emoliente e o Creme para as Mãos em uma prática sacola."
+        "price": 142,
+        "description": "1 Esfoliante para as Mãos + 1 Creme Extra Emoliente + 1 Creme para as Mãos."
     },
     {
         "id": 165,
         "parent": 164,
-        "SKU": "10-032362",
+        "SKU": "10-069635",
         "option": "Livre de Fragrância",
         "active": true,
-        "price": 136
+        "price": 142
     },
     {
         "id": 166,
@@ -1429,7 +1433,7 @@
         "SKU": "10-033897",
         "option": "Pêssego",
         "active": true,
-        "price": 136
+        "price": 142
     },
     {
         "id": 167,
@@ -1438,7 +1442,7 @@
         "image": "10-014096.jpg",
         "points": 19,
         "title": "Loção Energizante para os Pés e Pernas Mint Bliss - 88ml",
-        "price": 46,
+        "price": 48,
         "description": "Uma fórmula de menta refrescante que ajuda a aliviar o cansaço dos pés e pernas."
     },
     {
@@ -1447,17 +1451,17 @@
         "SKU": "10-014096",
         "image": "10-014096.jpg",
         "active": true,
-        "price": 46
+        "price": 48
     },
     {
         "id": 169,
         "session": "SPA e Fragrâncias",
-        "line": "Solar",
+        "line": "Linha Solar",
         "image": "10-049423.jpg",
         "points": 24,
         "title": "Loção Corporal Autobronzeadora - 118ml",
-        "price": 45,
-        "description": "Hidrata a pele e proporciona um bronzeado sutil, que se desenvolve gradualmente para um visual totalmente natural."
+        "price": 49,
+        "description": "Hidrata e proporciona uma pele bronzeada gradualmente. Não possui fator de proteção solar."
     },
     {
         "id": 170,
@@ -1465,36 +1469,36 @@
         "SKU": "10-049423",
         "image": "10-049423.jpg",
         "active": true,
-        "price": 45
+        "price": 49
     },
     {
         "id": 171,
         "session": "SPA e Fragrâncias",
-        "line": "Solar",
+        "line": "Linha Solar",
         "image": "10-042829.jpg",
         "points": 28,
         "title": "Protetor Solar FPS 30 - 118ml",
-        "price": 55,
+        "price": 59.90,
         "bestSeller": 8,
-        "description": "Fórmula leve e livre de óleo, para o rosto e para o corpo, que proporciona proteção contra os raios UVA/UVB. À prova d'água e resistente ao suor por até oitenta minutos."
+        "description": "Fórmula leve e livre de óleo, para o rosto e para o corpo. Resistente à água e ao suor por até oitenta minutos."
     },
     {
         "id": 172,
         "parent": 171,
-        "SKU": "10-042829",
+        "SKU": "10-055399",
         "image": "10-042829.jpg",
         "active": true,
-        "price": 55
+        "price": 59.90
     },
     {
         "id": 173,
         "session": "SPA e Fragrâncias",
-        "line": "Solar",
+        "line": "Linha Solar",
         "image": "10-050165.jpg",
         "points": 20,
         "title": "Gel Restaurador Pós Sol - 192ml",
-        "price": 40,
-        "description": "Formulado com extratos botânicos ricos em antioxidantes, este gel é absorvido rapidamente, repondo a hidratação."
+        "price": 42,
+        "description": "Formulado com extratos botânicos ricos em antioxidantes, é absorvido rapidamente, repondo a hidratação."
     },
     {
         "id": 174,
@@ -1502,25 +1506,25 @@
         "SKU": "10-050165",
         "image": "10-050165.jpg",
         "active": true,
-        "price": 40
+        "price": 42
     },
     {
         "id": 175,
         "session": "SPA e Fragrâncias",
-        "line": "Solar",
+        "line": "Linha Solar",
         "image": "10-049430.jpg",
         "points": 13,
         "title": "Protetor Solar para os Lábios FPS 15 - 4,5g",
-        "price": 25,
-        "description": "Ajuda a proteger os lábios dos efeitos nocivos da radiação solar."
+        "price": 27.50,
+        "description": "Protege os lábios dos efeitos nocivos da radiação solar."
     },
     {
         "id": 176,
         "parent": 175,
-        "SKU": "10-049430",
+        "SKU": "10-074111",
         "image": "10-049430.jpg",
         "active": true,
-        "price": 25
+        "price": 27.50
     },
     {
         "id": 177,
@@ -1529,7 +1533,7 @@
         "image": "10-059505.jpg",
         "points": 27,
         "title": "Base Líquida - Acabamento Matte - 29ml",
-        "price": 57,
+        "price": 59.90,
         "bestSeller": 9,
         "description": "Fórmula leve, que ajuda a controlar o excesso de oleosidade e o brilho durante todo o dia. Diminui a aparência de rugas e linhas finas."
     },
@@ -1540,7 +1544,7 @@
         "image": "10-059505.jpg",
         "option": "Ivory 3",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 179,
@@ -1549,7 +1553,7 @@
         "image": "10-059507.jpg",
         "option": "Ivory 5",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 180,
@@ -1558,7 +1562,7 @@
         "image": "10-059508.jpg",
         "option": "Ivory 6",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 181,
@@ -1567,7 +1571,7 @@
         "image": "10-059509.jpg",
         "option": "Ivory 7",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 182,
@@ -1576,7 +1580,7 @@
         "image": "10-059510.jpg",
         "option": "Beige 1",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 183,
@@ -1585,7 +1589,7 @@
         "image": "10-059511.jpg",
         "option": "Beige 2",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 184,
@@ -1594,7 +1598,7 @@
         "image": "10-059512.jpg",
         "option": "Beige 3",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 185,
@@ -1603,7 +1607,7 @@
         "image": "10-059513.jpg",
         "option": "Beige 4",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 186,
@@ -1612,7 +1616,7 @@
         "image": "10-059514.jpg",
         "option": "Beige 5",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 187,
@@ -1621,7 +1625,7 @@
         "image": "10-059515.jpg",
         "option": "Beige 6",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 188,
@@ -1630,7 +1634,7 @@
         "image": "10-059517.jpg",
         "option": "Beige 7",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 189,
@@ -1639,7 +1643,7 @@
         "image": "10-059518.jpg",
         "option": "Beige 8",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 190,
@@ -1648,7 +1652,7 @@
         "image": "10-059519.jpg",
         "option": "Bronze 1",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 191,
@@ -1657,7 +1661,7 @@
         "image": "10-059520.jpg",
         "option": "Bronze 2",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 192,
@@ -1666,7 +1670,7 @@
         "image": "10-059522.jpg",
         "option": "Bronze 4",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 193,
@@ -1675,7 +1679,7 @@
         "image": "10-059523.jpg",
         "option": "Bronze 5",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 194,
@@ -1684,7 +1688,7 @@
         "image": "10-059525.jpg",
         "option": "Bronze 7",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 195,
@@ -1938,7 +1942,7 @@
         "image": "10-040984.jpg",
         "points": 23,
         "title": "Base em Pó Mineral - 8g",
-        "price": 57,
+        "price": 62,
         "bestSeller": 10,
         "description": "Um pó leve que se espalha facilmente para um visual impecável."
     },
@@ -1949,7 +1953,7 @@
         "image": "10-040984.jpg",
         "option": "Ivory 1",
         "active": true,
-        "price": 57
+        "price": 62
     },
     {
         "id": 224,
@@ -1958,7 +1962,7 @@
         "image": "10-040985.jpg",
         "option": "Ivory 2",
         "active": true,
-        "price": 57
+        "price": 62
     },
     {
         "id": 225,
@@ -1967,7 +1971,7 @@
         "image": "10-040987.jpg",
         "option": "Beige 1",
         "active": true,
-        "price": 57
+        "price": 62
     },
     {
         "id": 226,
@@ -1976,7 +1980,7 @@
         "image": "10-040989.jpg",
         "option": "Beige 2",
         "active": true,
-        "price": 57
+        "price": 62
     },
     {
         "id": 227,
@@ -1985,7 +1989,7 @@
         "image": "10-040990.jpg",
         "option": "Bronze 1",
         "active": true,
-        "price": 57
+        "price": 62
     },
     {
         "id": 228,
@@ -1994,7 +1998,7 @@
         "image": "10-040991.jpg",
         "option": "Bronze 2",
         "active": true,
-        "price": 57
+        "price": 62
     },
     {
         "id": 229,
@@ -2226,7 +2230,7 @@
         "image": "10-059570.jpg",
         "points": 20,
         "title": "Corretivo - 8,5g",
-        "price": 34,
+        "price": 38,
         "bestSeller": 5,
         "description": "Fórmula cremosa de longa duração que disfarça pequenas imperfeições."
     },
@@ -2237,7 +2241,7 @@
         "image": "10-059570.jpg",
         "option": "Ivory 1",
         "active": true,
-        "price": 34
+        "price": 38
     },
     {
         "id": 256,
@@ -2246,7 +2250,7 @@
         "image": "10-059571.jpg",
         "option": "Ivory 2",
         "active": true,
-        "price": 34
+        "price": 38
     },
     {
         "id": 257,
@@ -2255,7 +2259,7 @@
         "image": "10-059572.jpg",
         "option": "Beige 1",
         "active": true,
-        "price": 34
+        "price": 38
     },
     {
         "id": 258,
@@ -2264,7 +2268,7 @@
         "image": "10-059573.jpg",
         "option": "Beige 2",
         "active": true,
-        "price": 34
+        "price": 38
     },
     {
         "id": 259,
@@ -2273,7 +2277,7 @@
         "image": "10-059574.jpg",
         "option": "Bronze 1",
         "active": true,
-        "price": 34
+        "price": 38
     },
     {
         "id": 260,
@@ -2282,7 +2286,7 @@
         "image": "10-059575.jpg",
         "option": "Bronze 2",
         "active": true,
-        "price": 34
+        "price": 38
     },
     {
         "id": 261,
@@ -2291,7 +2295,7 @@
         "image": "10-059576.jpg",
         "option": "Yellow",
         "active": true,
-        "price": 34
+        "price": 38
     },
     {
         "id": 262,
@@ -2759,7 +2763,7 @@
         "image": "10-035651.jpg",
         "points": 25,
         "title": "Ultimate Máscara para Cílios - Preta - 8g",
-        "price": 55,
+        "price": 59.90,
         "bestSeller": 6,
         "description": "Fórmula exclusiva, para cílios marcantes com até cinco vezes mais volume."
     },
@@ -2770,7 +2774,7 @@
         "image": "10-035651.jpg",
         "option": "Preta",
         "active": true,
-        "price": 55
+        "price": 59.90
     },
     {
         "id": 318,
@@ -2889,7 +2893,7 @@
         "image": "10-042768.jpg",
         "points": 26,
         "title": "Demaquilante para a Área dos Olhos - 110ml",
-        "price": 53,
+        "price": 58,
         "bestSeller": 4,
         "description": "Remove delicadamente a maquiagem dos olhos."
     },
@@ -2899,7 +2903,7 @@
         "SKU": "10-042768",
         "image": "10-042768.jpg",
         "active": true,
-        "price": 53
+        "price": 58
     },
     {
         "id": 332,
@@ -3951,7 +3955,7 @@
         "image": "10-192900.jpg",
         "points": 41,
         "title": "Belara Eau de Parfum - 50ml",
-        "price": 98,
+        "price": 115,
         "description": "Uma revigorante combinação floral com notas de almíscar."
     },
     {
@@ -3960,7 +3964,7 @@
         "SKU": "10-192900",
         "image": "10-192900.jpg",
         "active": true,
-        "price": 98
+        "price": 115
     },
     {
         "id": 452,
@@ -3969,7 +3973,7 @@
         "image": "10-012512.jpg",
         "points": 44,
         "title": "Bella Belara Eau de Parfum - 50ml",
-        "price": 98,
+        "price": 115,
         "description": "Uma exuberante fragrância floral frutal, com notas florais, frutas frescas e doces."
     },
     {
@@ -3978,7 +3982,7 @@
         "SKU": "10-012512",
         "image": "10-012512.jpg",
         "active": true,
-        "price": 98
+        "price": 115
     },
     {
         "id": 454,
@@ -4314,9 +4318,9 @@
         "line": "Fragrâncias Femininas",
         "image": "10-051952.jpg",
         "points": 49,
-        "title": "True Passion Desodorante Colônia - 60ml",
+        "title": "Desodorante Colônia - 60ml",
         "bestSeller": 2,
-        "price": 82
+        "price": 92
     },
     {
         "id": 492,
@@ -4549,8 +4553,8 @@
         "image": "10-063191.jpg",
         "points": 22,
         "title": "Hidratante FPS 30 - 88ml",
-        "price": 39,
-        "description": "Hidrata e protege contra os raios UVA e UVB. Para todos os tipos de pele."
+        "price": 42,
+        "description": "Hidrata e protege contra os raios UVA e UVB."
     },
     {
         "id": 519,
@@ -4660,8 +4664,8 @@
         "image": "10-073605.jpg",
         "points": 32,
         "title": "Loção Hidratante Intensiva FPS 30 - 88ml",
-        "price": 58,
-        "description": "Minimiza a aparência de linhas finas e rugas, proporciona máxima hidratação e protege contra os raios UVA e UVB."
+        "price": 63,
+        "description": "Hidrata por até dez horas e protege contra os raios UVA/UVB."
     },
     {
         "id": 532,
@@ -5010,8 +5014,8 @@
         "image": "10-063959.jpg",
         "points": 46,
         "title": "Sérum Clareador Even Complexion - 10ml",
-        "price": 75,
-        "description": "Solução direcionada para clareamento de áreas específicas da pele."
+        "price": 83,
+        "description": "Solução direcionada para clareamento de pontos específicos no rosto, colo e mãos."
     },
     {
         "id": 573,
@@ -5315,7 +5319,7 @@
     {
         "id": 608,
         "session": "Lançamentos",
-        "line": "Solar",
+        "line": "Linha Solar",
         "image": "10-063274.jpg",
         "points": 31,
         "title": "Protetor Solar FPS 50 - 118 ml",
@@ -5633,6 +5637,24 @@
         "parent": 644,
         "SKU": "10-066491",
         "image": "10-066491.jpg",
+        "active": true
+    },
+    {
+        "id": 646,
+        "session": "Cuidados com a Pele",
+        "line": "Sinais Avançados",
+        "image": "10-071883.jpg",
+        "points": 69,
+        "title": "Preenchedor de Rugas Volu-Fill - 14g",
+        "price": 110,
+        "description": "Preenche imediatamente as rugas profundas e melhora a aparência com o uso contínuo."
+
+    },
+    {
+        "id": 647,
+        "parent": 646,
+        "SKU": "10-071883",
+        "image": "10-071883.jpg",
         "active": true
     }
 ]

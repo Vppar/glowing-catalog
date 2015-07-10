@@ -594,6 +594,7 @@
                 var entry = warmupStock[idx];
                 var event = entry.event;
                 var item = $scope.newStock.items[event.inventoryId];
+                 if(item === undefined){continue;}
 
                 var discountedPrice = event.cost;
                 var originalPrice = item.price;
@@ -664,8 +665,8 @@
                     // hide = true won't be considered.
                     // Otherwise the itemHide receives false and all
                     // items will be considered.
-                    if (hide === true) {
-                        itemHide = $scope.newStock.items[ix].hide;
+                    if (hide === true || $scope.newStock.items[ix].active === false) {
+                        itemHide = true;
                     } else {
                         itemHide = false;
                     }
@@ -818,6 +819,7 @@
                 for (var ix in line.items) {
                     var item = line.items[ix];
                     item.hide = !item.hide;
+
                 }
             }
         };

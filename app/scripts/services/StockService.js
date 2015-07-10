@@ -104,9 +104,12 @@
                         return this.stockReport('reserved', filter);
                     };
 
-                    this.stockReport = function stockReport(type, filter) {
+                    this.stockReport = function stockReport(type, filter, prefilter) {
                         // read inventory and stock
                         var inventory = InventoryKeeper.read();
+                        if(prefilter){
+                            inventory = ArrayUtils.filter(inventory, prefilter);
+                        }
                         var stock = StockKeeper.list();
 
                         // kickstart to report

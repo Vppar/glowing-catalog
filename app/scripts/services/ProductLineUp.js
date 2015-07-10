@@ -37,6 +37,8 @@
                         } else if (angular.isDefined(product.description) &&
                             product.description.length > 175) {
                             p6x3(product);
+                        } else if(product.description.length < 110 && product.title.length > 40){
+                            p6x2(product);
                         } else {
                             p6x2(product);
                         }

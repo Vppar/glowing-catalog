@@ -22,17 +22,13 @@
 							<div class="fields">
 								<div class="form-line">	
 									<div class="row">
-										<div class="col-14">
+										<div class="col-19">
 											<label>Nome</label>
 											<input name="name" type="text" ng-model="consultant.name" customer-name required>
 										</div>
 										<div class="col-5">
-											<label>CPF/MF</label>
+											<label>CPF</label>
 											<input name="" type="text" ng-model="consultant.cpf" cpf required>
-										</div>
-										<div class="col-5">
-											<label>RG/&Oacute;rg&atilde;o emissor</label>
-											<input name="" type="text" ng-model="consultant.emissary" >						
 										</div>
 									</div>
 								</div>
@@ -71,14 +67,7 @@
 												<option value="{{year}}" ng-selected="{{year == consultant.birthDate.year && true || false }}" ng-repeat="year in birthdate.years">{{year}}</option>
 											</select>
 										</div>
-										<div class="col-5">
-											<label>Cidade de Origem</label>
-											<input name="" type="text" ng-model="consultant.cityOrigin">
-										</div>
-										<div class="col-5">
-											<label>País de Origem</label>
-											<input name="" type="text" ng-model="consultant.countryOrigin" required>
-										</div>
+										
 									</div>
 								</div>
 								<div class="form-line">
@@ -92,13 +81,13 @@
 											<input name="" type="text" ng-model="consultant.address.number" required>
 										</div>
 
-										<div class="col-4">
-											<label>Bairro</label>
-											<input name="" type="text" ng-model="consultant.address.neighborhood" required>
-										</div>
 										<div class="col-5">
 											<label>Complemento</label>
 											<input name="" type="text" ng-model="consultant.complement">
+										</div>
+										<div class="col-4">
+											<label>Bairro</label>
+											<input name="" type="text" ng-model="consultant.address.neighborhood" required>
 										</div>
 										<div class="col-4">
 											<label>CEP</label>
@@ -132,7 +121,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="form-line">
+								<!-- <div class="form-line">
 									<div class="row">
 										<div class="col-6">
 											<label>Titular da Conta</label>
@@ -159,7 +148,7 @@
 											<input name="" type="text" ng-model="consultant.account" required maxlength="13">
 										</div>
 									</div>
-								</div>
+								</div> -->
 								<hr />
 								<div class="form-line">
 									<div class="row">
