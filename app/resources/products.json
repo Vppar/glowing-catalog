@@ -76,13 +76,13 @@
         "parent": 271,
         "SKU": "10-046671",
         "image": "10-046671.jpg",
-        "option": "Tickeled Pink",
+        "option": "Tickled Pink",
         "active": true
     },
     {
         "id": 9,
         "parent": 271,
-        "SKU": "10-046674",
+        "SKU": "10-077424",
         "image": "10-046674.jpg",
         "option": "Toasted Plum",
         "active": true
@@ -2381,14 +2381,14 @@
         "line": "Olhos",
         "image": "10-013008.jpg",
         "points": 12,
-        "title": "Sombra Mineral (Refil) - 1,4g",
-        "price": 21,
+        "title": "Sombra Mineral (Refil)",
+        "price": 22,
         "description": "São tonalidades vibrantes e de longa duração em fórmula mineral. Proporcionam cores intensas, que não acumulam nas pálpebras, e são ideais para qualquer tom de pele."
     },
     {
         "id": 272,
         "parent": 271,
-        "SKU": "10-013008",
+        "SKU": "10-077402",
         "image": "10-013008.jpg",
         "option": "Amber Blaze",
         "active": true
@@ -2396,7 +2396,7 @@
     {
         "id": 273,
         "parent": 271,
-        "SKU": "10-030111",
+        "SKU": "10-077401",
         "image": "10-030111.jpg",
         "option": "Azure",
         "active": true
@@ -2407,7 +2407,7 @@
         "SKU": "10-028589",
         "image": "10-028589.jpg",
         "option": "Black Pearl",
-        "active": true
+        "active": false
     },
     {
         "id": 275,
@@ -2420,7 +2420,7 @@
     {
         "id": 276,
         "parent": 271,
-        "SKU": "10-013035",
+        "SKU": "10-077407",
         "image": "10-013035.jpg",
         "option": "Chocolate Kiss",
         "active": true
@@ -2428,7 +2428,7 @@
     {
         "id": 277,
         "parent": 271,
-        "SKU": "10-013038",
+        "SKU": "10-077408",
         "image": "10-013038.jpg",
         "option": "Cinnabar",
         "active": true
@@ -2444,16 +2444,16 @@
     {
         "id": 279,
         "parent": 271,
-        "SKU": "10-013026",
-        "image": "10-013026.jpg",
+        "SKU": "10-077405",
+        "image": "10-077405.jpg",
         "option": "Coal",
         "active": true
     },
     {
         "id": 280,
         "parent": 271,
-        "SKU": "10-013044",
-        "image": "10-013044.jpg",
+        "SKU": "10-077409",
+        "image": "10-077409.jpg",
         "option": "Crystalline",
         "active": true
     },
@@ -2468,16 +2468,16 @@
     {
         "id": 282,
         "parent": 271,
-        "SKU": "10-030110",
-        "image": "10-030110.jpg",
+        "SKU": "10-077403",
+        "image": "10-077403.jpg",
         "option": "Emerald",
         "active": true
     },
     {
         "id": 283,
         "parent": 271,
-        "SKU": "10-013047",
-        "image": "10-013047.jpg",
+        "SKU": "10-077410",
+        "image": "10-077410.jpg",
         "option": "Espresso",
         "active": true
     },
@@ -2492,24 +2492,24 @@
     {
         "id": 285,
         "parent": 271,
-        "SKU": "10-013080",
-        "image": "10-013080.jpg",
+        "SKU": "10-077420",
+        "image": "10-077420.jpg",
         "option": "Granite",
         "active": true
     },
     {
         "id": 286,
         "parent": 271,
-        "SKU": "10-013032",
-        "image": "10-013032.jpg",
+        "SKU": "10-077406",
+        "image": "10-077406.jpg",
         "option": "Honey Spice",
         "active": true
     },
     {
         "id": 287,
         "parent": 271,
-        "SKU": "10-013095",
-        "image": "10-013095.jpg",
+        "SKU": "10-077411",
+        "image": "10-077411.jpg",
         "option": "Iris",
         "active": true
     },
@@ -2536,7 +2536,7 @@
         "SKU": "10-030107",
         "image": "10-030107.jpg",
         "option": "Lavender Fog",
-        "active": true
+        "active": false
     },
     {
         "id": 291,
@@ -2549,8 +2549,8 @@
     {
         "id": 292,
         "parent": 271,
-        "SKU": "10-028588",
-        "image": "10-028588.jpg",
+        "SKU": "10-077412",
+        "image": "10-077412.jpg",
         "option": "Midnight Star",
         "active": true
     },
@@ -2565,16 +2565,16 @@
     {
         "id": 294,
         "parent": 271,
-        "SKU": "10-013074",
-        "image": "10-013074.jpg",
+        "SKU": "10-077418",
+        "image": "10-077418.jpg",
         "option": "Precious Pink",
         "active": true
     },
     {
         "id": 295,
         "parent": 271,
-        "SKU": "10-026297",
-        "image": "10-026297.jpg",
+        "SKU": "10-077414",
+        "image": "10-077414.jpg",
         "option": "Silver Satin",
         "active": true
     },
@@ -2589,16 +2589,16 @@
     {
         "id": 297,
         "parent": 271,
-        "SKU": "10-013101",
-        "image": "10-013101.jpg",
+        "SKU": "10-077423",
+        "image": "10-077423.jpg",
         "option": "Sweet Plum",
         "active": true
     },
     {
         "id": 298,
         "parent": 271,
-        "SKU": "10-046681",
-        "image": "10-046681.jpg",
+        "SKU": "10-077415",
+        "image": "10-077415.jpg",
         "option": "Truffle",
         "active": true
     },
@@ -2608,7 +2608,7 @@
         "SKU": "10-026292",
         "image": "10-026292.jpg",
         "option": "White Lily",
-        "active": true
+        "active": false
     },
     {
         "id": 300,
@@ -3991,7 +3991,7 @@
         "image": "10-051954.jpg",
         "points": 50,
         "title": "Black Diamonds Desodorante Colônia - 60ml",
-        "price": 84,
+        "price": 95,
         "description": "Uma fragrância floral, perfeita para mulheres intensas e marcantes."
     },
     {
@@ -4003,7 +4003,7 @@
     },
     {
         "id": 456,
-        "session": "SPA e Fragrâncias",
+        "session": "Última Oportunidade",
         "line": "Fragrâncias Femininas",
         "image": "10-397300.jpg",
         "points": 59,
@@ -4021,13 +4021,13 @@
     },
     {
         "id": 458,
-        "session": "SPA e Fragrâncias",
+        "session": "Última Oportunidade",
         "line": "Fragrâncias Femininas",
         "image": "10-166700.jpg",
         "points": 48,
         "title": "Journey Eau de Parfum - 50ml",
-        "price": 110,
-        "description": "Uma fragrância floral suave, que combina aromas de menta e lírios."
+        "price": 118,
+        "description": "Uma fragrância com aromas de menta e lírios."
     },
     {
         "id": 459,
@@ -4035,7 +4035,7 @@
         "SKU": "10-166700",
         "image": "10-166700.jpg",
         "active": true,
-        "price": 110
+        "price": 118
     },
     {
         "id": 460,
@@ -4044,16 +4044,16 @@
         "image": "10-051949.jpg",
         "points": 59,
         "title": "Pink Diamonds Eau de Parfum - 60ml",
-        "price": 110,
+        "price": 124,
         "description": "Encante-se com essa fragrância floral, elaborada para mulheres elegantes e encantadoras."
     },
     {
         "id": 461,
         "parent": 460,
-        "SKU": "10-051949",
+        "SKU": "10-051953",
         "image": "10-051949.jpg",
         "active": true,
-        "price": 110
+        "price": 124
     },
     {
         "id": 462,
@@ -4062,7 +4062,7 @@
         "image": "10-037726.jpg",
         "points": 52,
         "title": "Thinking of You Eau de Parfum - 29ml",
-        "price": 95,
+        "price": 105,
         "description": "Fragrância com notas frutais e florientais em uma embalagem especial, que permite escrever uma mensagem personalizada em seu interior."
     },
     {
@@ -4071,7 +4071,7 @@
         "SKU": "10-037726",
         "image": "10-037726.jpg",
         "active": true,
-        "price": 95
+        "price": 105
     },
     {
         "id": 464,
@@ -4088,18 +4088,18 @@
         "parent": 464,
         "SKU": "10-168700",
         "image": "10-168700.jpg",
-        "active": true,
+        "active": false,
         "price": 98
     },
     {
         "id": 466,
-        "session": "SPA e Fragrâncias",
+        "session": "Última Oportunidade",
         "line": "Fragrâncias Femininas",
         "image": "10-020031.jpg",
         "points": 32,
         "title": "Exotic Passionfruit Água de Colônia - 50ml",
-        "price": 65,
-        "description": "Doce e marcante."
+        "price": 68,
+        "description": "Uma fragrância frutal suculenta, com notas picantes."
     },
     {
         "id": 467,
@@ -4107,7 +4107,7 @@
         "SKU": "10-020031",
         "image": "10-020031.jpg",
         "active": true,
-        "price": 65
+        "price": 68
     },
     {
         "id": 468,
@@ -4116,8 +4116,8 @@
         "image": "10-033691.jpg",
         "points": 32,
         "title": "Forever Orchid Água de Colônia - 50ml",
-        "price": 65,
-        "description": "Simples e ao mesmo tempo sofisticada."
+        "price": 68,
+        "description": "Floral cremoso, com notas perfumadas de orquídea e vanilla."
     },
     {
         "id": 469,
@@ -4125,17 +4125,17 @@
         "SKU": "10-033691",
         "image": "10-033691.jpg",
         "active": true,
-        "price": 65
+        "price": 68
     },
     {
         "id": 470,
-        "session": "SPA e Fragrâncias",
+        "session": "Última Oportunidade",
         "line": "Fragrâncias Femininas",
         "image": "10-020029.jpg",
         "points": 32,
         "title": "Simply Cotton Água de Colônia - 50ml",
-        "price": 65,
-        "description": "Pura e refrescante."
+        "price": 68,
+        "description": "Floral Aquoso, desperta sensação de frescor e pureza"
     },
     {
         "id": 471,
@@ -4143,17 +4143,17 @@
         "SKU": "10-020029",
         "image": "10-020029.jpg",
         "active": true,
-        "price": 65
+        "price": 68
     },
     {
         "id": 472,
-        "session": "SPA e Fragrâncias",
+        "session": "Última Oportunidade",
         "line": "Fragrâncias Femininas",
         "image": "10-020028.jpg",
         "points": 32,
         "title": "Warm Amber Água de Colônia - 50ml",
-        "price": 65,
-        "description": "Rica e acolhedora."
+        "price": 68,
+        "description": "Floriental cremoso, com notas de âmbar e sândalo."
     },
     {
         "id": 473,
@@ -4161,7 +4161,7 @@
         "SKU": "10-020028",
         "image": "10-020028.jpg",
         "active": true,
-        "price": 65
+        "price": 68
     },
     {
         "id": 474,
@@ -4170,7 +4170,7 @@
         "image": "10-048515.jpg",
         "points": 60,
         "title": "True Original Cologne Spray - 59ml",
-        "price": 118,
+        "price": 139,
         "description": "Fragrância fougère aromática. Fresca, contemporânea e espontânea para o verdadeiro homem original."
     },
     {
@@ -4179,7 +4179,7 @@
         "SKU": "10-048515",
         "image": "10-048515.jpg",
         "active": true,
-        "price": 118
+        "price": 139
     },
     {
         "id": 476,
@@ -4188,8 +4188,8 @@
         "image": "10-060686.jpg",
         "points": 57,
         "title": "Upscale Eau de Parfum - 75ml",
-        "price": 99,
-        "description": "Perfeita para o homem sofisticado, seguro e de personalidade forte."
+        "price": 115,
+        "description": "Uma fragrância amadeirada aromática, perfeita para o homem sofisticado."
     },
     {
         "id": 477,
@@ -4205,8 +4205,8 @@
         "image": "10-012494.jpg",
         "points": 60,
         "title": "High Intensity Cologne Spray - 73ml",
-        "price": 118,
-        "description": "Fragrância oriental âmbar com notas de topo de erva-doce negra e sálvia prata."
+        "price": 139,
+        "description": "Fragrância oriental cativante para o homem que vive a vida intensamente."
     },
     {
         "id": 479,
@@ -4214,7 +4214,7 @@
         "SKU": "10-012494",
         "image": "10-012494.jpg",
         "active": true,
-        "price": 118
+        "price": 139
     },
     {
         "id": 480,
@@ -4223,7 +4223,7 @@
         "image": "10-028783.jpg",
         "points": 45,
         "title": "Domain Cologne Spray - 73ml",
-        "price": 89,
+        "price": 105,
         "description": "Uma refrescante combinação de lavanda, musgo de carvalho e almíscar."
     },
     {
@@ -4232,7 +4232,7 @@
         "SKU": "10-028783",
         "image": "10-028783.jpg",
         "active": true,
-        "price": 89
+        "price": 105
     },
     {
         "id": 482,
@@ -4240,8 +4240,8 @@
         "line": "Fragrâncias Masculinas",
         "image": "10-501700.jpg",
         "points": 52,
-        "title": "Velocity For Him Cologne - 59ml",
-        "price": 98,
+        "title": "Velocity for Him Cologne - 59ml",
+        "price": 109,
         "description": "Esta leve fragrância captura o frescor dos ares das montanhas e a essência de madeiras."
     },
     {
@@ -4250,7 +4250,7 @@
         "SKU": "10-501700",
         "image": "10-501700.jpg",
         "active": true,
-        "price": 98
+        "price": 109
     },
     {
         "id": 484,
@@ -4335,8 +4335,9 @@
         "line": "Fragrâncias Masculinas",
         "image": "10-060674.jpg",
         "points": 47,
-        "title": "Free Spirit Sport - 100ml",
-        "price": 79
+        "title": "Free Spirit Sport Desodorante Colônia - 100ml",
+        "price": 89,
+        "description": "Uma essência refrescante, com notas cítricas."
     },
     {
         "id": 494,
@@ -4680,8 +4681,8 @@
         "line": "Fragrâncias Femininas",
         "image": "10-059456.jpg",
         "points": 47,
-        "title": "Heartfelt for Her - 60ml",
-        "price": 79,
+        "title": "Heartfelt for Her Desodorante Colônia - 60ml",
+        "price": 84,
         "description": "Uma fragrância floral frutal que traz notas de frutas, groselha fresca e bergamota italiana."
     },
     {
@@ -4697,9 +4698,9 @@
         "line": "Fragrâncias Masculinas",
         "image": "10-059457.jpg",
         "points": 47,
-        "title": "Heartfelt for Him - 60ml",
-        "price": 79,
-        "description": "Da família olfativa amadeirado musk, traz notas refrescantes e o musk dá o tom sensual."
+        "title": "Heartfelt for Him Desodorante Colônia- 60ml",
+        "price": 84,
+        "description": "Da família olfativa amadeirada musk, traz notas refrescantes com um toque sensual e confortante."
     },
     {
         "id": 536,
@@ -4894,9 +4895,9 @@
         "line": "Fragrâncias Masculinas",
         "image": "10-072772.jpg",
         "points": 52,
-        "title": "Upscale Black - 75ml",
-        "price": 89,
-        "description": "Uma sofisticada fragrância amadeirada com um toque oriental que acentua a autoconfiança e o poder de sedução do homem."
+        "title": "Upscale Black Desodorante Colônia - 75ml",
+        "price": 99,
+        "description": "Uma sofisticada fragrância amadeirada com um toque oriental, que acentua a autoconfiança e o poder de sedução do homem."
     },
     {
         "id": 559,
@@ -5032,7 +5033,7 @@
         "points": 54,
         "title": "Belara Midnight Eau de Parfum - 50ml",
         "price": 129,
-        "description": "Com um toque de mistério é uma fragrância cremosa oriental sensual, vibrante e irresistível."
+        "description": "Com um toque de mistério, é uma fragrância cremosa oriental sensual, vibrante e irresistível."
     },
     {
         "id": 575,
@@ -5242,13 +5243,13 @@
     },
     {
         "id": 599,
-        "session": "Lançamentos",
+        "session": "SPA e Fragrâncias",
         "line": "Fragrâncias Femininas",
         "image": "10-072773.jpg",
         "points": 49,
-        "title": "True Passion Noir Desodorante Colônia - 60 ml",
-        "price": 82,
-        "description": "Uma fragrância floral musk amadeirada. Sensual e marcante."
+        "title": "True Passion Desodorante Colônia - 60ml",
+        "price": 92,
+        "description": "Uma fragrância floral frutal musk, que combina de maneira equilibrada frescor, feminilidade e sensualidade."
     },
     {
         "id": 600,
@@ -5259,12 +5260,12 @@
     },
     {
         "id": 601,
-        "session": "Lançamentos",
+        "session": "SPA e Fragrâncias",
         "line": "Fragrâncias Masculinas",
         "image": "10-072774.jpg",
         "points": 47,
-        "title": "Free Spirit Desodorante Colônia - 100 ml",
-        "price": 79,
+        "title": "Free Spirit Desodorante Colônia - 100ml",
+        "price": 89,
         "description": "Essência refrescante com elementos aquosos. Ideal para o dia a dia."
     },
     {
@@ -5655,6 +5656,123 @@
         "parent": 646,
         "SKU": "10-071883",
         "image": "10-071883.jpg",
+        "active": true
+    },
+    {
+        "id": 648,
+        "parent": 271,
+        "SKU": "10-068248",
+        "image": "10-068248.jpg",
+        "option": "Antique Rose",
+        "active": true
+    },
+    {
+        "id": 649,
+        "parent": 271,
+        "SKU": "10-068253",
+        "image": "10-068253.jpg",
+        "option": "French Roast",
+        "active": true
+    },
+    {
+        "id": 650,
+        "parent": 271,
+        "SKU": "10-068252",
+        "image": "10-068252.jpg",
+        "option": "Rosegold",
+        "active": true
+    },
+    {
+        "id": 651,
+        "parent": 271,
+        "SKU": "10-068251",
+        "image": "10-068251.jpg",
+        "option": "Stone",
+        "active": true
+    },
+    {
+        "id": 652,
+        "session": "SPA e Fragrâncias",
+        "line": "Fragrâncias Femininas",
+        "image": "10-075084.jpg",
+        "points": 57,
+        "title": "Thinking of Love Eau de Parfum – 29ml",
+        "price": 105,
+        "description": "Uma fragrância floral bouquet. Acompanha um lindo pingente e cartão para escrever uma mensagem à mão."
+    },
+    {
+        "id": 653,
+        "parent": 652,
+        "SKU": "10-075084",
+        "image": "10-075084.jpg",
+        "active": true
+    },
+    {
+        "id": 654,
+        "session": "SPA e Fragrâncias",
+        "line": "Fragrâncias Femininas",
+        "image": "10-086797.jpg",
+        "points": 66,
+        "title": "Forever Diamonds Eau de Parfum - 60ml",
+        "price": 139,
+        "description": "Uma fragrância floral frutal para eternizar momentos especiais."
+    },
+    {
+        "id": 655,
+        "parent": 654,
+        "SKU": "10-086797",
+        "image": "10-086797.jpg",
+        "active": true
+    },
+    {
+        "id": 656,
+        "session": "SPA e Fragrâncias",
+        "line": "Fragrâncias Femininas",
+        "image": "10-085102.jpg",
+        "points": 52,
+        "title": "Upbeat for Her Desodorante Colônia – 60ml",
+        "price": 89,
+        "description": "Uma fragrância frutal chypre, com notas de saída energizantes, como a evolução de uma música."
+    },
+    {
+        "id": 657,
+        "parent": 656,
+        "SKU": "10-085102",
+        "image": "10-085102.jpg",
+        "active": true
+    },
+    {
+        "id": 658,
+        "session": "SPA e Fragrâncias",
+        "line": "Fragrâncias Masculinas",
+        "image": "10-075680.jpg",
+        "points": 65,
+        "title": "High Intensity Sport Cologne Spray – 73ml",
+        "price": 139,
+        "description": "Uma fragrância amadeirada fresca, para o homem que vive cada dia intensamente."
+    },
+    {
+        "id": 659,
+        "parent": 658,
+        "SKU": "10-075680",
+        "image": "10-075680.jpg",
+        "active": true
+    },
+    {
+        "id": 660,
+        "session": "SPA e Fragrâncias",
+        "line": "Fragrâncias Masculinas",
+        "image": "10-085103.jpg",
+        "points": 55,
+        "title": "Upbeat for Him Desodorante Colônia – 75ml",
+        "price": 95,
+        "description": "Uma fragrância refrescante com notas vibrantes, ideal para o homem descolado."
+    },
+    {
+        "id": 661,
+        "parent": 660,
+        "SKU": "10-085103",
+        "image": "10-085103.jpg",
         "active": true
     }
 ]
