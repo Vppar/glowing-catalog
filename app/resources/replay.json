@@ -202,7 +202,7 @@
         "version": 1,
         "event": {
             "inventoryId": 35,
-            "cost": 58,
+            "cost": 0,
             "quantity": 0
         }
     },
@@ -211,7 +211,7 @@
         "version": 1,
         "event": {
             "inventoryId": 36,
-            "cost": 58,
+            "cost": 0,
             "quantity": 0
         }
     },
@@ -3995,6 +3995,51 @@
         "version": 1,
         "event": {
             "inventoryId": 661,
+            "cost": 0,
+            "quantity": 0
+        }
+    },
+    {
+        "type": "stockAdd",
+        "version": 1,
+        "event": {
+            "inventoryId": 663,
+            "cost": 0,
+            "quantity": 0
+        }
+    },
+    {
+        "type": "stockAdd",
+        "version": 1,
+        "event": {
+            "inventoryId": 664,
+            "cost": 0,
+            "quantity": 0
+        }
+    },
+    {
+        "type": "stockAdd",
+        "version": 1,
+        "event": {
+            "inventoryId": 665,
+            "cost": 0,
+            "quantity": 0
+        }
+    },
+    {
+        "type": "stockAdd",
+        "version": 1,
+        "event": {
+            "inventoryId": 666,
+            "cost": 0,
+            "quantity": 0
+        }
+    },
+    {
+        "type": "stockAdd",
+        "version": 1,
+        "event": {
+            "inventoryId": 667,
             "cost": 0,
             "quantity": 0
         }

@@ -5,8 +5,8 @@
         "line": "Olhos",
         "image": "10-042319.jpg",
         "points": 18,
-        "title": "Máscara para Cílios Lash Love - 8g",
-        "price": 37,
+        "title": "Máscara para Cílios Lash Love - 9g",
+        "price": 39,
         "description": "Cuide dos cílios com uma rotina diária e tenha o olhar que você sempre sonhou. Em apenas 3 passos, fortaleça, prepare e finalize com a sua máscara para cílios favorita."
     },
     {
@@ -16,7 +16,7 @@
         "image": "10-042319.jpg",
         "option": "Azul",
         "active": true,
-        "price": 37,
+        "price": 39,
         "points": 18
     },
     {
@@ -424,7 +424,7 @@
         "points": 170,
         "title": "Sistema Anti-Idade de Cuidados com a Pele",
         "price": 289.80,
-        "description": "1 Creme de Limpeza 3 em 1 + 1 Hidratante Redutor de Linhas de Expressão + 1 Solução Diurna FPS 30 + 1 Solução Noturna."
+        "description": "1 Creme de Limpeza 3 em 1 + 1 Hidratante Redutor de Linhas de Expressão + 1 Kit Solução Diurna e Noturna."
     },
     {
         "id": 49,
@@ -716,7 +716,7 @@
         "points": 299,
         "title": "Sistema Volu-Firm",
         "price": 534,
-        "description": "1 Espuma de Limpeza + 1 Sérum Lifting + 1 Creme Diurno FPS 30 + 1 Creme Noturno + 1 Creme para a Área dos Olhos."
+        "description": "1 Espuma de Limpeza + 1 Sérum Lifting + 1 Kit Creme Diurno e Noturno + 1 Creme para a Área dos Olhos."
     },
     {
         "id": 83,
@@ -980,7 +980,7 @@
         "points": 31,
         "title": "Creme Secativo para Pele com Tendência à Acne - 29g",
         "price": 47,
-        "description": "Atua diretamente sobre a acne, ajudando a eliminá-la e prevenindo o surgimento de novos pontos de acne."
+        "description": "Atua diretamente na acne, ajudando a eliminá-la e prevenindo o surgimento de novos pontos de acne."
     },
     {
         "id": 114,
@@ -1014,7 +1014,7 @@
         "points": 65,
         "title": "Kit Introdutório ao Sistema de Cuidados da Pele com Tendência à Acne",
         "price": 99,
-        "description": "1 Gel de Limpeza + 1 Loção + 1 Creme Secativo. Duração: um mês."
+        "description": "1 Gel de Limpeza + 1 Loção + 1 Creme Secativo."
     },
     {
         "id": 118,
@@ -2092,7 +2092,7 @@
         "image": "10-067803.jpg",
         "points": 11,
         "title": "Lápis Sombra - 2,5g",
-        "price": 22,
+        "price": 24,
         "description": "Sua fórmula ultra cremosa não acumula nas pálpebras. Cores divertidas e com acabamento metalizado."
     },
     {
@@ -2102,7 +2102,7 @@
         "image": "10-067803.jpg",
         "option": "Green Tea",
         "active": true,
-        "price": 22
+        "price": 24
     },
     {
         "id": 241,
@@ -2111,7 +2111,7 @@
         "image": "10-067805.jpg",
         "option": "Gold Mine",
         "active": true,
-        "price": 22
+        "price": 24
     },
     {
         "id": 242,
@@ -2120,7 +2120,7 @@
         "image": "10-067801.jpg",
         "option": "In the Navy",
         "active": true,
-        "price": 22
+        "price": 24
     },
     {
         "id": 243,
@@ -2129,7 +2129,7 @@
         "image": "10-067804.jpg",
         "option": "Purple Smoke",
         "active": true,
-        "price": 22
+        "price": 24
     },
     {
         "id": 244,
@@ -2138,7 +2138,7 @@
         "image": "10-062089.jpg",
         "points": 9,
         "title": "Gloss Labial Jelly - 9,5ml",
-        "price": 19,
+        "price": 20,
         "description": "Lábios macios e glamorosos com cores intensas e brilhantes."
     },
     {
@@ -2148,7 +2148,7 @@
         "image": "10-062089.jpg",
         "option": "Berry Me",
         "active": true,
-        "price": 19
+        "price": 20
     },
     {
         "id": 246,
@@ -2184,7 +2184,7 @@
         "image": "10-067790.jpg",
         "points": 11,
         "title": "Lápis Batom - 2,5g",
-        "price": 22,
+        "price": 24,
         "description": "Cores marcantes com acabamento luminoso. Sua fórmula desliza facilmente e não borra durante o dia."
     },
     {
@@ -2194,7 +2194,7 @@
         "image": "10-067790.jpg",
         "option": "Candied Apple",
         "active": true,
-        "price": 22
+        "price": 24
     },
     {
         "id": 251,
@@ -2203,7 +2203,7 @@
         "image": "10-067788.jpg",
         "option": "Perfect Pink",
         "active": true,
-        "price": 22
+        "price": 24
     },
     {
         "id": 252,
@@ -2212,7 +2212,7 @@
         "image": "10-067783.jpg",
         "option": "Toasted",
         "active": true,
-        "price": 22
+        "price": 24
     },
     {
         "id": 253,
@@ -2221,7 +2221,7 @@
         "image": "10-067789.jpg",
         "option": "Violet Love",
         "active": true,
-        "price": 22
+        "price": 24
     },
     {
         "id": 254,
@@ -2717,7 +2717,7 @@
         "image": "10-027861.jpg",
         "points": 8,
         "title": "Kit para Sobrancelhas",
-        "price": 16,
+        "price": 18,
         "description": "Inclui: Mini pinça, mini pincel e mini escova."
     },
     {
@@ -2726,7 +2726,7 @@
         "SKU": "10-027861",
         "image": "10-027861.jpg",
         "active": true,
-        "price": 16
+        "price": 18
     },
     {
         "id": 313,
@@ -3237,7 +3237,7 @@
         "image": "10-054830.jpg",
         "option": "Rosette",
         "active": true,
-        "price": 48
+        "price": 52.9
     },
     {
         "id": 370,
@@ -4021,7 +4021,7 @@
     },
     {
         "id": 458,
-        "session": "Última Oportunidade",
+        "session": "SPA e Fragrâncias",
         "line": "Fragrâncias Femininas",
         "image": "10-166700.jpg",
         "points": 48,
@@ -4063,7 +4063,7 @@
         "points": 52,
         "title": "Thinking of You Eau de Parfum - 29ml",
         "price": 105,
-        "description": "Fragrância com notas frutais e florientais em uma embalagem especial, que permite escrever uma mensagem personalizada em seu interior."
+        "description": "Fragrância com notas frutais e florientais, em uma embalagem especial, que permite escrever uma mensagem personalizada em seu interior."
     },
     {
         "id": 463,
@@ -4093,7 +4093,7 @@
     },
     {
         "id": 466,
-        "session": "Última Oportunidade",
+        "session": "SPA e Fragrâncias",
         "line": "Fragrâncias Femininas",
         "image": "10-020031.jpg",
         "points": 32,
@@ -4129,13 +4129,13 @@
     },
     {
         "id": 470,
-        "session": "Última Oportunidade",
+        "session": "SPA e Fragrâncias",
         "line": "Fragrâncias Femininas",
         "image": "10-020029.jpg",
         "points": 32,
         "title": "Simply Cotton Água de Colônia - 50ml",
         "price": 68,
-        "description": "Floral Aquoso, desperta sensação de frescor e pureza"
+        "description": "Floral aquoso, desperta sensação de frescor e pureza."
     },
     {
         "id": 471,
@@ -4147,7 +4147,7 @@
     },
     {
         "id": 472,
-        "session": "Última Oportunidade",
+        "session": "SPA e Fragrâncias",
         "line": "Fragrâncias Femininas",
         "image": "10-020028.jpg",
         "points": 32,
@@ -4318,9 +4318,10 @@
         "line": "Fragrâncias Femininas",
         "image": "10-051952.jpg",
         "points": 49,
-        "title": "Desodorante Colônia - 60ml",
+        "title": "True Passion Desodorante Colônia - 60ml",
         "bestSeller": 2,
-        "price": 92
+        "price": 92,
+        "description": "Uma fragrância floral frutal musk, que combina de maneira equilibrada frescor, feminilidade e sensualidade."
     },
     {
         "id": 492,
@@ -4440,10 +4441,10 @@
         "session": "Última Oportunidade",
         "line": "Zen in Bloom",
         "image": "10-080361.jpg",
-        "points": 17,
-        "title": "Brilho Labial - 4 g",
-        "price": 45,
-        "description": "Cores intensas com fórmula hidratante e suave."
+        "points": 34,
+        "title": "Brilho Labial",
+        "price": 34,
+        "description": "Cores intensas, com fórmula hidratante e suave."
     },
     {
         "id": 506,
@@ -4466,9 +4467,9 @@
         "session": "Última Oportunidade",
         "line": "Zen in Bloom",
         "image": "10-080357.jpg",
-        "points": 9,
+        "points": 18,
         "title": "Esmalte para Unhas - 7,5 ml",
-        "price": 22,
+        "price": 19,
         "description": "Acabamento brilhante com coloração intensa. Fórmula especial 3-Free, que permite cor uniforme e longa duração. Os tons foram inspirados nos jardins orientais."
     },
     {
@@ -4477,7 +4478,7 @@
         "SKU": "10-080357",
         "image": "10-080357.jpg",
         "option": "Ginseng Blossom",
-        "active": true
+        "active": false
     },
     {
         "id": 510,
@@ -4485,7 +4486,7 @@
         "SKU": "10-080358",
         "image": "10-080358.jpg",
         "option": "Blue Lotus",
-        "active": true
+        "active": false
     },
     {
         "id": 511,
@@ -4500,10 +4501,10 @@
         "session": "Última Oportunidade",
         "line": "Zen in Bloom",
         "image": "10-080356.jpg",
-        "points": 17,
-        "title": "Trio de Sombras Minerais - Garden Sky - 10 g",
-        "price": 48,
-        "description": "Tons pastel com ótima pigmentação com sistema refil."
+        "points": 34,
+        "title": "Trio de Sombras - Garden Sky (Refil).",
+        "price": 34,
+        "description": "Tons pastel, com ótima pigmentação."
     },
     {
         "id": 513,
@@ -4683,7 +4684,7 @@
         "points": 47,
         "title": "Heartfelt for Her Desodorante Colônia - 60ml",
         "price": 84,
-        "description": "Uma fragrância floral frutal que traz notas de frutas, groselha fresca e bergamota italiana."
+        "description": "Uma fragrância floral frutal, que traz notas frescas e um toque romântico."
     },
     {
         "id": 534,
@@ -4698,7 +4699,7 @@
         "line": "Fragrâncias Masculinas",
         "image": "10-059457.jpg",
         "points": 47,
-        "title": "Heartfelt for Him Desodorante Colônia- 60ml",
+        "title": "Heartfelt for Him Desodorante Colônia - 60ml",
         "price": 84,
         "description": "Da família olfativa amadeirada musk, traz notas refrescantes com um toque sensual e confortante."
     },
@@ -5247,9 +5248,9 @@
         "line": "Fragrâncias Femininas",
         "image": "10-072773.jpg",
         "points": 49,
-        "title": "True Passion Desodorante Colônia - 60ml",
+        "title": "True Passion Noir Desodorante Colônia - 60ml",
         "price": 92,
-        "description": "Uma fragrância floral frutal musk, que combina de maneira equilibrada frescor, feminilidade e sensualidade."
+        "description": "Uma fragrância floral musk amadeirada. Sensual e marcante."
     },
     {
         "id": 600,
@@ -5277,8 +5278,8 @@
     },
     {
         "id": 603,
-        "session": "Lançamentos",
-        "line": "Maquiagem - Rosto",
+        "session": "Maquiagem",
+        "line": "Rosto",
         "image": "10-072818.jpg",
         "points": 29,
         "title": "CC Cream Multibenefícios FPS 15 - 29 ml",
@@ -5319,13 +5320,13 @@
     },
     {
         "id": 608,
-        "session": "Lançamentos",
+        "session": "Edição Limitada",
         "line": "Linha Solar",
         "image": "10-063274.jpg",
         "points": 31,
         "title": "Protetor Solar FPS 50 - 118 ml",
         "price": 62,
-        "description": "Ótima proteção para sol intenso, para o rosto e para o corpo. Resistente à água e suor por até 80 minutos."
+        "description": "Ótima proteção contra sol intenso, para o rosto e para o corpo. Resistente à água e ao suor por até oitenta minutos."
     },
     {
         "id": 609,
@@ -5696,7 +5697,7 @@
         "line": "Fragrâncias Femininas",
         "image": "10-075084.jpg",
         "points": 57,
-        "title": "Thinking of Love Eau de Parfum – 29ml",
+        "title": "Thinking of Love Eau de Parfum - 29ml",
         "price": 105,
         "description": "Uma fragrância floral bouquet. Acompanha um lindo pingente e cartão para escrever uma mensagem à mão."
     },
@@ -5730,7 +5731,7 @@
         "line": "Fragrâncias Femininas",
         "image": "10-085102.jpg",
         "points": 52,
-        "title": "Upbeat for Her Desodorante Colônia – 60ml",
+        "title": "Upbeat for Her Desodorante Colônia - 60ml",
         "price": 89,
         "description": "Uma fragrância frutal chypre, com notas de saída energizantes, como a evolução de uma música."
     },
@@ -5747,7 +5748,7 @@
         "line": "Fragrâncias Masculinas",
         "image": "10-075680.jpg",
         "points": 65,
-        "title": "High Intensity Sport Cologne Spray – 73ml",
+        "title": "High Intensity Sport Cologne Spray - 73ml",
         "price": 139,
         "description": "Uma fragrância amadeirada fresca, para o homem que vive cada dia intensamente."
     },
@@ -5764,7 +5765,7 @@
         "line": "Fragrâncias Masculinas",
         "image": "10-085103.jpg",
         "points": 55,
-        "title": "Upbeat for Him Desodorante Colônia – 75ml",
+        "title": "Upbeat for Him Desodorante Colônia - 75ml",
         "price": 95,
         "description": "Uma fragrância refrescante com notas vibrantes, ideal para o homem descolado."
     },
@@ -5773,6 +5774,56 @@
         "parent": 660,
         "SKU": "10-085103",
         "image": "10-085103.jpg",
+        "active": true
+    },
+    {
+        "id": 662,
+        "session": "Lançamentos",
+        "line": "Maquiagem-Rosto",
+        "image": "10-077867-1.jpg",
+        "points": 26,
+        "title": "Base Creme Efeito Pó (Refil).",
+        "price": 54,
+        "description": "Garanta uma pele sequinha durante todo o dia com essa novidade."
+    },
+    {
+        "id": 663,
+        "parent": 662,
+        "SKU": "10-077867",
+        "image": "10-077867.jpg",
+        "option": "Ivory 2",
+        "active": true
+    },
+    {
+        "id": 664,
+        "parent": 662,
+        "SKU": "10-077872",
+        "image": "10-077872.jpg",
+        "option": "Beige 2",
+        "active": true
+    },
+    {
+        "id": 665,
+        "parent": 662,
+        "SKU": "10-077873",
+        "image": "10-077873.jpg",
+        "option": "Beige 3",
+        "active": true
+    },
+    {
+        "id": 666,
+        "parent": 662,
+        "SKU": "10-077874",
+        "image": "10-077874.jpg",
+        "option": "Beige 4",
+        "active": true
+    },
+    {
+        "id": 667,
+        "parent": 662,
+        "SKU": "10-077877",
+        "image": "10-077877.jpg",
+        "option": "Bronze 1",
         "active": true
     }
 ]
