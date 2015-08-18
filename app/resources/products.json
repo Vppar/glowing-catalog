@@ -1,7 +1,7 @@
 [
     {
         "id": 0,
-        "session": "Maquiagem",
+        "session": "Última Oportunidade",
         "line": "Olhos",
         "image": "10-042319.jpg",
         "points": 18,
@@ -11,7 +11,7 @@
     },
     {
         "id": 1,
-        "parent": 318,
+        "parent": 0,
         "SKU": "10-042319",
         "image": "10-042319.jpg",
         "option": "Azul",
@@ -1697,7 +1697,7 @@
         "image": "10-059976.jpg",
         "points": 27,
         "title": "Base Líquida - Acabamento Luminoso - 29ml",
-        "price": 57,
+        "price": 59.90,
         "description": "Proporciona uma pele com luminosidade e visual radiante com a melhora do aspecto da textura da pele."
     },
     {
@@ -1707,7 +1707,7 @@
         "image": "10-059976.jpg",
         "option": "Ivory 3",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 197,
@@ -1716,7 +1716,7 @@
         "image": "10-059978.jpg",
         "option": "Ivory 5",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 198,
@@ -1725,7 +1725,7 @@
         "image": "10-059979.jpg",
         "option": "Ivory 6",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 199,
@@ -1734,7 +1734,7 @@
         "image": "10-059980.jpg",
         "option": "Ivory 7",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 200,
@@ -1743,7 +1743,7 @@
         "image": "10-059527.jpg",
         "option": "Beige 1",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 201,
@@ -1752,7 +1752,7 @@
         "image": "10-059528.jpg",
         "option": "Beige 2",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 202,
@@ -1761,7 +1761,7 @@
         "image": "10-059529.jpg",
         "option": "Beige 3",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 203,
@@ -1770,7 +1770,7 @@
         "image": "10-059530.jpg",
         "option": "Beige 4",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 204,
@@ -1779,7 +1779,7 @@
         "image": "10-059531.jpg",
         "option": "Beige 5",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 205,
@@ -1788,7 +1788,7 @@
         "image": "10-059532.jpg",
         "option": "Beige 6",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 206,
@@ -1797,7 +1797,7 @@
         "image": "10-059533.jpg",
         "option": "Beige 7",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 207,
@@ -1806,7 +1806,7 @@
         "image": "10-059534.jpg",
         "option": "Beige 8",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 208,
@@ -1815,7 +1815,7 @@
         "image": "10-059535.jpg",
         "option": "Bronze 1",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 209,
@@ -1824,7 +1824,7 @@
         "image": "10-059536.jpg",
         "option": "Bronze 2",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 210,
@@ -1833,7 +1833,7 @@
         "image": "10-059538.jpg",
         "option": "Bronze 4",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 211,
@@ -1842,7 +1842,7 @@
         "image": "10-059539.jpg",
         "option": "Bronze 5",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 212,
@@ -1851,7 +1851,7 @@
         "image": "10-059541.jpg",
         "option": "Bronze 7",
         "active": true,
-        "price": 57
+        "price": 59.90
     },
     {
         "id": 213,
@@ -2087,7 +2087,7 @@
     },
     {
         "id": 239,
-        "session": "Maquiagem",
+        "session": "Última Oportunidade",
         "line": "Linha Jovem",
         "image": "10-067803.jpg",
         "points": 11,
@@ -2147,7 +2147,7 @@
         "SKU": "10-062089",
         "image": "10-062089.jpg",
         "option": "Berry Me",
-        "active": true,
+        "active": false,
         "price": 20
     },
     {
@@ -2193,7 +2193,7 @@
         "SKU": "10-067790",
         "image": "10-067790.jpg",
         "option": "Candied Apple",
-        "active": true,
+        "active": false,
         "price": 24
     },
     {
@@ -2202,7 +2202,7 @@
         "SKU": "10-067788",
         "image": "10-067788.jpg",
         "option": "Perfect Pink",
-        "active": true,
+        "active": false,
         "price": 24
     },
     {
@@ -2220,7 +2220,7 @@
         "SKU": "10-067789",
         "image": "10-067789.jpg",
         "option": "Violet Love",
-        "active": true,
+        "active": false,
         "price": 24
     },
     {
@@ -2712,7 +2712,7 @@
     },
     {
         "id": 311,
-        "session": "Maquiagem",
+        "session": "Última Oportunidade",
         "line": "Sobrancelhas",
         "image": "10-027861.jpg",
         "points": 8,
@@ -3236,7 +3236,7 @@
         "SKU": "10-054830",
         "image": "10-054830.jpg",
         "option": "Rosette",
-        "active": true,
+        "active": false,
         "price": 52.9
     },
     {
@@ -4016,12 +4016,12 @@
         "parent": 456,
         "SKU": "10-397300",
         "image": "10-397300.jpg",
-        "active": true,
+        "active": false,
         "price": 115
     },
     {
         "id": 458,
-        "session": "SPA e Fragrâncias",
+        "session": "Última Oportunidade",
         "line": "Fragrâncias Femininas",
         "image": "10-166700.jpg",
         "points": 48,
@@ -4093,7 +4093,7 @@
     },
     {
         "id": 466,
-        "session": "SPA e Fragrâncias",
+        "session": "Última Oportunidade",
         "line": "Fragrâncias Femininas",
         "image": "10-020031.jpg",
         "points": 32,
@@ -4129,7 +4129,7 @@
     },
     {
         "id": 470,
-        "session": "SPA e Fragrâncias",
+        "session": "Última Oportunidade",
         "line": "Fragrâncias Femininas",
         "image": "10-020029.jpg",
         "points": 32,
@@ -4147,7 +4147,7 @@
     },
     {
         "id": 472,
-        "session": "SPA e Fragrâncias",
+        "session": "Última Oportunidade",
         "line": "Fragrâncias Femininas",
         "image": "10-020028.jpg",
         "points": 32,
@@ -4452,7 +4452,7 @@
         "SKU": "10-080361",
         "image": "10-080361.jpg",
         "option": "Chai Latte",
-        "active": true
+        "active": false
     },
     {
         "id": 507,
@@ -4460,7 +4460,7 @@
         "SKU": "10-080360",
         "image": "10-080360.jpg",
         "option": "Pink Pagoda",
-        "active": true
+        "active": false
     },
     {
         "id": 508,
@@ -4494,7 +4494,7 @@
         "SKU": "10-080359",
         "image": "10-080359.jpg",
         "option": "Pink Bamboo",
-        "active": true
+        "active": false
     },
     {
         "id": 512,
@@ -4512,7 +4512,7 @@
         "SKU": "10-080356",
         "image": "10-080356.jpg",
         "option": "Garden Sky",
-        "active": true
+        "active": false
     },
     {
         "id": 514,
@@ -5779,10 +5779,10 @@
     {
         "id": 662,
         "session": "Lançamentos",
-        "line": "Maquiagem-Rosto",
+        "line": "Maquiagem - Rosto",
         "image": "10-077867-1.jpg",
         "points": 26,
-        "title": "Base Creme Efeito Pó (Refil).",
+        "title": "Base Creme Efeito Pó (Refil) - 10g.",
         "price": 54,
         "description": "Garanta uma pele sequinha durante todo o dia com essa novidade."
     },
@@ -5825,5 +5825,89 @@
         "image": "10-077877.jpg",
         "option": "Bronze 1",
         "active": true
+    },
+    {
+        "id": 668,
+        "session": "Última Oportunidade",
+        "line": "Linha Jovem",
+        "image": "10-067790.jpg",
+        "points": 11,
+        "title": "Lápis Batom - 2,5g",
+        "price": 24,
+        "description": "Cores marcantes com acabamento luminoso. Sua fórmula desliza facilmente e não borra durante o dia."
+    },
+    {
+        "id": 669,
+        "parent": 668,
+        "SKU": "10-067790",
+        "image": "10-067790.jpg",
+        "option": "Candied Apple",
+        "active": true,
+        "price": 24
+    },
+    {
+        "id": 670,
+        "parent": 668,
+        "SKU": "10-067788",
+        "image": "10-067788.jpg",
+        "option": "Perfect Pink",
+        "active": true,
+        "price": 24
+    },
+    {
+        "id": 671,
+        "parent": 668,
+        "SKU": "10-067783",
+        "image": "10-067783.jpg",
+        "option": "Toasted",
+        "active": false,
+        "price": 24
+    },
+    {
+        "id": 672,
+        "parent": 668,
+        "SKU": "10-067789",
+        "image": "10-067789.jpg",
+        "option": "Violet Love",
+        "active": true,
+        "price": 24
+    },
+    {
+        "id": 673,
+        "session": "Última Oportunidade",
+        "line": "Lábios",
+        "image": "10-054822.png",
+        "points": 26,
+        "title": "Batom True Dimensions - 3,3g",
+        "price": 48,
+        "description": "Proporcione uma nova dimensão aos seus lábios com uma fórmula avançada em uma sofisticada embalagem metálica."
+    },
+    {
+        "id": 674,
+        "parent": 673,
+        "SKU": "10-054830",
+        "image": "10-054830.jpg",
+        "option": "Rosette",
+        "active": true,
+        "price": 52.9
+    },
+    {
+        "id": 675,
+        "session": "Última Oportunidade",
+        "line": "Linha Jovem",
+        "image": "10-062089.jpg",
+        "points": 9,
+        "title": "Gloss Labial Jelly - 9,5ml",
+        "price": 20,
+        "description": "Lábios macios e glamorosos com cores intensas e brilhantes."
+    },
+    {
+        "id": 676,
+        "parent": 675,
+        "SKU": "10-062089",
+        "image": "10-062089.jpg",
+        "option": "Berry Me",
+        "active": true,
+        "price": 20
     }
 ]

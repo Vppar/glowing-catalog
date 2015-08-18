@@ -4043,5 +4043,66 @@
             "cost": 0,
             "quantity": 0
         }
+    },
+    {
+        "type": "stockAdd",
+        "version": 1,
+        "event": {
+            "inventoryId": 669,
+            "cost": 0,
+            "quantity": 0
+        }
+    },
+    {
+        "type": "stockAdd",
+        "version": 1,
+        "event": {
+            "inventoryId": 670,
+            "cost": 0,
+            "quantity": 0
+        }
+    },
+    {
+        "type": "stockAdd",
+        "version": 1,
+        "event": {
+            "inventoryId": 671,
+            "cost": 0,
+            "quantity": 0
+        }
+    },
+    {
+        "type": "stockAdd",
+        "version": 1,
+        "event": {
+            "inventoryId": 672,
+            "cost": 0,
+            "quantity": 0
+        }
+    },
+    {
+        "type": "stockAdd",
+        "version": 1,
+        "event": {
+            "inventoryId": 674,
+            "cost": 0,
+            "quantity": 0
+        }
+    },
+    {
+        "type": "stockAdd",
+        "version": 1,
+        "event": {
+            "inventoryId": 676,
+            "cost": 0,
+            "quantity": 0
+        }
     }
+
+
+    
+    
+    
+    
+    
 ]
